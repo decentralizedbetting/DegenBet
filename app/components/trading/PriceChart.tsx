@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Skeleton } from '../ui/interactive';
+import { Skeleton } from '@/components/ui/interactive/index';
 
 // Chart point interface
 interface ChartPoint {
@@ -194,11 +194,11 @@ export function PriceChart({
           </svg>
 
           {/* Horizontal guides */}
-          <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
-            <div className="h-px bg-gray-800/50" />
-            <div className="h-px bg-gray-800/50" />
-            <div className="h-px bg-gray-800/50" />
-            <div className="h-px bg-gray-800/50" />
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="h-px bg-green-500/20" />
+            <div className="h-px bg-green-500/20" />
+            <div className="h-px bg-green-500/20" />
+            <div className="h-px bg-green-500/20" />
           </div>
         </div>
       ) : (

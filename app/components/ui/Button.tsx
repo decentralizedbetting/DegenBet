@@ -3,20 +3,21 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center rounded font-mono font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50 disabled:pointer-events-none disabled:opacity-50 uppercase tracking-wider',
   {
     variants: {
       variant: {
-        primary: 'bg-gradient-to-r from-teal-500 to-teal-600 text-white hover:from-teal-600 hover:to-teal-700',
-        secondary: 'bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20',
-        ghost: 'hover:bg-white/10 text-white',
-        success: 'bg-green-500/20 hover:bg-green-500/30 text-green-400 border border-green-500/30',
-        danger: 'bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30',
+        primary: 'btn-degen text-black hover:scale-105 active:scale-95',
+        secondary: 'btn-degen-secondary text-green-400 hover:bg-green-500/20 hover:scale-105',
+        ghost: 'hover:bg-green-500/10 text-green-400 border border-green-500/30',
+        success: 'bg-green-500/20 hover:bg-green-500/30 text-green-400 border border-green-500/30 hover:scale-105',
+        danger: 'bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 hover:scale-105',
+        terminal: 'bg-black/50 border border-green-500/50 text-green-400 hover:bg-green-500/10 font-mono',
       },
       size: {
-        sm: 'h-8 px-3 text-sm',
-        md: 'h-10 px-4 text-base',
-        lg: 'h-12 px-6 text-lg',
+        sm: 'h-8 px-3 text-xs',
+        md: 'h-10 px-4 text-sm',
+        lg: 'h-12 px-6 text-base',
       },
     },
     defaultVariants: {

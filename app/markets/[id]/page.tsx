@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { getMarketData, getMarketSlug } from '@/app/data/markets';
-import MarketPageClient from './MarketPageClient';
 import { redirect } from 'next/navigation';
+import { getMarketData, getMarketSlug } from '@/data/markets';
+import MarketPageClient from './MarketPageClient';
 
 type Props = {
   params: {
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!market) {
     return {
       title: 'Market Not Found',
-      description: 'The requested prediction market could not be found.',
+      description: 'The requested betting market could not be found.',
     };
   }
 
@@ -27,13 +27,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${market.title} | Prediction Market`,
+    title: `${market.title} | DegenBet`,
     description: market.description,
     openGraph: {
-      title: `${market.title} | Prediction Market`,
+      title: `${market.title} | DegenBet`,
       description: market.description,
       url: `/markets/${getMarketSlug(market)}`,
-      siteName: 'Crypto Prediction Market',
+      siteName: 'DegenBet',
       images: [
         {
           url: market.imageUrl || '/images/default-market.jpg',
@@ -47,9 +47,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${market.title} | Prediction Market`,
+      title: `${market.title} | DegenBet`,
       description: market.description,
-      creator: '@CryptoPredictionMarket',
+      creator: '@DegenBet',
       images: [market.imageUrl || '/images/default-market.jpg'],
     },
   };

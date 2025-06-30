@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { Skeleton } from '../ui/interactive';
-import type { Market, MarketOutcome } from '@/app/types/market';
+import { Skeleton } from '@/components/ui/interactive/index';
+import type { Market, MarketOutcome } from '@/types/market';
 
 // Define chart point type for each outcome
 interface MultiChartPoint {
@@ -216,15 +216,16 @@ export function MultiOutcomeChart({
       
       <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
         {market.outcomes.map((outcome, index) => (
-          <div key={outcome.id} className="bg-gray-800/50 rounded-lg p-3">
-            <div className="flex items-center mb-1">
-              <div 
-                className="w-3 h-3 rounded-full mr-2" 
-                style={{ backgroundColor: getOutcomeColor(index) }}
-              ></div>
-              <span className="text-white text-sm">{outcome.label}</span>
+                     <div key={outcome.id} className="terminal-card p-3">
+             <div className="flex items-center justify-between mb-2">
+               <span className="font-medium text-green-400 font-mono">{outcome.label.toUpperCase()}</span>
+               <span className="text-sm text-gray-500 font-mono">
+                 {(outcome.probability * 100).toFixed(1)}%
+               </span>
+             </div>
+             <div className="text-lg font-bold text-green-400 font-mono">
+               {(outcome.probability * 100).toFixed(1)}%
             </div>
-            <div className="text-lg font-bold text-white">{formatPercentage(outcome.probability)}</div>
           </div>
         ))}
       </div>

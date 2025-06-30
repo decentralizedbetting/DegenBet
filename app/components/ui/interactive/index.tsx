@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, ReactNode, useRef } from 'react';
-import { Button } from '@/app/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 
 // Outcome Selector Component
 interface OutcomeSelectorProps {

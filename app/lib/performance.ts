@@ -223,23 +223,23 @@ export function useRenderingMetrics(
   const renderCount = useRef(0);
   const startTime = useRef(performance.now());
   
-  if (enabled) {
-    useEffect(() => {
-      const endTime = performance.now();
-      const duration = endTime - startTime.current;
-      renderCount.current += 1;
-      
-      console.log(
-        `%c[Rendering Metrics] ${componentName}`,
-        'color: #3b82f6; font-weight: bold;',
-        `Render #${renderCount.current}, Duration: ${duration.toFixed(2)}ms`
-      );
-      
-      return () => {
-        startTime.current = performance.now();
-      };
-    });
-  }
+  useEffect(() => {
+    if (!enabled) return;
+    
+    const endTime = performance.now();
+    const duration = endTime - startTime.current;
+    renderCount.current += 1;
+    
+    console.log(
+      `%c[Rendering Metrics] ${componentName}`,
+      'color: #3b82f6; font-weight: bold;',
+      `Render #${renderCount.current}, Duration: ${duration.toFixed(2)}ms`
+    );
+    
+    return () => {
+      startTime.current = performance.now();
+    };
+  }, [enabled, componentName]);
 }
 
 /**

@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { Skeleton } from '../ui/interactive';
-import { Card } from '../ui/containers';
+import { Skeleton } from '@/components/ui/interactive/index';
+import { Card } from '@/components/ui/containers';
 
 // Holder interface
 interface Holder {
@@ -74,35 +74,35 @@ export function TopHolders({
             {holders.slice(0, maxToShow).map((holder, index) => (
               <div 
                 key={holder.id}
-                className="flex items-center py-2 border-b border-gray-800 last:border-0 text-sm cursor-pointer hover:bg-gray-800/20"
+                className="flex items-center py-2 border-b border-green-500/20 last:border-0 text-sm cursor-pointer hover:bg-green-500/10 transition-all duration-200"
                 onClick={() => onHolderClick && onHolderClick(holder)}
               >
-                <div className="w-6 text-center text-gray-400">{index + 1}</div>
+                <div className="flex-shrink-0 w-8 text-center">
+                  <span className={`font-bold font-mono ${
+                    index < 3 ? 'text-green-400' : 'text-green-300'
+                  }`}>
+                    #{index + 1}
+                  </span>
+                </div>
                 
-                <div className="flex-1">
-                  <div className="flex items-center">
-                    <span className={`font-medium ${holder.isYou ? 'text-blue-300' : 'text-white'}`}>
-                      {holder.isYou ? 'You' : (holder.displayName || formatAddress(holder.address))}
-                    </span>
-                    
-                    {holder.type && (
-                      <span className={`ml-2 px-1.5 py-0.5 text-xs rounded ${
-                        holder.type === 'yes' ? 'bg-green-900/30 text-green-400' :
-                        holder.type === 'no' ? 'bg-red-900/30 text-red-400' :
-                        'bg-blue-900/30 text-blue-400'
-                      }`}>
-                        {holder.type.toUpperCase()}
-                      </span>
-                    )}
+                <div className="flex-1 min-w-0 mx-3">
+                  <div className="font-medium text-green-400 truncate font-mono">
+                    {holder.isYou ? 'You' : (holder.displayName || formatAddress(holder.address))}
                   </div>
                   
-                  <div className="flex justify-between text-gray-400 mt-1">
-                    <div>
-                      {holder.quantity.toLocaleString()} shares
+                  {holder.type && (
+                    <div className="text-gray-500 text-xs font-mono">
+                      {holder.type.toUpperCase()}
                     </div>
-                    <div className="font-medium text-white">
-                      {formatCurrency(holder.position)}
-                    </div>
+                  )}
+                </div>
+                
+                <div className="flex flex-col items-end">
+                  <div className="font-bold text-green-400 font-mono">
+                    {holder.quantity.toLocaleString()} shares
+                  </div>
+                  <div className="text-xs text-gray-500 font-mono">
+                    {formatCurrency(holder.position)}
                   </div>
                 </div>
                 

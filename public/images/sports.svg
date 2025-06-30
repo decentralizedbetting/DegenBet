@@ -1,0 +1,7 @@
+<svg width="400" height="240" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="240" fill="#1e293b"/>
+  <circle cx="200" cy="120" r="50" fill="#10b981" opacity="0.2"/>
+  <circle cx="200" cy="120" r="25" fill="none" stroke="#10b981" stroke-width="3"/>
+  <polygon points="190,110 210,110 205,130 195,130" fill="#10b981"/>
+  <text x="200" y="200" text-anchor="middle" fill="#34d399" font-size="14" font-weight="500">Sports Market</text>
+</svg> 

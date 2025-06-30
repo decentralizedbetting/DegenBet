@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/app/components/ui/Button';
-import { ProbabilitySlider } from '@/app/components/ui/interactive';
-import { Input } from '@/app/components/ui/Input';
-import { Card } from '@/app/components/ui/containers';
+import { Button } from '@/components/ui/Button';
+import { ProbabilitySlider } from '@/components/ui/interactive/index';
+import { Input } from '@/components/ui/Input';
+import { Card } from '@/components/ui/containers';
 
 // Market outcome type
 interface MarketOutcome {
@@ -126,28 +126,26 @@ export function TradingInterface({
   };
   
   return (
-    <Card className="p-4">
-      <h3 className="text-xl font-semibold text-white mb-4">Place a Trade</h3>
-      
+    <div>
       <form onSubmit={handleSubmit}>
         {/* Outcome selection */}
-        <div className="mb-4">
-          <label className="block text-sm text-gray-400 mb-2">Select Outcome</label>
+        <div className="mb-6">
+          <label className="block text-sm text-gray-400 mb-3 font-mono">{'>'} SELECT_OUTCOME:</label>
           <div className="grid gap-2">
             {market.outcomes.map((outcome: MarketOutcome) => (
               <button
                 key={outcome.id}
                 type="button"
-                className={`p-3 rounded-lg text-left transition ${
+                className={`p-3 rounded border font-mono text-left transition-all duration-200 ${
                   selectedOutcome === outcome.id 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                    ? 'btn-degen text-black' 
+                    : 'bg-black/30 border-green-500/30 text-green-400 hover:border-green-500/50 hover:bg-green-500/10'
                 }`}
                 onClick={() => setSelectedOutcome(outcome.id)}
               >
                 <div className="flex justify-between items-center">
-                  <span>{outcome.label}</span>
-                  <span className="font-medium">
+                  <span>{outcome.label.toUpperCase()}</span>
+                  <span className="font-bold text-xs bg-green-500/20 px-2 py-1 rounded border border-green-500/30">
                     {formatPercent(outcome.probability * 100)}
                   </span>
                 </div>
@@ -157,53 +155,57 @@ export function TradingInterface({
         </div>
         
         {/* Order type */}
-        <div className="mb-4">
-          <label className="block text-sm text-gray-400 mb-2">Order Type</label>
+        <div className="mb-6">
+          <label className="block text-sm text-gray-400 mb-3 font-mono">{'>'} ORDER_TYPE:</label>
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
-              className={`p-2 rounded-lg transition ${
+              className={`p-3 rounded border font-mono transition-all duration-200 ${
                 orderType === 'limit' 
-                  ? 'bg-blue-600 text-white' 
-                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                  ? 'btn-degen text-black' 
+                  : 'bg-black/30 border-green-500/30 text-green-400 hover:border-green-500/50 hover:bg-green-500/10'
               }`}
               onClick={() => setOrderType('limit')}
             >
-              Limit
+              --LIMIT
             </button>
             <button
               type="button"
-              className={`p-2 rounded-lg transition ${
+              className={`p-3 rounded border font-mono transition-all duration-200 ${
                 orderType === 'market' 
-                  ? 'bg-blue-600 text-white' 
-                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                  ? 'btn-degen text-black' 
+                  : 'bg-black/30 border-green-500/30 text-green-400 hover:border-green-500/50 hover:bg-green-500/10'
               }`}
               onClick={() => setOrderType('market')}
             >
-              Market
+              --MARKET
             </button>
           </div>
         </div>
         
         {/* Amount input */}
-        <div className="mb-4">
-          <label className="block text-sm text-gray-400 mb-2">Amount (USDC)</label>
-          <Input
-            type="number"
-            value={amount}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value)}
-            placeholder="0.00"
-            min="0.01"
-            step="0.01"
-            required
-            prefix="$"
-          />
+        <div className="mb-6">
+          <label className="block text-sm text-gray-400 mb-3 font-mono">{'>'} AMOUNT_USDC:</label>
+          <div className="relative">
+            <span className="absolute left-3 top-3 text-green-400 font-mono">$</span>
+            <Input
+              type="number"
+              value={amount}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value)}
+              placeholder="0.00"
+              min="0.01"
+              step="0.01"
+              required
+              variant="terminal"
+              className="pl-8"
+            />
+          </div>
         </div>
         
         {/* Slippage tolerance */}
         <div className="mb-6">
-          <label className="block text-sm text-gray-400 mb-2">
-            Slippage Tolerance: {formatPercent(slippage)}
+          <label className="block text-sm text-gray-400 mb-3 font-mono">
+            {'>'} SLIPPAGE_TOLERANCE: {formatPercent(slippage)}
           </label>
           <ProbabilitySlider
             value={slippage}
@@ -216,26 +218,26 @@ export function TradingInterface({
         
         {/* Trade summary */}
         {amount && !isNaN(parseFloat(amount)) && (
-          <div className="mb-6 p-3 bg-gray-800/50 rounded-lg">
-            <h4 className="text-sm text-gray-400 mb-2">Trade Summary</h4>
-            <div className="space-y-1 text-sm">
+          <div className="mb-6 p-4 bg-black/30 rounded border border-green-500/30">
+            <h4 className="text-sm text-green-400 mb-3 font-mono font-bold">{'>'} TRADE_SUMMARY.DAT</h4>
+            <div className="space-y-2 text-sm font-mono">
               <div className="flex justify-between">
-                <span className="text-gray-400">You pay:</span>
-                <span className="text-white">{formatCurrency(parseFloat(amount))}</span>
+                <span className="text-gray-400">YOU_PAY:</span>
+                <span className="text-green-400">{formatCurrency(parseFloat(amount))}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">You receive:</span>
-                <span className="text-white">{calculatePayout().toFixed(2)} shares</span>
+                <span className="text-gray-400">YOU_RECEIVE:</span>
+                <span className="text-green-400">{calculatePayout().toFixed(2)} shares</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Price per share:</span>
-                <span className="text-white">
+                <span className="text-gray-400">PRICE_PER_SHARE:</span>
+                <span className="text-green-400">
                   {formatCurrency(market.outcomes.find((o: MarketOutcome) => o.id === selectedOutcome)?.price || 0)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Max payout:</span>
-                <span className="text-green-400">{formatCurrency(calculatePayout())}</span>
+                <span className="text-gray-400">MAX_PAYOUT:</span>
+                <span className="text-yellow-400 font-bold">{formatCurrency(calculatePayout())}</span>
               </div>
             </div>
           </div>
@@ -244,18 +246,18 @@ export function TradingInterface({
         {/* Submit button */}
         <Button 
           type="submit"
-          variant={selectedOutcome === 'yes' ? 'success' : selectedOutcome === 'no' ? 'danger' : 'primary'}
+          variant="primary"
           disabled={!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0 || !selectedOutcome || isSubmitting}
-          className="w-full py-3"
+          className="w-full py-3 font-mono"
         >
-          {isSubmitting ? 'Processing...' : 'Place Trade'}
+          {isSubmitting ? 'PROCESSING...' : '{'>'} EXECUTE_TRADE.EXE'}
         </Button>
       </form>
       
       {/* Market deadline */}
-      <div className="mt-4 text-xs text-gray-400 text-center">
-        This market {market.status === 'closed' ? 'ended' : 'ends'} on {new Date(market.endsAt).toLocaleDateString()}
+      <div className="mt-4 text-xs text-gray-400 text-center font-mono">
+        {'>'} Market {market.status === 'closed' ? 'ended' : 'ends'} on {new Date(market.endsAt).toLocaleDateString()}
       </div>
-    </Card>
+    </div>
   );
 } 

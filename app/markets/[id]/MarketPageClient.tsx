@@ -2,17 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { Tab } from '@headlessui/react';
-import { OrderBook } from '@/app/components/trading/OrderBook';
-import { MarketActivity } from '@/app/components/trading/MarketActivity';
-import { TopHolders } from '@/app/components/trading/TopHolders';
-import { TradingInterface } from '@/app/components/trading/TradingInterface';
-import { MultiOutcomeChart } from '@/app/components/trading/MultiOutcomeChart';
-import { Card } from '@/app/components/ui/containers';
+import { OrderBook } from '@/components/trading/OrderBook';
+import { MarketActivity } from '@/components/trading/MarketActivity';
+import { TopHolders } from '@/components/trading/TopHolders';
+import { TradingInterface } from '@/components/trading/TradingInterface';
+import { MultiOutcomeChart } from '@/components/trading/MultiOutcomeChart';
+import { Card } from '@/components/ui/containers';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getMarketData } from '@/app/data/markets';
+import { getMarketData } from '@/data/markets';
 import { IconChartBar, IconShare, IconFlag } from '@tabler/icons-react';
-import { Button } from '@/app/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 
 // Chart data type
 interface ChartPoint {
@@ -319,11 +319,23 @@ export default function MarketPageClient({ marketId }: MarketPageClientProps) {
   if (!market && !isLoading) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <h1 className="text-3xl font-bold text-white mb-4">Market Not Found</h1>
-        <p className="text-gray-400 mb-8">The market you're looking for doesn't exist or has been removed.</p>
-        <Link href="/markets" className="inline-flex items-center px-4 py-2 bg-blue-600 rounded-md text-white">
-          Browse All Markets
-        </Link>
+        <div className="terminal-card max-w-lg mx-auto">
+          <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <div className="terminal-text text-sm">error_404.exe</div>
+          </div>
+          <div className="p-8">
+            <h1 className="text-3xl font-bold text-white mb-4 font-mono">MARKET_NOT_FOUND</h1>
+            <p className="text-gray-400 mb-8 font-mono">{'>'} The market you&apos;re looking for doesn&apos;t exist or has been removed.</p>
+            <Link href="/markets" className="btn-degen font-mono text-black">
+              {'>'} BROWSE_MARKETS.EXE
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
@@ -333,40 +345,67 @@ export default function MarketPageClient({ marketId }: MarketPageClientProps) {
       {/* Market header */}
       <div className="mt-8">
         {isLoading || !market ? (
-          <div className="h-64 bg-gray-800 rounded-lg animate-pulse"></div>
+          <div className="terminal-card">
+            <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="terminal-text text-sm">loading_market.exe</div>
+            </div>
+            <div className="h-64 p-6">
+              <div className="animate-pulse space-y-4">
+                <div className="h-8 bg-green-500/20 rounded"></div>
+                <div className="h-4 bg-green-500/20 rounded w-3/4"></div>
+                <div className="grid grid-cols-4 gap-4">
+                  <div className="h-16 bg-green-500/20 rounded"></div>
+                  <div className="h-16 bg-green-500/20 rounded"></div>
+                  <div className="h-16 bg-green-500/20 rounded"></div>
+                  <div className="h-16 bg-green-500/20 rounded"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         ) : (
-          <div className="bg-gradient-to-r from-gray-800 to-gray-900 border border-teal-900/30 rounded-lg p-6 relative overflow-hidden">
-            {/* Category indicator */}
-            <div className="absolute top-0 left-0 h-1 bg-gradient-to-r from-teal-500 to-teal-400 w-full"></div>
-            
+          <div className="terminal-card">
+            <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="terminal-text text-sm">market_{market.id}.exe</div>
+            </div>
+            <div className="p-6">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
-                <h1 className="text-3xl font-bold text-white mb-2">{market.title}</h1>
-                <p className="text-gray-400 mb-4">{market.description}</p>
+                <h1 className="text-3xl font-bold text-white mb-2 font-mono">{market.title}</h1>
+                <p className="text-green-300 mb-4 font-mono">{'>'} {market.description}</p>
                 
                 {/* Market metadata */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-                  <div>
-                    <div className="text-gray-500 text-sm">Volume</div>
-                    <div className="text-white font-medium">${market.totalVolume ? (market.totalVolume / 1000).toFixed(0) + 'K' : 'N/A'}</div>
+                  <div className="terminal-card border border-green-500/30 p-3">
+                    <div className="text-gray-500 text-sm font-mono">VOLUME</div>
+                    <div className="text-green-400 font-bold font-mono">${market.totalVolume ? (market.totalVolume / 1000).toFixed(0) + 'K' : 'N/A'}</div>
                   </div>
-                  <div>
-                    <div className="text-gray-500 text-sm">Liquidity</div>
-                    <div className="text-white font-medium">${market.liquidity ? (market.liquidity / 1000).toFixed(0) + 'K' : 'N/A'}</div>
+                  <div className="terminal-card border border-green-500/30 p-3">
+                    <div className="text-gray-500 text-sm font-mono">LIQUIDITY</div>
+                    <div className="text-green-400 font-bold font-mono">${market.liquidity ? (market.liquidity / 1000).toFixed(0) + 'K' : 'N/A'}</div>
                   </div>
-                  <div>
-                    <div className="text-gray-500 text-sm">Category</div>
-                    <div className="text-white font-medium capitalize">{market.category}</div>
+                  <div className="terminal-card border border-green-500/30 p-3">
+                    <div className="text-gray-500 text-sm font-mono">CATEGORY</div>
+                    <div className="text-green-400 font-bold font-mono uppercase">{market.category}</div>
                   </div>
-                  <div>
-                    <div className="text-gray-500 text-sm">Ends In</div>
+                  <div className="terminal-card border border-green-500/30 p-3">
+                    <div className="text-gray-500 text-sm font-mono">ENDS_IN</div>
                     <div className="flex items-center">
-                      <div className="text-white font-medium mr-2">{formatTimeRemaining()}</div>
+                      <div className="text-green-400 font-bold font-mono mr-2">{formatTimeRemaining()}</div>
                       {/* Countdown progress indicator */}
                       {market && (
-                        <div className="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div className="w-16 h-2 bg-black/50 rounded-full overflow-hidden border border-green-500/30">
                           <div 
-                            className="h-full bg-teal-500" 
+                            className="h-full bg-green-500" 
                             style={{ width: `${getTimeProgress()}%` }}
                           ></div>
                         </div>
@@ -380,13 +419,13 @@ export default function MarketPageClient({ marketId }: MarketPageClientProps) {
                   {market.outcomes.map((outcome: any) => (
                     <Button 
                       key={outcome.id}
-                      variant="primary"
+                      variant="terminal"
                       size="sm"
-                      className="min-w-24 flex items-center justify-between gap-2"
+                      className="min-w-24 flex items-center justify-between gap-2 font-mono"
                       onClick={() => handleQuickTrade(outcome.id)}
                     >
-                      <span>{outcome.label}</span>
-                      <span className="bg-black/20 px-2 py-0.5 rounded-sm text-xs">
+                      <span>{outcome.label.toUpperCase()}</span>
+                      <span className="bg-green-500/20 px-2 py-0.5 rounded-sm text-xs border border-green-500/30">
                         {(outcome.probability * 100).toFixed(0)}%
                       </span>
                     </Button>
@@ -395,7 +434,7 @@ export default function MarketPageClient({ marketId }: MarketPageClientProps) {
               </div>
               
               {/* Market image */}
-              <div className="relative w-full md:w-40 h-40 rounded-lg overflow-hidden bg-gray-700 border border-gray-600">
+              <div className="relative w-full md:w-40 h-40 rounded-lg overflow-hidden bg-black/50 border border-green-500/30">
                 {market.imageUrl ? (
                   <Image 
                     src={market.imageUrl} 
@@ -407,7 +446,7 @@ export default function MarketPageClient({ marketId }: MarketPageClientProps) {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <svg className="w-16 h-16 text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-16 h-16 text-green-500/50" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                     </svg>
                   </div>
@@ -416,19 +455,20 @@ export default function MarketPageClient({ marketId }: MarketPageClientProps) {
             </div>
             
             {/* Market Actions */}
-            <div className="flex flex-wrap gap-2 mt-4 border-t border-gray-700 pt-4">
-              <Link href={`/markets/charts?id=${marketId}`} className="inline-flex items-center px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md text-sm">
+            <div className="flex flex-wrap gap-2 mt-4 border-t border-green-500/20 pt-4">
+              <Link href={`/markets/charts?id=${marketId}`} className="btn-degen-secondary font-mono text-sm inline-flex items-center">
                 <IconChartBar className="w-4 h-4 mr-2" />
-                View Charts
+                VIEW_CHARTS.EXE
               </Link>
-              <Button variant="secondary" size="sm" className="inline-flex items-center">
+              <Button variant="secondary" size="sm" className="inline-flex items-center font-mono">
                 <IconShare className="w-4 h-4 mr-2" />
-                Share
+                SHARE.SH
               </Button>
-              <Button variant="secondary" size="sm" className="inline-flex items-center">
+              <Button variant="secondary" size="sm" className="inline-flex items-center font-mono">
                 <IconFlag className="w-4 h-4 mr-2" />
-                Report
+                REPORT.EXE
               </Button>
+            </div>
             </div>
           </div>
         )}
@@ -439,54 +479,80 @@ export default function MarketPageClient({ marketId }: MarketPageClientProps) {
         {/* Left column: Price chart and order book */}
         <div className="lg:col-span-2 space-y-6">
           {/* Outcome Chart */}
-          <Card className="relative">
-            <h3 className="font-medium text-lg mb-4">Price Chart</h3>
-            <div className="mb-4 border-b border-gray-700 pb-3">
-              <div className="flex flex-wrap gap-2">
-                {['1H', '6H', '1D', '1W', '1M', 'ALL'].map((tf) => (
-                  <button
-                    key={tf}
-                    className={`px-3 py-1 text-sm rounded-md ${
-                      timeframe === tf 
-                        ? 'bg-teal-500 text-white' 
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-                    }`}
-                    onClick={() => setTimeframe(tf)}
-                  >
-                    {tf}
-                  </button>
-                ))}
+          <div className="terminal-card">
+            <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
+              <div className="terminal-text text-sm">price_chart.exe</div>
             </div>
-            
-            {isLoading ? (
-              <div className="h-72 bg-gray-800 animate-pulse rounded-md"></div>
-            ) : (
-              <MultiOutcomeChart 
-                market={market} 
-                timeframe={timeframe}
-              />
-            )}
-          </Card>
+            <div className="p-6">
+              <h3 className="font-mono font-bold text-lg mb-4 text-green-400">PRICE_CHART.SH</h3>
+              <div className="mb-4 border-b border-green-500/20 pb-3">
+                <div className="flex flex-wrap gap-2">
+                  {['1H', '6H', '1D', '1W', '1M', 'ALL'].map((tf) => (
+                    <button
+                      key={tf}
+                      className={`px-3 py-1 text-sm rounded-md font-mono transition-all duration-200 ${
+                        timeframe === tf 
+                          ? 'btn-degen text-black' 
+                          : 'btn-degen-secondary text-green-400'
+                      }`}
+                      onClick={() => setTimeframe(tf)}
+                    >
+                      --{tf.toLowerCase()}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              {isLoading ? (
+                <div className="h-72 bg-green-500/10 animate-pulse rounded-md border border-green-500/30"></div>
+              ) : (
+                <MultiOutcomeChart 
+                  market={market} 
+                  timeframe={timeframe}
+                />
+              )}
+            </div>
+          </div>
           
           {/* Order Book */}
-          <Card>
+          <div className="terminal-card">
+            <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="terminal-text text-sm">order_book.dat</div>
+            </div>
             {isLoading ? (
-              <div className="h-72 bg-gray-800 animate-pulse rounded-md"></div>
+              <div className="h-72 bg-green-500/10 animate-pulse rounded-md border border-green-500/30 m-6"></div>
             ) : (
               <OrderBook bids={orderBook.bids} asks={orderBook.asks} />
             )}
-          </Card>
+          </div>
         </div>
         
         {/* Right column: Trading interface and tabs for activity/holders */}
         <div className="space-y-6">
           {/* Trading Interface */}
-          <Card className="relative">
-            <div id="trading-section">
-              <h3 className="font-medium text-lg mb-4">Trade</h3>
+          <div className="terminal-card">
+            <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="terminal-text text-sm">trading_terminal.exe</div>
+            </div>
+            <div id="trading-section" className="p-6">
+              <h3 className="font-mono font-bold text-lg mb-4 text-green-400">TRADING_TERMINAL.EXE</h3>
               {isLoading ? (
-                <div className="h-96 bg-gray-800 animate-pulse rounded-md"></div>
+                <div className="h-96 bg-green-500/10 animate-pulse rounded-md border border-green-500/30"></div>
               ) : (
                 <TradingInterface
                   market={market}
@@ -499,7 +565,7 @@ export default function MarketPageClient({ marketId }: MarketPageClientProps) {
                 />
               )}
             </div>
-          </Card>
+          </div>
           
           {/* Tabs for Activity and Top Holders */}
           <Card>

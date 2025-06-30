@@ -1,7 +1,8 @@
 {
-  "name": "crypto-prediction-market",
+  "name": "degenbet",
   "version": "0.1.0",
   "private": true,
+  "description": "DegenBet - The ultimate degen betting platform for micro-events: sports, politics, crypto prices. Join the revolution with DBT token.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,12 +13,16 @@
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@radix-ui/react-tabs": "^1.1.3",
+    "@splinetool/react-spline": "^4.0.0",
     "@tabler/icons-react": "^3.31.0",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/three": "^0.174.0",
     "autoprefixer": "^10.4.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^10.18.0",
     "lightweight-charts": "^5.0.3",
     "next": "^14.1.0",
     "postcss": "^8.4.31",
@@ -26,7 +31,8 @@
     "react-icons": "^4.11.0",
     "recharts": "^2.15.1",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20.8.4",

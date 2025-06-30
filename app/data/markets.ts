@@ -1,5 +1,5 @@
-import type { Market } from '../types/market';
-import { slugify } from '../lib/utils';
+import type { Market } from '@/types/market';
+import { slugify } from '@/lib/utils';
 
 export const sampleMarkets: Market[] = [
   {
@@ -45,7 +45,8 @@ export const sampleMarkets: Market[] = [
       }
     ],
     tags: ['bitcoin', 'crypto', 'price-prediction'],
-    imageUrl: '/images/bitcoin.jpg'
+    imageUrl: '/images/bitcoin.svg',
+    featured: true
   },
   {
     id: '2',
@@ -88,7 +89,8 @@ export const sampleMarkets: Market[] = [
     liquidity: 100000,
     comments: [],
     tags: ['politics', 'election', '2024'],
-    imageUrl: '/images/election.jpg'
+    imageUrl: '/images/election.svg',
+    featured: true
   },
   {
     id: '3',
@@ -131,7 +133,8 @@ export const sampleMarkets: Market[] = [
     liquidity: 75000,
     comments: [],
     tags: ['climate', 'temperature', 'science'],
-    imageUrl: '/images/climate.jpg'
+    imageUrl: '/images/placeholder.svg',
+    featured: true
   },
   {
     id: '4',
@@ -151,7 +154,7 @@ export const sampleMarkets: Market[] = [
       {
         id: 'yes',
         label: 'Yes',
-    probability: 0.80,
+        probability: 0.80,
         price: 0.80,
         volume: 1200000
       },
@@ -167,7 +170,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 750000,
     comments: [],
     tags: ['ethereum', 'eip-4844', 'proto-danksharding'],
-    imageUrl: '/images/ethereum.png'
+    imageUrl: '/images/ethereum.svg'
   },
   {
     id: '5',
@@ -187,7 +190,7 @@ export const sampleMarkets: Market[] = [
       {
         id: 'yes',
         label: 'Yes',
-    probability: 0.35,
+        probability: 0.35,
         price: 0.35,
         volume: 700000
       },
@@ -196,14 +199,14 @@ export const sampleMarkets: Market[] = [
         label: 'No',
         probability: 0.65,
         price: 0.65,
-        volume: 300000
+        volume: 1300000
       }
     ],
-    totalVolume: 1000000,
+    totalVolume: 2000000,
     liquidity: 500000,
     comments: [],
-    tags: ['ai', 'regulation', 'policy', 'technology'],
-    imageUrl: '/images/ai.png'
+    tags: ['ai', 'regulation', 'policy'],
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'btc-100k',
@@ -239,7 +242,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 500000,
     comments: [],
     tags: ['bitcoin', 'price-prediction'],
-    imageUrl: '/images/markets/btc.jpg'
+    imageUrl: '/images/bitcoin.svg'
   },
   {
     id: 'eth-merge',
@@ -275,7 +278,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 400000,
     comments: [],
     tags: ['ethereum', 'merge', 'defi'],
-    imageUrl: '/images/markets/eth.jpg'
+    imageUrl: '/images/ethereum.svg'
   },
   {
     id: 'fed-rates',
@@ -311,7 +314,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 350000,
     comments: [],
     tags: ['finance', 'fed', 'rates'],
-    imageUrl: '/images/markets/fed.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'sol-1000',
@@ -347,7 +350,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 250000,
     comments: [],
     tags: ['solana', 'price-prediction'],
-    imageUrl: '/images/markets/sol.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'arb-gain',
@@ -383,7 +386,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 200000,
     comments: [],
     tags: ['arbitrum', 'layer2', 'defi'],
-    imageUrl: '/images/markets/arb.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'usdc-recover',
@@ -396,22 +399,22 @@ export const sampleMarkets: Market[] = [
     endDate: '2023-12-31T23:59:59Z',
     creator: {
       id: 'user10',
-      username: 'stablecoin_whale',
-      reputation: 90
+      username: 'stablecoin_tracker',
+      reputation: 79
     },
     outcomes: [
       {
         id: 'yes',
         label: 'Yes',
-        probability: 0.91,
-        price: 0.91,
+        probability: 0.67,
+        price: 0.67,
         volume: 321098
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.09,
-        price: 0.09,
+        probability: 0.33,
+        price: 0.33,
         volume: 109876
       }
     ],
@@ -419,12 +422,12 @@ export const sampleMarkets: Market[] = [
     liquidity: 150000,
     comments: [],
     tags: ['usdc', 'stablecoin', 'market-cap'],
-    imageUrl: '/images/markets/usdc.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'btc-dominance',
-    title: 'BTC dominance above 60%',
-    description: 'Will Bitcoin dominance exceed 60% of total crypto market cap before end of 2023?',
+    title: 'Bitcoin dominance to rise above 60%',
+    description: 'Will Bitcoin market cap dominance rise above 60% before the end of 2023?',
     category: 'crypto',
     status: 'active',
     resolutionType: 'binary',
@@ -432,30 +435,30 @@ export const sampleMarkets: Market[] = [
     endDate: '2023-12-31T23:59:59Z',
     creator: {
       id: 'user11',
-      username: 'btc_dominance_watcher',
-      reputation: 85
+      username: 'dominance_watcher',
+      reputation: 84
     },
     outcomes: [
       {
         id: 'yes',
         label: 'Yes',
-        probability: 0.32,
-        price: 0.32,
-        volume: 289765
+        probability: 0.38,
+        price: 0.38,
+        volume: 210987
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.68,
-        price: 0.68,
-        volume: 187654
+        probability: 0.62,
+        price: 0.62,
+        volume: 190876
       }
     ],
-    totalVolume: 289765,
-    liquidity: 125000,
+    totalVolume: 210987,
+    liquidity: 120000,
     comments: [],
-    tags: ['bitcoin', 'dominance', 'market-cap'],
-    imageUrl: '/images/markets/btc-dominance.jpg'
+    tags: ['bitcoin', 'dominance', 'market-analysis'],
+    imageUrl: '/images/bitcoin.svg'
   },
   {
     id: 'nft-floor-prices',
@@ -491,7 +494,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 100000,
     comments: [],
     tags: ['nft', 'bayc', 'floor-price'],
-    imageUrl: '/images/markets/bayc.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'sec-etf',
@@ -527,7 +530,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 300000,
     comments: [],
     tags: ['bitcoin', 'etf', 'sec', 'regulation'],
-    imageUrl: '/images/markets/sec.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'layer2-users',
@@ -563,7 +566,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 175000,
     comments: [],
     tags: ['ethereum', 'layer2', 'scaling', 'users'],
-    imageUrl: '/images/markets/layer2.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'dao-governance',
@@ -599,7 +602,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 120000,
     comments: [],
     tags: ['makerdao', 'dao', 'governance'],
-    imageUrl: '/images/markets/makerdao.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'defi-hack',
@@ -635,7 +638,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 200000,
     comments: [],
     tags: ['defi', 'security', 'hack', 'risk'],
-    imageUrl: '/images/markets/defi-security.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'la-liga-winner-2025',
@@ -678,7 +681,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 100000000,
     comments: [],
     tags: ['sports', 'soccer', 'la-liga', 'barcelona', 'real-madrid'],
-    imageUrl: '/images/markets/la-liga.jpg'
+    imageUrl: '/images/sports.svg'
   },
   {
     id: 'premier-league-winner-2025',
@@ -721,7 +724,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 200000000,
     comments: [],
     tags: ['sports', 'soccer', 'premier-league', 'liverpool', 'arsenal'],
-    imageUrl: '/images/markets/premier-league.jpg'
+    imageUrl: '/images/sports.svg'
   },
   {
     id: 'champions-league-winner-2025',
@@ -785,7 +788,8 @@ export const sampleMarkets: Market[] = [
     liquidity: 300000000,
     comments: [],
     tags: ['sports', 'soccer', 'champions-league', 'barcelona', 'psg', 'real-madrid'],
-    imageUrl: '/images/markets/champions-league.jpg'
+    imageUrl: '/images/sports.svg',
+    featured: true
   },
   {
     id: 'nba-champion-2025',
@@ -834,8 +838,9 @@ export const sampleMarkets: Market[] = [
     totalVolume: 2000000000,
     liquidity: 500000000,
     comments: [],
-    tags: ['sports', 'basketball', 'nba', 'thunder', 'celtics', 'cavaliers'],
-    imageUrl: '/images/markets/nba-trophy.jpg'
+    tags: ['sports', 'basketball', 'nba', 'okc-thunder', 'boston-celtics'],
+    imageUrl: '/images/sports.svg',
+    featured: true
   },
   {
     id: 'nba-eastern-conference-2025',
@@ -885,7 +890,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 100000000,
     comments: [],
     tags: ['sports', 'basketball', 'nba', 'eastern-conference', 'celtics', 'cavaliers', 'knicks'],
-    imageUrl: '/images/markets/nba-east.jpg'
+    imageUrl: '/images/sports.svg'
   },
   {
     id: 'canada-elections-pm-2025',
@@ -928,7 +933,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 5000000,
     comments: [],
     tags: ['politics', 'canada', 'elections', 'prime-minister', 'liberal-party', 'conservative-party'],
-    imageUrl: '/images/markets/canada-parliament.jpg'
+    imageUrl: '/images/election.svg'
   },
   {
     id: 'trump-ukraine-war-90-days',
@@ -964,7 +969,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 10000000,
     comments: [],
     tags: ['politics', 'usa', 'trump', 'ukraine', 'russia', 'foreign-policy'],
-    imageUrl: '/images/markets/ukraine-flag.jpg'
+    imageUrl: '/images/election.svg'
   },
   {
     id: 'bitcoin-price-march-31',
@@ -1014,7 +1019,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 15000000,
     comments: [],
     tags: ['crypto', 'bitcoin', 'price-prediction', 'btc'],
-    imageUrl: '/images/markets/bitcoin-price.jpg'
+    imageUrl: '/images/bitcoin.svg'
   },
   {
     id: 'ethereum-march-21',
@@ -1050,7 +1055,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 300000,
     comments: [],
     tags: ['crypto', 'ethereum', 'price-prediction', 'eth'],
-    imageUrl: '/images/markets/ethereum-price.jpg'
+    imageUrl: '/images/ethereum.svg'
   },
   {
     id: 'highest-grossing-movie-2025',
@@ -1100,7 +1105,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 800000,
     comments: [],
     tags: ['entertainment', 'movies', 'box-office', 'disney', 'universal'],
-    imageUrl: '/images/markets/movie-popcorn.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'eurovision-winner-2025',
@@ -1150,7 +1155,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 5000000,
     comments: [],
     tags: ['entertainment', 'music', 'eurovision', 'contest', 'europe'],
-    imageUrl: '/images/markets/eurovision.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'jfk-inside-job',
@@ -1186,7 +1191,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 2000000,
     comments: [],
     tags: ['unusual', 'conspiracy', 'history', 'jfk', 'government'],
-    imageUrl: '/images/markets/jfk.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'elon-buys-tiktok',
@@ -1222,7 +1227,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 300000,
     comments: [],
     tags: ['unusual', 'tech', 'business', 'elon-musk', 'tiktok', 'acquisition'],
-    imageUrl: '/images/markets/elon-musk.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'march-2025-temperature',
@@ -1265,7 +1270,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 400000,
     comments: [],
     tags: ['science', 'climate', 'temperature', 'global-warming', 'environment'],
-    imageUrl: '/images/markets/global-temperature.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'best-ai-model-march',
@@ -1308,7 +1313,8 @@ export const sampleMarkets: Market[] = [
     liquidity: 800000,
     comments: [],
     tags: ['technology', 'ai', 'machine-learning', 'xai', 'openai'],
-    imageUrl: '/images/markets/ai-brain.jpg'
+    imageUrl: '/images/placeholder.svg',
+    featured: true
   },
   {
     id: 'ukraine-ceasefire-july',
@@ -1344,7 +1350,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 1500000,
     comments: [],
     tags: ['politics', 'geopolitics', 'ukraine', 'russia', 'conflict', 'ceasefire'],
-    imageUrl: '/images/markets/peace-dove.jpg'
+    imageUrl: '/images/placeholder.svg'
   },
   {
     id: 'israel-hamas-ceasefire',
@@ -1380,7 +1386,7 @@ export const sampleMarkets: Market[] = [
     liquidity: 100000,
     comments: [],
     tags: ['politics', 'geopolitics', 'israel', 'hamas', 'conflict', 'ceasefire'],
-    imageUrl: '/images/markets/middle-east.jpg'
+    imageUrl: '/images/placeholder.svg'
   }
 ];
 
@@ -1429,4 +1435,82 @@ export function getMarketSlug(market: Market | string): string {
     return marketData ? slugify(marketData.title) : '';
   }
   return slugify(market.title);
+}
+
+/**
+ * Get only the featured markets
+ * 
+ * @returns Array of featured markets
+ */
+export function getFeaturedMarkets(): Market[] {
+  return sampleMarkets.filter(market => market.featured === true);
+}
+
+/**
+ * Get only the regular (non-featured) markets
+ * 
+ * @returns Array of regular markets
+ */
+export function getRegularMarkets(): Market[] {
+  return sampleMarkets.filter(market => !market.featured);
+}
+
+/**
+ * Helper function to get appropriate image URL based on market category and content
+ * Ensures all images exist and provides fallbacks
+ */
+export function getMarketImageUrl(market: Market): string {
+  // If market already has a valid imageUrl that uses our existing SVGs, use it
+  if (market.imageUrl) {
+    const validImages = [
+      '/images/bitcoin.svg',
+      '/images/ethereum.svg', 
+      '/images/election.svg',
+      '/images/sports.svg',
+      '/images/placeholder.svg'
+    ];
+    if (validImages.includes(market.imageUrl)) {
+      return market.imageUrl;
+    }
+  }
+
+  // Map based on category and content
+  const { category, title, tags } = market;
+  
+  // Check for specific crypto currencies
+  if (category === 'crypto') {
+    if (title.toLowerCase().includes('bitcoin') || title.toLowerCase().includes('btc') || 
+        tags.some(tag => tag.includes('bitcoin') || tag.includes('btc'))) {
+      return '/images/bitcoin.svg';
+    }
+    if (title.toLowerCase().includes('ethereum') || title.toLowerCase().includes('eth') ||
+        tags.some(tag => tag.includes('ethereum') || tag.includes('eth'))) {
+      return '/images/ethereum.svg';
+    }
+    // Default for other crypto
+    return '/images/bitcoin.svg';
+  }
+  
+  // Category-based mapping
+  const categoryImageMap: Record<string, string> = {
+    politics: '/images/election.svg',
+    sports: '/images/sports.svg',
+    finance: '/images/placeholder.svg',
+    technology: '/images/placeholder.svg',
+    entertainment: '/images/placeholder.svg',
+    science: '/images/placeholder.svg',
+    other: '/images/placeholder.svg'
+  };
+  
+  return categoryImageMap[category] || '/images/placeholder.svg';
+}
+
+/**
+ * Get markets with validated image URLs
+ */
+export function getMarketsWithValidImages(): Market[] {
+  return sampleMarkets.map(market => ({
+    ...market,
+    imageUrl: getMarketImageUrl(market)
+  }));
 } 

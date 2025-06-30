@@ -1,4 +1,4 @@
-import { PriceData } from '../components/visualizations/TradingChart';
+import { PriceData } from '@/components/visualizations/TradingChart';
 
 /**
  * Utility class for generating demo trading chart data

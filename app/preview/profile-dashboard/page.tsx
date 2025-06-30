@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Card } from '@/app/components/ui/Card';
-import { Button } from '@/app/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 // Mock data for preview
 const mockUser = {
@@ -81,7 +81,7 @@ const mockActivity = [
   {
     type: 'Market Win',
     description: 'Won prediction on "BTC Above $45k"',
-    reward: '+500 DINO',
+    reward: '+500 DBT',
     timestamp: '2 hours ago'
   },
   {
@@ -101,22 +101,28 @@ export default function ProfileDashboardPreview() {
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-black text-white">
-      {/* Preview Banner */}
-      <div className="bg-amber-500/20 border-b border-amber-500/30 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-2">
+    <div className="min-h-screen bg-transparent">
+      {/* Terminal Preview Banner */}
+      <div className="terminal-card mb-6">
+        <div className="flex items-center justify-between p-3 border-b border-yellow-500/20">
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 rounded-full bg-red-500"></div>
+            <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+            <div className="w-2 h-2 rounded-full bg-green-500"></div>
+          </div>
+          <div className="terminal-text text-xs">preview_mode.exe</div>
+        </div>
+        <div className="p-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <svg className="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-              </svg>
-              <span className="text-amber-400 font-medium">Preview Mode - Profile Dashboard Template</span>
+              <span className="text-yellow-400 text-lg">⚠️</span>
+              <span className="text-yellow-400 font-medium font-mono">PREVIEW MODE - Profile Dashboard Template</span>
             </div>
             <Link 
               href="/markets"
-              className="text-amber-400 hover:text-amber-300 text-sm font-medium"
+              className="text-yellow-400 hover:text-yellow-300 text-sm font-medium font-mono"
             >
-              Exit Preview
+              {'>'} exit_preview.sh
             </Link>
           </div>
         </div>
@@ -124,310 +130,262 @@ export default function ProfileDashboardPreview() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-4 gap-8">
-          {/* Sidebar */}
+          {/* Terminal Sidebar */}
           <div className="lg:col-span-1">
             <div className="space-y-6">
-              {/* Profile Card */}
-              <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
+              {/* Terminal Profile Card */}
+              <div className="terminal-card">
+                <div className="flex items-center justify-between p-3 border-b border-green-500/20">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                  </div>
+                  <div className="terminal-text text-xs">user_profile.json</div>
+                </div>
                 <div className="p-6">
                   <div className="flex flex-col items-center text-center">
-                    <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-4">
-                      <span className="text-2xl font-bold">CW</span>
+                    <div className="w-24 h-24 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center mb-4">
+                      <span className="text-2xl font-bold font-mono">CW</span>
                     </div>
-                    <h2 className="text-xl font-bold mb-1">{mockUser.username}</h2>
+                    <h2 className="text-xl font-bold mb-1 font-mono text-green-400">{mockUser.username}</h2>
                     <p className="text-gray-400 font-mono text-sm mb-4">{mockUser.address}</p>
                     <div className="flex items-center space-x-2">
-                      <div className="px-2 py-1 bg-green-500/20 rounded-full">
-                        <span className="text-xs text-green-400">Rep {mockUser.reputation}</span>
+                      <div className="px-2 py-1 bg-green-500/20 rounded-full border border-green-500/30">
+                        <span className="text-xs text-green-400 font-mono">REP_{mockUser.reputation}</span>
                       </div>
-                      <div className="px-2 py-1 bg-blue-500/20 rounded-full">
-                        <span className="text-xs text-blue-400">Beta Tester</span>
+                      <div className="px-2 py-1 bg-blue-500/20 rounded-full border border-blue-500/30">
+                        <span className="text-xs text-blue-400 font-mono">BETA_USER</span>
                       </div>
                     </div>
                   </div>
                 </div>
-              </Card>
+              </div>
 
-              {/* Navigation */}
-              <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
+              {/* Terminal Navigation */}
+              <div className="terminal-card">
+                <div className="flex items-center justify-between p-3 border-b border-green-500/20">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                  </div>
+                  <div className="terminal-text text-xs">navigation.sh</div>
+                </div>
                 <div className="p-2">
                   <nav className="space-y-1">
                     {[
-                      { name: 'Overview', icon: '📊' },
-                      { name: 'Positions', icon: '📈' },
-                      { name: 'History', icon: '📜' },
-                      { name: 'Achievements', icon: '🏆' },
-                      { name: 'Settings', icon: '⚙️' }
+                      { name: 'Overview', icon: '📊', file: 'overview.exe' },
+                      { name: 'Positions', icon: '📈', file: 'positions.db' },
+                      { name: 'History', icon: '📜', file: 'history.log' },
+                      { name: 'Achievements', icon: '🏆', file: 'badges.json' },
+                      { name: 'Settings', icon: '⚙️', file: 'config.ini' }
                     ].map((item) => (
                       <button
                         key={item.name}
                         onClick={() => setActiveTab(item.name.toLowerCase())}
-                        className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+                        className={`w-full flex items-center px-4 py-3 text-sm font-mono rounded-lg transition-colors ${
                           activeTab === item.name.toLowerCase()
-                            ? 'bg-blue-500/20 text-blue-400'
-                            : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                            ? 'btn-degen text-black'
+                            : 'text-gray-400 hover:bg-green-500/10 hover:text-green-400 border border-transparent hover:border-green-500/30'
                         }`}
                       >
                         <span className="mr-3">{item.icon}</span>
-                        {item.name}
+                        {'>'} {item.file}
                       </button>
                     ))}
                   </nav>
                 </div>
-              </Card>
+              </div>
 
-              {/* Quick Actions */}
-              <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
+              {/* Terminal Quick Actions */}
+              <div className="terminal-card">
+                <div className="flex items-center justify-between p-3 border-b border-green-500/20">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                  </div>
+                  <div className="terminal-text text-xs">quick_actions.sh</div>
+                </div>
                 <div className="p-4">
-                  <h3 className="text-sm font-medium text-gray-400 mb-3">Quick Actions</h3>
+                  <h3 className="text-sm font-medium text-gray-400 mb-3 font-mono">{'>'} QUICK_COMMANDS</h3>
                   <div className="space-y-2">
-                    <Button variant="primary" className="w-full justify-start">
-                      <span className="mr-2">🎯</span> Create Market
-                    </Button>
-                    <Button variant="secondary" className="w-full justify-start">
-                      <span className="mr-2">💧</span> Add Liquidity
-                    </Button>
-                    <Button variant="ghost" className="w-full justify-start">
-                      <span className="mr-2">💰</span> Claim Rewards
-                    </Button>
+                    <button className="w-full btn-degen justify-start font-mono text-black">
+                      <span className="mr-2">🎯</span> create_market.exe
+                    </button>
+                    <button className="w-full btn-degen-secondary justify-start font-mono">
+                      <span className="mr-2">💧</span> add_liquidity.sh
+                    </button>
+                    <button className="w-full btn-degen-secondary justify-start font-mono">
+                      <span className="mr-2">💰</span> claim_rewards.exe
+                    </button>
                   </div>
                 </div>
-              </Card>
+              </div>
             </div>
           </div>
 
-          {/* Main Content */}
+          {/* Terminal Main Content */}
           <div className="lg:col-span-3 space-y-6">
             {activeTab === 'overview' && (
               <>
-                {/* Stats Grid */}
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                  <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
-                    <div className="p-4">
-                      <div className="text-sm text-gray-400">Total Volume</div>
-                      <div className="text-2xl font-bold">${mockUser.stats.totalVolume.toLocaleString()}</div>
-                      <div className="text-sm text-green-400">+12.5% this month</div>
+                {/* Terminal Stats Overview */}
+                <div className="terminal-card">
+                  <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
-                  </Card>
-                  <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
-                    <div className="p-4">
-                      <div className="text-sm text-gray-400">Win Rate</div>
-                      <div className="text-2xl font-bold">{mockUser.stats.winRate}%</div>
-                      <div className="text-sm text-green-400">+2.3% this month</div>
+                    <div className="terminal-text text-sm">user_stats.py</div>
+                  </div>
+                  <div className="p-6">
+                    <h2 className="text-xl font-bold mb-6 font-mono text-green-400">{'>'} ACCOUNT_OVERVIEW.JSON</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                      <div className="terminal-card border border-green-500/30">
+                        <div className="p-4 text-center">
+                          <div className="text-3xl font-black font-mono text-green-400 mb-2">{mockUser.stats.totalTrades}</div>
+                          <div className="text-sm text-gray-400 font-mono">TOTAL_TRADES</div>
+                        </div>
+                      </div>
+                      <div className="terminal-card border border-blue-500/30">
+                        <div className="p-4 text-center">
+                          <div className="text-3xl font-black font-mono text-blue-400 mb-2">{mockUser.stats.winRate}%</div>
+                          <div className="text-sm text-gray-400 font-mono">WIN_RATE</div>
+                        </div>
+                      </div>
+                      <div className="terminal-card border border-purple-500/30">
+                        <div className="p-4 text-center">
+                          <div className="text-3xl font-black font-mono text-purple-400 mb-2">${mockUser.stats.totalVolume.toLocaleString()}</div>
+                          <div className="text-sm text-gray-400 font-mono">TOTAL_VOLUME</div>
+                        </div>
+                      </div>
+                      <div className="terminal-card border border-yellow-500/30">
+                        <div className="p-4 text-center">
+                          <div className="text-3xl font-black font-mono text-yellow-400 mb-2">+{mockUser.stats.totalPnL}%</div>
+                          <div className="text-sm text-gray-400 font-mono">TOTAL_PNL</div>
+                        </div>
+                      </div>
                     </div>
-                  </Card>
-                  <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
-                    <div className="p-4">
-                      <div className="text-sm text-gray-400">Total P&L</div>
-                      <div className="text-2xl font-bold text-green-400">+{mockUser.stats.totalPnL}%</div>
-                      <div className="text-sm text-green-400">All time</div>
-                    </div>
-                  </Card>
+                  </div>
                 </div>
 
-                {/* Active Positions */}
-                <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-lg font-semibold">Active Positions</h3>
-                      <Button variant="ghost" size="sm">View All</Button>
+                {/* Terminal Recent Activity */}
+                <div className="terminal-card">
+                  <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
-                    <div className="space-y-4">
-                      {mockPositions.map((position, i) => (
-                        <div key={i} className="bg-black/30 rounded-xl p-4">
-                          <div className="flex items-center justify-between mb-2">
-                            <div>
-                              <div className="font-medium">{position.market}</div>
-                              <div className="text-sm text-gray-400">{position.category}</div>
-                            </div>
-                            <div className={position.pnl.startsWith('+') ? 'text-green-400' : 'text-red-400'}>
-                              {position.pnl}
-                            </div>
-                          </div>
-                          <div className="grid grid-cols-4 gap-4 text-sm">
-                            <div>
-                              <div className="text-gray-400">Outcome</div>
-                              <div className="font-medium">{position.outcome}</div>
-                            </div>
-                            <div>
-                              <div className="text-gray-400">Amount</div>
-                              <div className="font-medium">{position.amount}</div>
-                            </div>
-                            <div>
-                              <div className="text-gray-400">Avg Price</div>
-                              <div className="font-medium">${position.avgPrice}</div>
-                            </div>
-                            <div>
-                              <div className="text-gray-400">Current</div>
-                              <div className="font-medium">${position.currentPrice}</div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                    <div className="terminal-text text-sm">activity_feed.log</div>
                   </div>
-                </Card>
-
-                {/* Recent Activity */}
-                <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
                   <div className="p-6">
-                    <h3 className="text-lg font-semibold mb-6">Recent Activity</h3>
+                    <h2 className="text-xl font-bold mb-6 font-mono text-cyan-400">{'>'} RECENT_ACTIVITY.LOG</h2>
                     <div className="space-y-4">
                       {mockActivity.map((activity, i) => (
-                        <div key={i} className="flex items-center justify-between py-3 border-b border-gray-700/50 last:border-0">
-                          <div className="flex items-center space-x-4">
-                            <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                              {activity.type === 'Market Win' && '🎯'}
-                              {activity.type === 'Liquidity' && '💧'}
-                              {activity.type === 'Achievement' && '🏆'}
-                            </div>
-                            <div>
-                              <div className="font-medium">{activity.description}</div>
-                              <div className="text-sm text-gray-400">{activity.timestamp}</div>
+                        <div key={i} className="terminal-card border border-cyan-500/30">
+                          <div className="p-4">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <div className="font-mono text-white mb-1">{activity.type.toUpperCase()}_EVENT</div>
+                                <div className="text-sm text-gray-400 font-mono">{activity.description}</div>
+                              </div>
+                              <div className="text-right">
+                                {activity.reward && (
+                                  <div className="text-green-400 font-mono font-bold">{activity.reward}</div>
+                                )}
+                                {activity.amount && (
+                                  <div className="text-yellow-400 font-mono font-bold">{activity.amount}</div>
+                                )}
+                                <div className="text-xs text-gray-500 font-mono">{activity.timestamp}</div>
+                              </div>
                             </div>
                           </div>
-                          {activity.reward && (
-                            <div className="text-green-400 font-medium">{activity.reward}</div>
-                          )}
-                          {activity.amount && (
-                            <div className="text-blue-400 font-medium">{activity.amount}</div>
-                          )}
                         </div>
                       ))}
                     </div>
                   </div>
-                </Card>
+                </div>
               </>
             )}
 
             {activeTab === 'positions' && (
-              <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold mb-6">All Positions</h3>
-                  {/* Position content similar to overview but with more detail */}
+              <div className="terminal-card">
+                <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <div className="terminal-text text-sm">active_positions.db</div>
                 </div>
-              </Card>
-            )}
-
-            {activeTab === 'history' && (
-              <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
                 <div className="p-6">
-                  <h3 className="text-lg font-semibold mb-6">Trading History</h3>
+                  <h2 className="text-xl font-bold mb-6 font-mono text-yellow-400">{'>'} ACTIVE_POSITIONS.DB</h2>
                   <div className="space-y-4">
-                    {mockHistory.map((trade, i) => (
-                      <div key={i} className="bg-black/30 rounded-xl p-4">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                          <div>
-                            <div className="text-gray-400 text-sm">Type</div>
-                            <div className={`font-medium ${
-                              trade.type === 'Buy' ? 'text-green-400' : 'text-red-400'
-                            }`}>
-                              {trade.type}
+                    {mockPositions.map((position, i) => (
+                      <div key={i} className="terminal-card border border-yellow-500/30">
+                        <div className="p-4">
+                          <div className="flex items-center justify-between mb-3">
+                            <div>
+                              <div className="font-mono text-white text-lg">{position.market}</div>
+                              <div className="text-sm text-gray-400 font-mono">outcome: <span className="text-blue-400">{position.outcome}</span></div>
+                            </div>
+                            <div className="text-right">
+                              <div className={`text-xl font-bold font-mono ${position.pnl.startsWith('+') ? 'text-green-400' : 'text-red-400'}`}>
+                                {position.pnl}
+                              </div>
                             </div>
                           </div>
-                          <div>
-                            <div className="text-gray-400 text-sm">Amount</div>
-                            <div className="font-medium">{trade.amount}</div>
-                          </div>
-                          <div>
-                            <div className="text-gray-400 text-sm">Price</div>
-                            <div className="font-medium">${trade.price}</div>
-                          </div>
-                          <div>
-                            <div className="text-gray-400 text-sm">Status</div>
-                            <div className="font-medium text-green-400">{trade.status}</div>
-                          </div>
-                        </div>
-                        <div className="mt-2 pt-2 border-t border-gray-700/50">
-                          <div className="text-sm">
-                            <span className="text-gray-400">Market: </span>
-                            <span className="text-white">{trade.market}</span>
-                          </div>
-                          <div className="text-sm">
-                            <span className="text-gray-400">Transaction: </span>
-                            <span className="text-blue-400 font-mono">{trade.hash}</span>
+                          <div className="grid grid-cols-3 gap-4 text-sm font-mono">
+                            <div>
+                              <span className="text-gray-400">amount:</span>
+                              <div className="text-white">${position.amount}</div>
+                            </div>
+                            <div>
+                              <span className="text-gray-400">avg_price:</span>
+                              <div className="text-white">${position.avgPrice}</div>
+                            </div>
+                            <div>
+                              <span className="text-gray-400">current:</span>
+                              <div className="text-white">${position.currentPrice}</div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-              </Card>
+              </div>
             )}
 
+            {/* Other tabs would be similar terminal-styled content */}
             {activeTab === 'achievements' && (
-              <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
+              <div className="terminal-card">
+                <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <div className="terminal-text text-sm">achievements.json</div>
+                </div>
                 <div className="p-6">
-                  <h3 className="text-lg font-semibold mb-6">Achievements</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <h2 className="text-xl font-bold mb-6 font-mono text-orange-400">{'>'} EARNED_BADGES.JSON</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {mockUser.achievements.map((achievement) => (
-                      <div key={achievement.id} className="bg-black/30 rounded-xl p-4">
-                        <div className="flex items-center space-x-4">
-                          <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-2xl">
-                            {achievement.icon}
-                          </div>
-                          <div>
-                            <div className="font-medium">{achievement.title}</div>
-                            <div className="text-sm text-gray-400">{achievement.description}</div>
-                          </div>
+                      <div key={achievement.id} className="terminal-card border border-orange-500/30">
+                        <div className="p-4 text-center">
+                          <div className="text-4xl mb-3">{achievement.icon}</div>
+                          <div className="font-mono font-bold text-orange-400 mb-1">{achievement.title.toUpperCase()}</div>
+                          <div className="text-sm text-gray-400 font-mono">{achievement.description}</div>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-              </Card>
-            )}
-
-            {activeTab === 'settings' && (
-              <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold mb-6">Settings</h3>
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-400 mb-4">Profile Settings</h4>
-                      <div className="space-y-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-400 mb-2">
-                            Username
-                          </label>
-                          <input
-                            type="text"
-                            value={mockUser.username}
-                            className="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-white"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-400 mb-2">
-                            Bio
-                          </label>
-                          <textarea
-                            className="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-white"
-                            rows={3}
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-400 mb-4">Preferences</h4>
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <span>Email Notifications</span>
-                          <div className="w-12 h-6 bg-gray-700 rounded-full relative">
-                            <div className="w-4 h-4 bg-white rounded-full absolute left-1 top-1" />
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span>Market Updates</span>
-                          <div className="w-12 h-6 bg-blue-500 rounded-full relative">
-                            <div className="w-4 h-4 bg-white rounded-full absolute right-1 top-1" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
+              </div>
             )}
           </div>
         </div>

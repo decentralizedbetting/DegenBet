@@ -1,33 +1,33 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Navigation } from './components/ui/Navigation';
-import { ThemeProvider } from './ThemeContext';
+import { Navigation } from '@/components/ui/Navigation';
+import { ThemeProvider } from '@/ThemeContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'DINO | Decentralized Prediction Market Platform',
-  description: 'Trade and create prediction markets for crypto, DeFi, NFTs, and more on DINO - the most advanced decentralized prediction market platform.',
-  keywords: 'prediction market, crypto prediction, blockchain, DINO token, decentralized finance, trading, crypto forecast',
-  authors: [{ name: 'DINO Protocol' }],
-  creator: 'DINO Protocol',
-  publisher: 'DINO Protocol',
-  metadataBase: new URL('https://dinopredict.io'),
+  title: 'DegenBet | Decentralized Betting Platform',
+  description: 'The ultimate degen betting platform for micro-events: sports, politics, crypto prices. Join the revolution with DBT token.',
+  keywords: 'DegenBet, degen betting, decentralized betting, crypto betting, sports betting, politics betting, DBT token, BNB Chain',
+  authors: [{ name: 'DegenBet' }],
+  creator: 'DegenBet',
+  publisher: 'DegenBet',
+  metadataBase: new URL('https://degenbet.xyz'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'DINO | Decentralized Prediction Market Platform',
-    description: 'Trade and create prediction markets for crypto, DeFi, NFTs, and more on DINO - the most advanced decentralized prediction market platform.',
-    url: 'https://dinopredict.io',
-    siteName: 'DINO Prediction Markets',
+    title: 'DegenBet | Decentralized Betting Platform',
+    description: 'The ultimate degen betting platform for micro-events: sports, politics, crypto prices. Join the revolution with DBT token.',
+    url: 'https://degenbet.xyz',
+    siteName: 'DegenBet',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'DINO Prediction Markets Platform',
+        alt: 'DegenBet - Decentralized Betting Platform',
       }
     ],
     locale: 'en_US',
@@ -35,10 +35,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DINO | Decentralized Prediction Market Platform',
-    description: 'Trade and create prediction markets for crypto, DeFi, NFTs, and more on DINO.',
+    title: 'DegenBet | Decentralized Betting Platform',
+    description: 'The ultimate degen betting platform for micro-events: sports, politics, crypto prices. Join the revolution with DBT token.',
     images: ['/twitter-image.jpg'],
-    creator: '@DINOProtocol',
+    creator: '@DegenBet',
   },
   robots: {
     index: true,
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   verification: {
     google: 'google-site-verification-code',
     other: {
-      me: ['dino@example.com'],
+      me: ['contact@degenbet.xyz'],
     },
   },
   icons: {
@@ -74,12 +74,11 @@ export const metadata: Metadata = {
       },
     ],
   },
-  themeColor: '#3DAD9C',
   manifest: '/site.webmanifest',
 };
 
 export const viewport = {
-  themeColor: '#3DAD9C', // Teal color from the logo
+  themeColor: '#22c55e', // Terminal green for degen aesthetic
 };
 
 export default function RootLayout({
@@ -89,10 +88,44 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${inter.className} min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-white antialiased`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Subtle mouse tracking for hover effects
+              document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('mousemove', function(e) {
+                  // Update CSS custom properties for subtle mouse glow effects
+                  document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
+                  document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+                });
+              });
+            `,
+          }}
+        />
+      </head>
+      <body className={`${inter.className} min-h-screen bg-black text-white antialiased relative`}>
+        {/* SIMPLIFIED Terminal Background - No Conflicts */}
+        <div className="fixed inset-0 -z-10">
+          {/* Primary gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/20 via-black to-gray-950/20" />
+          
+          {/* Subtle grid pattern */}
+          <div 
+            className="absolute inset-0 opacity-[0.015]"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(34, 197, 94, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 197, 94, 0.2) 1px, transparent 1px)
+              `,
+              backgroundSize: '80px 80px'
+            }}
+          />
+        </div>
+        
         <ThemeProvider>
           <Navigation />
-          <main className="min-h-screen bg-white dark:bg-black text-gray-800 dark:text-white">
+          <main className="bg-transparent text-white relative z-10">
             {children}
           </main>
         </ThemeProvider>

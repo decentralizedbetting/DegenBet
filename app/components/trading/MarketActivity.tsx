@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { Skeleton } from '../ui/interactive';
-import { Card } from '../ui/containers';
+import { Skeleton } from '@/components/ui/interactive/index';
+import { Card } from '@/components/ui/containers';
 
 // Activity item interface 
 interface ActivityItem {

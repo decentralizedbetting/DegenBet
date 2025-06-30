@@ -90,9 +90,6 @@ export const layoutStyles = {
 export const animationStyles = {
   fadeIn: 'animate-fade-in',
   slideUp: 'animate-slide-up',
-  slideDown: 'animate-slide-down',
-  slideLeft: 'animate-slide-left',
-  slideRight: 'animate-slide-right',
   pulse: 'animate-pulse',
   pulseSlow: 'animate-pulse-slow',
   bounce: 'animate-bounce-slow',

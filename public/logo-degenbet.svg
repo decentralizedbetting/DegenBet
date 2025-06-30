@@ -1,0 +1,10 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clean, Modern "D" Letterform -->
+  
+  <!-- Main D shape with modern proportions -->
+  <path d="M8 6 L8 42 L26 42 C34 42 40 36 40 24 C40 12 34 6 26 6 L8 6 Z M14 12 L25 12 C30 12 34 16 34 24 C34 32 30 36 25 36 L14 36 L14 12 Z" 
+        fill="#3B82F6"/>
+  
+  <!-- Subtle inner accent (optional modern touch) -->
+  <rect x="18" y="16" width="2" height="16" fill="#60A5FA" opacity="0.6" rx="1"/>
+</svg> 

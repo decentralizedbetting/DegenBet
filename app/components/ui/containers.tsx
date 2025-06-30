@@ -15,17 +15,17 @@ export function Card({
   variant = 'default',
   onClick
 }: CardProps) {
-  const baseClasses = 'rounded-lg overflow-hidden';
+  const baseClasses = 'rounded-lg overflow-hidden transition-all duration-200';
   
   const variantClasses = {
-    default: 'bg-gray-900 shadow-lg border border-teal-900/20',
-    bordered: 'bg-gray-900/60 border border-teal-800/30',
-    filled: 'bg-gray-800'
+    default: 'terminal-card',
+    bordered: 'bg-black/60 border border-green-500/30 backdrop-blur-sm',
+    filled: 'bg-black/80 border border-green-500/50'
   };
   
   return (
     <div 
-      className={`${baseClasses} ${variantClasses[variant]} ${onClick ? 'cursor-pointer hover:bg-gray-850' : ''} ${className}`}
+      className={`${baseClasses} ${variantClasses[variant]} ${onClick ? 'cursor-pointer hover:bg-black/70 hover:border-green-500/50' : ''} ${className}`}
       onClick={onClick}
     >
       {children}

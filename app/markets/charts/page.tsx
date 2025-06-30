@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from 'react';
-import { TradingChart, type PriceData, type ChartOptions } from '../../components/visualizations/TradingChart';
-import { ChartDataGenerator } from '../../utils/chartData';
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../components/ui/Tabs';
+import { TradingChart, type PriceData, type ChartOptions } from '@/components/visualizations/TradingChart';
+import { ChartDataGenerator } from '@/utils/chartData';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs';
 
 type TimeframeType = '1H' | '1D' | '1W' | '1M' | 'ALL';
 
@@ -133,15 +133,23 @@ export default function ChartsPage() {
           </TabsContent>
         </Tabs>
         
-        <div className="mt-12 bg-gray-800 rounded-lg p-6">
-          <h2 className="text-xl font-bold mb-4">About Trading Charts</h2>
-          <p className="text-gray-300 mb-4">
+        <div className="mt-12 terminal-card p-6">
+          <div className="flex items-center justify-between p-2 border-b border-green-500/20 mb-4">
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 rounded-full bg-red-500"></div>
+              <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+              <div className="w-2 h-2 rounded-full bg-green-500"></div>
+            </div>
+            <div className="terminal-text text-xs">trading_charts.md</div>
+          </div>
+          <h2 className="text-xl font-bold mb-4 text-green-400 font-mono">ABOUT_TRADING_CHARTS</h2>
+          <p className="text-green-300 mb-4 font-mono">
             Our trading charts provide advanced technical analysis tools for cryptocurrency and prediction markets.
             You can analyze price movements, identify trends, and make more informed trading decisions.
           </p>
           
-          <h3 className="text-lg font-semibold mb-2">Available Features:</h3>
-          <ul className="list-disc list-inside text-gray-300 space-y-1 mb-4">
+          <h3 className="text-lg font-semibold mb-2 text-green-400 font-mono">{'>'} AVAILABLE_FEATURES:</h3>
+          <ul className="list-disc list-inside text-green-300 space-y-1 mb-4 font-mono">
             <li>Multiple timeframes (1H, 1D, 1W, 1M, ALL)</li>
             <li>Candlestick charts with volume indicator</li>
             <li>Technical indicators (SMA, EMA, RSI)</li>
@@ -149,7 +157,7 @@ export default function ChartsPage() {
             <li>Responsive design for all screen sizes</li>
           </ul>
           
-          <p className="text-gray-300">
+          <p className="text-green-300 font-mono">
             These charts are powered by lightweight-charts, a fast and efficient charting library designed for financial data visualization.
           </p>
         </div>

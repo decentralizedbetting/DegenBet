@@ -1,0 +1,13 @@
+<svg width="400" height="240" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="240" fill="url(#bitcoinGradient)"/>
+  <defs>
+    <linearGradient id="bitcoinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:0.2" />
+    </linearGradient>
+  </defs>
+  <!-- Bitcoin Symbol -->
+  <circle cx="200" cy="120" r="50" fill="#f59e0b" opacity="0.2"/>
+  <text x="200" y="135" text-anchor="middle" fill="#f59e0b" font-family="Arial, sans-serif" font-size="40" font-weight="bold">₿</text>
+  <text x="200" y="200" text-anchor="middle" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="500">Bitcoin Market</text>
+</svg> 

@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Card } from '@/app/components/ui/Card';
-import { Button } from '@/app/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 // Mock data
 const marketData = {
@@ -52,118 +52,163 @@ export default function MarketDetailPreview() {
   const [limitPrice, setLimitPrice] = useState('');
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-black text-white">
-      {/* Preview Banner */}
-      <div className="bg-amber-500/20 border-b border-amber-500/30 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-2">
+    <div className="min-h-screen bg-transparent">
+      {/* Terminal Preview Banner */}
+      <div className="terminal-card mb-6">
+        <div className="flex items-center justify-between p-3 border-b border-yellow-500/20">
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 rounded-full bg-red-500"></div>
+            <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+            <div className="w-2 h-2 rounded-full bg-green-500"></div>
+          </div>
+          <div className="terminal-text text-xs">preview_mode.exe</div>
+        </div>
+        <div className="p-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <svg className="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-              </svg>
-              <span className="text-amber-400 font-medium">Preview Mode - Market Detail Template</span>
+              <span className="text-yellow-400 text-lg">⚠️</span>
+              <span className="text-yellow-400 font-medium font-mono">PREVIEW MODE - Market Detail Template</span>
             </div>
             <Link 
               href="/markets"
-              className="text-amber-400 hover:text-amber-300 text-sm font-medium"
+              className="text-yellow-400 hover:text-yellow-300 text-sm font-medium font-mono"
             >
-              Exit Preview
+              {'>'} exit_preview.sh
             </Link>
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumbs */}
+        {/* Terminal Breadcrumbs */}
         <div className="mb-6">
-          <nav className="flex space-x-2 text-sm text-gray-400">
-            <Link href="/markets" className="hover:text-white">Markets</Link>
-            <span>/</span>
-            <Link href="/markets/crypto" className="hover:text-white">Crypto</Link>
-            <span>/</span>
-            <span className="text-white">BTC $100k</span>
-          </nav>
+          <div className="terminal-card">
+            <div className="flex items-center justify-between p-3 border-b border-green-500/20">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+              </div>
+              <div className="terminal-text text-xs">navigation.sh</div>
+            </div>
+            <div className="p-3">
+              <nav className="flex space-x-2 text-sm font-mono">
+                <Link href="/markets" className="text-green-400 hover:text-green-300">{'>'} /markets</Link>
+                <span className="text-gray-500">/</span>
+                <Link href="/markets/crypto" className="text-green-400 hover:text-green-300">crypto</Link>
+                <span className="text-gray-500">/</span>
+                <span className="text-white">btc_100k.market</span>
+              </nav>
+            </div>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Market Info & Charts */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Market Title & Stats */}
-            <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
+            {/* Terminal Market Title & Stats */}
+            <div className="terminal-card">
+              <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div className="terminal-text text-sm">market_info.exe</div>
+              </div>
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h1 className="text-2xl font-bold mb-2">{marketData.title}</h1>
-                    <div className="flex items-center space-x-4 text-sm text-gray-400">
-                      <span>Created by {marketData.creator}</span>
+                    <h1 className="text-2xl font-bold mb-2 font-mono">{marketData.title}</h1>
+                    <div className="flex items-center space-x-4 text-sm text-gray-400 font-mono">
+                      <span>{'>'} created_by: {marketData.creator}</span>
                       <span>•</span>
-                      <span>Ends {new Date(marketData.endDate).toLocaleDateString()}</span>
+                      <span>{'>'} expires: {new Date(marketData.endDate).toLocaleDateString()}</span>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Button variant="ghost" size="sm">
-                      <span className="mr-2">📊</span> Share
-                    </Button>
-                    <Button variant="ghost" size="sm">
-                      <span className="mr-2">⭐</span> Follow
-                    </Button>
+                    <button className="btn-degen-secondary font-mono text-sm">
+                      <span className="mr-2">📊</span> share.sh
+                    </button>
+                    <button className="btn-degen-secondary font-mono text-sm">
+                      <span className="mr-2">⭐</span> follow.exe
+                    </button>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div>
-                    <div className="text-sm text-gray-400">24h Volume</div>
-                    <div className="text-lg font-bold">${marketData.volume.toLocaleString()}</div>
+                  <div className="bg-black/30 rounded p-3 border border-green-500/20">
+                    <div className="text-sm text-gray-400 font-mono">24h_volume</div>
+                    <div className="text-lg font-bold font-mono text-green-400">${marketData.volume.toLocaleString()}</div>
                   </div>
-                  <div>
-                    <div className="text-sm text-gray-400">Liquidity</div>
-                    <div className="text-lg font-bold">${marketData.liquidity.toLocaleString()}</div>
+                  <div className="bg-black/30 rounded p-3 border border-green-500/20">
+                    <div className="text-sm text-gray-400 font-mono">liquidity</div>
+                    <div className="text-lg font-bold font-mono text-green-400">${marketData.liquidity.toLocaleString()}</div>
                   </div>
-                  <div>
-                    <div className="text-sm text-gray-400">Current Price</div>
-                    <div className="text-lg font-bold">${marketData.currentPrice}</div>
+                  <div className="bg-black/30 rounded p-3 border border-green-500/20">
+                    <div className="text-sm text-gray-400 font-mono">current_price</div>
+                    <div className="text-lg font-bold font-mono text-green-400">${marketData.currentPrice}</div>
                   </div>
-                  <div>
-                    <div className="text-sm text-gray-400">24h Change</div>
-                    <div className="text-lg font-bold text-green-400">{marketData.priceChange}</div>
+                  <div className="bg-black/30 rounded p-3 border border-green-500/20">
+                    <div className="text-sm text-gray-400 font-mono">24h_change</div>
+                    <div className="text-lg font-bold font-mono text-green-400">{marketData.priceChange}</div>
                   </div>
                 </div>
               </div>
-            </Card>
+            </div>
 
-            {/* Price Chart */}
-            <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
+            {/* Terminal Price Chart */}
+            <div className="terminal-card">
+              <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div className="terminal-text text-sm">price_chart.py</div>
+              </div>
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-semibold">Price History</h2>
+                  <h2 className="text-lg font-semibold font-mono text-green-400">{'>'} PRICE_HISTORY.SH</h2>
                   <div className="flex space-x-2">
-                    <Button variant="ghost" size="sm">1D</Button>
-                    <Button variant="ghost" size="sm">1W</Button>
-                    <Button variant="primary" size="sm">1M</Button>
-                    <Button variant="ghost" size="sm">ALL</Button>
+                    <button className="btn-degen-secondary text-sm font-mono">1D</button>
+                    <button className="btn-degen-secondary text-sm font-mono">1W</button>
+                    <button className="btn-degen text-sm font-mono text-black">1M</button>
+                    <button className="btn-degen-secondary text-sm font-mono">ALL</button>
                   </div>
                 </div>
-                <div className="h-64 bg-black/30 rounded-xl flex items-center justify-center">
-                  <span className="text-gray-400">Price Chart Placeholder</span>
+                <div className="h-64 bg-black/30 rounded-xl flex items-center justify-center border border-green-500/20">
+                  <div className="text-center">
+                    <div className="text-green-400 text-2xl mb-2">📈</div>
+                    <span className="text-gray-400 font-mono">Chart_Module_Loading...</span>
+                  </div>
                 </div>
               </div>
-            </Card>
+            </div>
 
-            {/* Info Tabs */}
-            <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
-              <div className="border-b border-gray-700">
+            {/* Terminal Info Tabs */}
+            <div className="terminal-card">
+              <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div className="terminal-text text-sm">market_data.json</div>
+              </div>
+              <div className="border-b border-green-500/20">
                 <div className="flex space-x-4 p-4">
                   {['info', 'positions', 'comments', 'activity'].map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`px-4 py-2 rounded-lg transition-colors ${
+                      className={`px-4 py-2 rounded-lg transition-colors font-mono ${
                         activeTab === tab
-                          ? 'bg-blue-500/20 text-blue-400'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'btn-degen text-black'
+                          : 'text-gray-400 hover:text-green-400'
                       }`}
                     >
-                      {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                      {'>'} {tab}.sh
                     </button>
                   ))}
                 </div>
@@ -173,19 +218,21 @@ export default function MarketDetailPreview() {
                 {activeTab === 'info' && (
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-lg font-semibold mb-2">Description</h3>
-                      <p className="text-gray-300">{marketData.description}</p>
+                      <h3 className="text-lg font-semibold mb-2 font-mono text-green-400">{'>'} DESCRIPTION.MD</h3>
+                      <p className="text-gray-300 font-mono leading-relaxed">{marketData.description}</p>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold mb-2">Resolution Details</h3>
-                      <div className="bg-black/30 rounded-xl p-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-xl">
-                            🔗
-                          </div>
-                          <div>
-                            <div className="font-medium">Chainlink Price Feed</div>
-                            <div className="text-sm text-gray-400">Automated price resolution via Chainlink oracle</div>
+                      <h3 className="text-lg font-semibold mb-2 font-mono text-purple-400">{'>'} RESOLUTION_PROTOCOL.SOL</h3>
+                      <div className="terminal-card border border-blue-500/30">
+                        <div className="p-4">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-xl">
+                              🔗
+                            </div>
+                            <div>
+                              <div className="font-medium font-mono text-blue-400">Chainlink_Oracle.exe</div>
+                              <div className="text-sm text-gray-400 font-mono">Automated price resolution via Chainlink oracle</div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -195,26 +242,25 @@ export default function MarketDetailPreview() {
 
                 {activeTab === 'positions' && (
                   <div className="space-y-4">
+                    <h3 className="text-lg font-semibold font-mono text-yellow-400">{'>'} MY_POSITIONS.DB</h3>
                     {marketData.positions.map((position, i) => (
-                      <div key={i} className="bg-black/30 rounded-xl p-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="font-medium">{position.outcome}</div>
-                          <div className={position.pnl.startsWith('+') ? 'text-green-400' : 'text-red-400'}>
-                            {position.pnl}
+                      <div key={i} className="terminal-card border border-yellow-500/30">
+                        <div className="p-4">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-mono text-white">{position.outcome}_SHARES.EXE</span>
+                            <span className={`font-mono ${position.pnl.startsWith('+') ? 'text-green-400' : 'text-red-400'}`}>
+                              {position.pnl}
+                            </span>
                           </div>
-                        </div>
-                        <div className="grid grid-cols-3 gap-4 text-sm">
-                          <div>
-                            <div className="text-gray-400">Shares</div>
-                            <div>{position.shares}</div>
-                          </div>
-                          <div>
-                            <div className="text-gray-400">Avg Price</div>
-                            <div>${position.avgPrice}</div>
-                          </div>
-                          <div>
-                            <div className="text-gray-400">Current</div>
-                            <div>${position.currentPrice}</div>
+                          <div className="grid grid-cols-2 gap-4 text-sm font-mono">
+                            <div>
+                              <span className="text-gray-400">shares:</span>
+                              <span className="text-white ml-2">{position.shares}</span>
+                            </div>
+                            <div>
+                              <span className="text-gray-400">avg_price:</span>
+                              <span className="text-white ml-2">${position.avgPrice}</span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -223,70 +269,52 @@ export default function MarketDetailPreview() {
                 )}
 
                 {activeTab === 'comments' && (
-                  <div className="space-y-6">
-                    <div className="flex space-x-4">
-                      <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-xl">
-                        💭
-                      </div>
-                      <textarea
-                        placeholder="Add your thoughts..."
-                        className="flex-1 bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-white"
-                        rows={3}
-                      />
-                    </div>
-                    <div className="space-y-4">
-                      {marketData.comments.map((comment) => (
-                        <div key={comment.id} className="bg-black/30 rounded-xl p-4">
-                          <div className="flex items-start space-x-4">
-                            <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-xl">
-                              {comment.avatar}
-                            </div>
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold font-mono text-cyan-400">{'>'} COMMUNITY_CHAT.LOG</h3>
+                    {marketData.comments.map((comment) => (
+                      <div key={comment.id} className="terminal-card border border-cyan-500/30">
+                        <div className="p-4">
+                          <div className="flex items-start space-x-3">
+                            <span className="text-2xl">{comment.avatar}</span>
                             <div className="flex-1">
-                              <div className="flex items-center justify-between mb-1">
-                                <div className="font-medium">{comment.user}</div>
-                                <div className="text-sm text-gray-400">{comment.timestamp}</div>
+                              <div className="flex items-center space-x-2 mb-1">
+                                <span className="font-mono text-cyan-400">{comment.user}</span>
+                                <span className="text-xs text-gray-500 font-mono">{comment.timestamp}</span>
                               </div>
-                              <p className="text-gray-300 mb-2">{comment.content}</p>
-                              <div className="flex items-center space-x-4 text-sm">
-                                <button className="text-gray-400 hover:text-white">
-                                  👍 {comment.likes}
+                              <p className="text-gray-300 font-mono text-sm">{comment.content}</p>
+                              <div className="flex items-center space-x-2 mt-2">
+                                <button className="text-xs text-gray-400 hover:text-green-400 font-mono">
+                                  ❤️ {comment.likes}
                                 </button>
-                                <button className="text-gray-400 hover:text-white">
-                                  💬 Reply
+                                <button className="text-xs text-gray-400 hover:text-blue-400 font-mono">
+                                  reply.sh
                                 </button>
                               </div>
                             </div>
                           </div>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 )}
 
                 {activeTab === 'activity' && (
                   <div className="space-y-4">
+                    <h3 className="text-lg font-semibold font-mono text-purple-400">{'>'} TRADE_ACTIVITY.LOG</h3>
                     {marketData.orderHistory.map((order, i) => (
-                      <div key={i} className="bg-black/30 rounded-xl p-4">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                          <div>
-                            <div className="text-gray-400 text-sm">Type</div>
-                            <div className={`font-medium ${
-                              order.type === 'Buy' ? 'text-green-400' : 'text-red-400'
-                            }`}>
-                              {order.type}
+                      <div key={i} className="terminal-card border border-purple-500/30">
+                        <div className="p-4">
+                          <div className="flex items-center justify-between">
+                            <div className="font-mono">
+                              <span className={order.type === 'Buy' ? 'text-green-400' : 'text-red-400'}>
+                                {order.type.toUpperCase()}_ORDER.EXE
+                              </span>
+                              <span className="text-white ml-2">{order.outcome}</span>
                             </div>
-                          </div>
-                          <div>
-                            <div className="text-gray-400 text-sm">Amount</div>
-                            <div className="font-medium">{order.amount}</div>
-                          </div>
-                          <div>
-                            <div className="text-gray-400 text-sm">Price</div>
-                            <div className="font-medium">${order.price}</div>
-                          </div>
-                          <div>
-                            <div className="text-gray-400 text-sm">Status</div>
-                            <div className="font-medium text-green-400">{order.status}</div>
+                            <div className="text-right font-mono">
+                              <div className="text-white">{order.amount} @ ${order.price}</div>
+                              <div className="text-xs text-gray-400">{order.timestamp}</div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -294,138 +322,190 @@ export default function MarketDetailPreview() {
                   </div>
                 )}
               </div>
-            </Card>
+            </div>
           </div>
 
-          {/* Trading Interface & Related Markets */}
-          <div className="space-y-6">
-            {/* Trading Interface */}
-            <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
+          {/* Trading Interface Sidebar */}
+          <div className="lg:col-span-1 space-y-6">
+            {/* Terminal Trading Interface */}
+            <div className="terminal-card">
+              <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div className="terminal-text text-sm">trading_terminal.exe</div>
+              </div>
               <div className="p-6">
-                <h2 className="text-lg font-semibold mb-4">Trade</h2>
-                <div className="space-y-4">
-                  {/* Order Type */}
-                  <div>
-                    <div className="flex space-x-2 mb-4">
-                      <Button
-                        variant={orderType === 'buy' ? 'success' : 'ghost'}
-                        onClick={() => setOrderType('buy')}
-                        className="flex-1"
-                      >
-                        Buy
-                      </Button>
-                      <Button
-                        variant={orderType === 'sell' ? 'danger' : 'ghost'}
-                        onClick={() => setOrderType('sell')}
-                        className="flex-1"
-                      >
-                        Sell
-                      </Button>
-                    </div>
-                  </div>
+                <h2 className="text-lg font-semibold mb-4 font-mono text-green-400">{'>'} PLACE_ORDER.SH</h2>
+                
+                {/* Order Type Toggle */}
+                <div className="flex space-x-2 mb-4">
+                  {['buy', 'sell'].map((type) => (
+                    <button
+                      key={type}
+                      onClick={() => setOrderType(type)}
+                      className={`flex-1 py-2 px-4 rounded font-mono text-sm ${
+                        orderType === type
+                          ? type === 'buy' ? 'btn-degen text-black' : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                          : 'btn-degen-secondary'
+                      }`}
+                    >
+                      {type.toUpperCase()}.EXE
+                    </button>
+                  ))}
+                </div>
 
-                  {/* Outcome Selection */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">
-                      Outcome
-                    </label>
-                    <div className="flex space-x-2">
-                      <Button
-                        variant={outcome === 'Yes' ? 'primary' : 'ghost'}
-                        onClick={() => setOutcome('Yes')}
-                        className="flex-1"
+                {/* Outcome Selection */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-400 mb-2 font-mono">outcome_selection:</label>
+                  <div className="flex space-x-2">
+                    {['Yes', 'No'].map((option) => (
+                      <button
+                        key={option}
+                        onClick={() => setOutcome(option)}
+                        className={`flex-1 py-2 px-4 rounded font-mono text-sm ${
+                          outcome === option
+                            ? 'btn-degen text-black'
+                            : 'btn-degen-secondary'
+                        }`}
                       >
-                        Yes
-                      </Button>
-                      <Button
-                        variant={outcome === 'No' ? 'primary' : 'ghost'}
-                        onClick={() => setOutcome('No')}
-                        className="flex-1"
-                      >
-                        No
-                      </Button>
-                    </div>
+                        {option}
+                      </button>
+                    ))}
                   </div>
+                </div>
 
-                  {/* Amount Input */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">
-                      Amount (DINO)
-                    </label>
+                {/* Amount Input */}
+                <div className="mb-4">
+                  <label htmlFor="amount" className="block text-sm font-medium text-gray-400 mb-2 font-mono">
+                    amount_usdc:
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-3 text-green-400 font-mono">$</span>
                     <input
                       type="number"
+                      id="amount"
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
-                      className="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-white"
                       placeholder="0.00"
+                      className="bg-black/30 border border-green-500/30 text-green-400 rounded font-mono w-full pl-8 pr-4 py-3 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 placeholder-gray-500"
                     />
                   </div>
+                </div>
 
-                  {/* Limit Price */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">
-                      Limit Price
-                    </label>
+                {/* Limit Price */}
+                <div className="mb-4">
+                  <label htmlFor="limitPrice" className="block text-sm font-medium text-gray-400 mb-2 font-mono">
+                    limit_price:
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-3 text-green-400 font-mono">$</span>
                     <input
                       type="number"
+                      id="limitPrice"
                       value={limitPrice}
                       onChange={(e) => setLimitPrice(e.target.value)}
-                      className="w-full bg-black/30 border border-gray-700 rounded-xl px-4 py-3 text-white"
-                      placeholder="0.00"
+                      placeholder="0.65"
+                      className="bg-black/30 border border-green-500/30 text-green-400 rounded font-mono w-full pl-8 pr-4 py-3 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20 placeholder-gray-500"
                     />
                   </div>
+                </div>
 
-                  {/* Order Summary */}
-                  <div className="bg-black/30 rounded-xl p-4 space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">Est. Cost</span>
-                      <span>1,000 DINO</span>
+                {/* Trade Summary */}
+                <div className="bg-black/30 rounded p-3 mb-4 border border-green-500/20">
+                  <div className="text-xs font-mono space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">estimated_shares:</span>
+                      <span className="text-white">1,538</span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">Est. Fee</span>
-                      <span>2 DINO</span>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">avg_price:</span>
+                      <span className="text-white">$0.65</span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">Max Return</span>
-                      <span className="text-green-400">+500 DINO</span>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">slippage:</span>
+                      <span className="text-yellow-400">~0.1%</span>
+                    </div>
+                    <div className="flex justify-between border-t border-gray-600 pt-1">
+                      <span className="text-gray-400">total_cost:</span>
+                      <span className="text-green-400">$1,000.00</span>
                     </div>
                   </div>
+                </div>
 
-                  <Button
-                    variant={orderType === 'buy' ? 'success' : 'danger'}
-                    className="w-full"
-                  >
-                    {orderType === 'buy' ? 'Place Buy Order' : 'Place Sell Order'}
-                  </Button>
+                {/* Execute Button */}
+                <button className="w-full btn-degen py-3 font-mono text-black font-bold">
+                  EXECUTE_TRADE.SH
+                </button>
+              </div>
+            </div>
+
+            {/* Terminal Market Stats */}
+            <div className="terminal-card">
+              <div className="flex items-center justify-between p-3 border-b border-green-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                </div>
+                <div className="terminal-text text-xs">market_stats.py</div>
+              </div>
+              <div className="p-4">
+                <h3 className="font-mono font-bold mb-3 text-blue-400">{'>'} QUICK_STATS.EXE</h3>
+                <div className="space-y-3 text-sm font-mono">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">total_traders:</span>
+                    <span className="text-white">2,543</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">yes_probability:</span>
+                    <span className="text-green-400">65%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">no_probability:</span>
+                    <span className="text-red-400">35%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">market_cap:</span>
+                    <span className="text-purple-400">$3.2M</span>
+                  </div>
                 </div>
               </div>
-            </Card>
+            </div>
 
-            {/* Related Markets */}
-            <Card className="bg-gray-800/50 backdrop-blur-xl border-gray-700/50">
-              <div className="p-6">
-                <h2 className="text-lg font-semibold mb-4">Related Markets</h2>
-                <div className="space-y-4">
-                  {marketData.relatedMarkets.map((market) => (
-                    <Link
-                      key={market.id}
-                      href={`/markets/${market.id}`}
-                      className="block bg-black/30 rounded-xl p-4 hover:bg-black/40 transition-colors"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="font-medium">{market.title}</div>
-                        <div className={market.change.startsWith('+') ? 'text-green-400' : 'text-red-400'}>
-                          {market.change}
+            {/* Terminal Related Markets */}
+            <div className="terminal-card">
+              <div className="flex items-center justify-between p-3 border-b border-green-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                </div>
+                <div className="terminal-text text-xs">related_markets.db</div>
+              </div>
+              <div className="p-4">
+                <h3 className="font-mono font-bold mb-3 text-orange-400">{'>'} RELATED_MARKETS.SH</h3>
+                <div className="space-y-2">
+                  {marketData.relatedMarkets.map((related) => (
+                    <Link key={related.id} href={`/markets/${related.id}`}>
+                      <div className="bg-black/30 rounded p-3 hover:bg-black/50 transition-colors border border-gray-700 hover:border-green-500/30">
+                        <div className="text-sm font-mono">
+                          <div className="text-white mb-1">{related.title}</div>
+                          <div className="flex justify-between text-xs">
+                            <span className="text-green-400">${related.price}</span>
+                            <span className={related.change.startsWith('+') ? 'text-green-400' : 'text-red-400'}>
+                              {related.change}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="text-sm text-gray-400">
-                        Current Price: ${market.price}
                       </div>
                     </Link>
                   ))}
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { Skeleton } from '../ui/interactive';
-import { Card } from '../ui/containers';
+import { Skeleton } from '@/components/ui/interactive/index';
+import { Card } from '@/components/ui/containers';
 
 // Order type definition
 interface Order {
@@ -53,35 +53,32 @@ export function OrderBook({
   // Loading state
   if (isLoading) {
     return (
-      <Card>
-        <div className="p-4">
-          <h3 className="text-lg font-medium text-white mb-4">Order Book</h3>
-          <div className="space-y-2">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Skeleton key={`ask-${i}`} width="100%" height="24px" />
-            ))}
-            <div className="py-4">
-              <Skeleton width="80%" height="32px" />
-            </div>
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Skeleton key={`bid-${i}`} width="100%" height="24px" />
-            ))}
+      <div className="p-6">
+        <h3 className="text-lg font-mono font-bold text-green-400 mb-4">ORDER_BOOK.DAT</h3>
+        <div className="space-y-2">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={`ask-${i}`} width="100%" height="24px" />
+          ))}
+          <div className="py-4">
+            <Skeleton width="80%" height="32px" />
           </div>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={`bid-${i}`} width="100%" height="24px" />
+          ))}
         </div>
-      </Card>
+      </div>
     );
   }
   
   return (
-    <Card>
-      <div className="p-4">
-        <h3 className="text-lg font-medium text-white mb-4">Order Book</h3>
+    <div className="p-6">
+      <h3 className="text-lg font-mono font-bold text-green-400 mb-4">ORDER_BOOK.DAT</h3>
         
         {/* Column Headers */}
-        <div className="grid grid-cols-3 text-xs text-gray-400 mb-2">
-          <div>Price</div>
-          <div className="text-right">Quantity</div>
-          <div className="text-right">Total</div>
+        <div className="grid grid-cols-3 text-xs text-gray-400 mb-3 font-mono border-b border-green-500/20 pb-2">
+          <div>PRICE</div>
+          <div className="text-right">QTY</div>
+          <div className="text-right">TOTAL</div>
         </div>
         
         {/* Asks (Sell Orders) - Displayed in reverse order (highest first) */}
@@ -89,26 +86,26 @@ export function OrderBook({
           {asks.slice(0, maxOrdersToShow).map((order, index) => (
             <div 
               key={`ask-${index}`}
-              className={`grid grid-cols-3 text-sm py-1 relative cursor-pointer hover:bg-gray-800/30 ${order.isMine && showMyOrders ? 'border-l-2 border-blue-500' : ''}`}
+              className={`grid grid-cols-3 text-sm py-2 px-2 relative cursor-pointer hover:bg-green-500/5 rounded font-mono transition-colors ${order.isMine && showMyOrders ? 'border-l-2 border-green-500' : ''}`}
               onClick={() => onOrderClick && onOrderClick(order, 'ask')}
             >
               {/* Background bar for depth visualization */}
               <div 
-                className="absolute right-0 top-0 bottom-0 bg-red-700/20"
+                className="absolute right-0 top-0 bottom-0 bg-red-500/10 rounded-r"
                 style={{ width: `${(order.total / maxTotal) * 100}%` }}
               ></div>
               
               <div className="text-red-400 relative z-10">{formatPrice(order.price)}</div>
-              <div className="text-right relative z-10">{formatQuantity(order.quantity)}</div>
-              <div className="text-right relative z-10">{formatQuantity(order.total)}</div>
+              <div className="text-right relative z-10 text-gray-300">{formatQuantity(order.quantity)}</div>
+              <div className="text-right relative z-10 text-gray-300">{formatQuantity(order.total)}</div>
             </div>
           ))}
         </div>
         
         {/* Spread */}
-        <div className="py-2 px-3 mb-4 bg-gray-800/30 rounded text-center">
-          <span className="text-gray-400 text-sm">Spread: </span>
-          <span className="text-white font-medium">${spread.toFixed(3)} ({(spread * 100).toFixed(2)}%)</span>
+        <div className="py-3 px-3 mb-4 bg-black/30 rounded border border-green-500/30 text-center">
+          <span className="text-gray-400 text-sm font-mono">SPREAD: </span>
+          <span className="text-green-400 font-medium font-mono">${spread.toFixed(3)} ({(spread * 100).toFixed(2)}%)</span>
         </div>
         
         {/* Bids (Buy Orders) */}
@@ -116,28 +113,27 @@ export function OrderBook({
           {bids.slice(0, maxOrdersToShow).map((order, index) => (
             <div 
               key={`bid-${index}`}
-              className={`grid grid-cols-3 text-sm py-1 relative cursor-pointer hover:bg-gray-800/30 ${order.isMine && showMyOrders ? 'border-l-2 border-blue-500' : ''}`}
+              className={`grid grid-cols-3 text-sm py-2 px-2 relative cursor-pointer hover:bg-green-500/5 rounded font-mono transition-colors ${order.isMine && showMyOrders ? 'border-l-2 border-green-500' : ''}`}
               onClick={() => onOrderClick && onOrderClick(order, 'bid')}
             >
               {/* Background bar for depth visualization */}
               <div 
-                className="absolute right-0 top-0 bottom-0 bg-green-700/20"
+                className="absolute right-0 top-0 bottom-0 bg-green-500/10 rounded-r"
                 style={{ width: `${(order.total / maxTotal) * 100}%` }}
               ></div>
               
               <div className="text-green-400 relative z-10">{formatPrice(order.price)}</div>
-              <div className="text-right relative z-10">{formatQuantity(order.quantity)}</div>
-              <div className="text-right relative z-10">{formatQuantity(order.total)}</div>
+              <div className="text-right relative z-10 text-gray-300">{formatQuantity(order.quantity)}</div>
+              <div className="text-right relative z-10 text-gray-300">{formatQuantity(order.total)}</div>
             </div>
           ))}
         </div>
         
         {bids.length === 0 && asks.length === 0 && (
-          <div className="py-12 text-center text-gray-400">
-            No orders in the book
+          <div className="py-12 text-center text-gray-400 font-mono">
+            {'>'} No orders in the book
           </div>
         )}
-      </div>
-    </Card>
+    </div>
   );
 } 

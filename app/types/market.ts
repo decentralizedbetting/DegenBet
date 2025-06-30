@@ -58,6 +58,7 @@ export interface Market {
   comments: MarketComment[];
   tags: string[];
   imageUrl?: string;
+  featured?: boolean;
   resolutionDetails?: {
     resolvedOutcome?: string;
     resolutionSource?: string;
