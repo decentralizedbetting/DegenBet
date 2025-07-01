@@ -407,14 +407,14 @@
 }
 
 /* Performance optimizations */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
-}
-
+  
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .terminal-card {
@@ -431,18 +431,18 @@
   
   .container {
     @apply px-3;
-  }
-  
+}
+
   /* Mobile terminal optimizations */
   .terminal-text {
     @apply text-xs;
-  }
-  
+}
+
   /* Better mobile grid spacing */
   .grid {
     @apply gap-4;
-  }
-  
+}
+
   /* Mobile-friendly search and inputs */
   input[type="text"], select {
     @apply text-sm py-3;

@@ -1,406 +1,1523 @@
-import type { Market } from '@/types/market';
-import { slugify } from '@/lib/utils';
+import type { Market } from '@/_shared/types/market';
+import { slugify } from '@/_shared/lib/utils';
 
 export const sampleMarkets: Market[] = [
+  // FEATURED HIGH-VOLUME MARKETS
   {
-    id: '1',
-    title: 'Will Bitcoin reach $100,000 by the end of 2024?',
-    description: 'Predict whether Bitcoin will reach the $100,000 milestone by December 31, 2024.',
-    category: 'crypto',
+    id: 'nyc-mayor-2025',
+    title: 'NYC Mayoral Election 2025',
+    description: 'Who will be the next Mayor of New York City? The race is heating up with progressive candidate Zohran Mamdani leading in the polls.',
+    category: 'politics',
     status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2024-03-20T00:00:00Z',
-    endDate: '2024-12-31T23:59:59Z',
+    resolutionType: 'multiple-choice',
+    createdAt: '2024-12-15T00:00:00Z',
+    endDate: '2025-11-05T23:59:59Z',
     creator: {
       id: 'user1',
-      username: 'crypto_analyst',
-      reputation: 95
+      username: 'degen_political_whale',
+      reputation: 98
     },
     outcomes: [
       {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.65,
-        price: 0.65,
-        volume: 150000
+        id: 'mamdani',
+        label: 'Zohran Mamdani',
+        probability: 0.68,
+        price: 0.68,
+        volume: 31960000
       },
       {
-        id: 'no',
-        label: 'No',
-        probability: 0.35,
-        price: 0.35,
-        volume: 80000
+        id: 'adams',
+        label: 'Eric Adams',
+        probability: 0.22,
+        price: 0.22,
+        volume: 10340000
+      },
+      {
+        id: 'cuomo',
+        label: 'Andrew Cuomo',
+        probability: 0.08,
+        price: 0.08,
+        volume: 3760000
+      },
+      {
+        id: 'sliwa',
+        label: 'Curtis Sliwa',
+        probability: 0.02,
+        price: 0.02,
+        volume: 940000
       }
     ],
-    totalVolume: 230000,
-    liquidity: 50000,
+    totalVolume: 47000000,
+    liquidity: 15000000,
     comments: [
       {
         id: 'comment1',
         userId: 'user2',
-        username: 'trader_jane',
-        content: 'Strong technical indicators suggest this is likely',
-        timestamp: '2024-03-20T10:30:00Z',
-        likes: 12
+        username: 'nyc_degen_trader',
+        content: 'MAMDANI TO THE MOON 🚀 Progressive wave incoming',
+        timestamp: '2024-12-20T10:30:00Z',
+        likes: 847
       }
     ],
-    tags: ['bitcoin', 'crypto', 'price-prediction'],
-    imageUrl: '/images/bitcoin.svg',
-    featured: true
-  },
-  {
-    id: '2',
-    title: 'Who will win the 2024 US Presidential Election?',
-    description: 'Predict the winner of the 2024 US Presidential Election.',
-    category: 'politics',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-03-19T00:00:00Z',
-    endDate: '2024-11-05T23:59:59Z',
-    creator: {
-      id: 'user2',
-      username: 'political_analyst',
-      reputation: 88
-    },
-    outcomes: [
-      {
-        id: 'candidate1',
-        label: 'Democratic Nominee',
-        probability: 0.45,
-        price: 0.45,
-        volume: 200000
-      },
-      {
-        id: 'candidate2',
-        label: 'Republican Nominee',
-        probability: 0.40,
-        price: 0.40,
-        volume: 180000
-      },
-      {
-        id: 'candidate3',
-        label: 'Independent/Third Party',
-        probability: 0.15,
-        price: 0.15,
-        volume: 60000
-      }
-    ],
-    totalVolume: 440000,
-    liquidity: 100000,
-    comments: [],
-    tags: ['politics', 'election', '2024'],
+    tags: ['politics', 'nyc', 'mayor', 'election-2025'],
     imageUrl: '/images/election.svg',
     featured: true
   },
   {
-    id: '3',
-    title: 'What will be the global average temperature in 2024?',
-    description: 'Predict the global average temperature for 2024 (in Celsius).',
-    category: 'science',
+    id: 'btc-july-1-2025',
+    title: 'Bitcoin Price July 1, 2025',
+    description: 'What will be the price of Bitcoin on July 1st, 2025? Currently trading around $106k with massive institutional adoption.',
+    category: 'crypto',
     status: 'active',
     resolutionType: 'scalar',
-    createdAt: '2024-03-18T00:00:00Z',
-    endDate: '2024-12-31T23:59:59Z',
+    createdAt: '2024-12-01T00:00:00Z',
+    endDate: '2025-07-01T23:59:59Z',
     creator: {
       id: 'user3',
-      username: 'climate_expert',
-      reputation: 92
+      username: 'diamond_hands_whale',
+      reputation: 97
     },
     outcomes: [
       {
-        id: 'range1',
-        label: '14.0-14.5°C',
-        probability: 0.30,
-        price: 0.30,
-        volume: 90000
+        id: 'btc-under-102k',
+        label: '<$102k',
+        probability: 0.01,
+        price: 0.01,
+        volume: 250000
       },
       {
-        id: 'range2',
-        label: '14.5-15.0°C',
-        probability: 0.45,
-        price: 0.45,
-        volume: 135000
+        id: 'btc-102-104k',
+        label: '$102-104k',
+        probability: 0.03,
+        price: 0.03,
+        volume: 750000
       },
       {
-        id: 'range3',
-        label: '15.0-15.5°C',
-        probability: 0.25,
-        price: 0.25,
-        volume: 75000
+        id: 'btc-104-106k',
+        label: '$104-106k',
+        probability: 0.18,
+        price: 0.18,
+        volume: 4500000
+      },
+      {
+        id: 'btc-106-108k',
+        label: '$106-108k',
+        probability: 0.73,
+        price: 0.73,
+        volume: 18250000
+      },
+      {
+        id: 'btc-over-108k',
+        label: '>$108k',
+        probability: 0.05,
+        price: 0.05,
+        volume: 1250000
       }
     ],
-    totalVolume: 300000,
-    liquidity: 75000,
+    totalVolume: 25000000,
+    liquidity: 8000000,
     comments: [],
-    tags: ['climate', 'temperature', 'science'],
-    imageUrl: '/images/placeholder.svg',
+    tags: ['bitcoin', 'btc', 'price-prediction', 'crypto'],
+    imageUrl: '/images/bitcoin.svg',
     featured: true
   },
   {
-    id: '4',
-    title: 'Will Ethereum transition to full EIP-4844 implementation by September 2024?',
-    description: 'Market resolves to "Yes" if Ethereum successfully implements and activates EIP-4844 (Proto-Danksharding) on mainnet by September 30th, 2024.',
-    category: 'crypto',
+    id: 'fed-rate-july-2025',
+    title: 'Fed Rate Decision July 2025',
+    description: 'What will the Federal Reserve decide on interest rates in July 2025? Current inflation trends suggest continued easing.',
+    category: 'finance',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2024-12-10T00:00:00Z',
+    endDate: '2025-07-31T23:59:59Z',
+    creator: {
+      id: 'user4',
+      username: 'fed_watch_degen',
+      reputation: 94
+    },
+    outcomes: [
+      {
+        id: 'decrease-50-plus',
+        label: '50+ bps decrease',
+        probability: 0.03,
+        price: 0.03,
+        volume: 600000
+      },
+      {
+        id: 'decrease-25',
+        label: '25 bps decrease',
+        probability: 0.17,
+        price: 0.17,
+        volume: 3400000
+      },
+      {
+        id: 'no-change',
+        label: 'No change',
+        probability: 0.78,
+        price: 0.78,
+        volume: 15600000
+      },
+      {
+        id: 'increase-25-plus',
+        label: '25+ bps increase',
+        probability: 0.02,
+        price: 0.02,
+        volume: 400000
+      }
+    ],
+    totalVolume: 20000000,
+    liquidity: 6000000,
+    comments: [],
+    tags: ['finance', 'fed', 'interest-rates', 'monetary-policy'],
+    imageUrl: '/images/placeholder.svg',
+    featured: true
+  },
+
+  // BINARY YES/NO MARKETS
+  {
+    id: 'israel-hamas-ceasefire-july',
+    title: 'Israel-Hamas Ceasefire by July 15?',
+    description: 'Will Israel and Hamas reach a formal ceasefire agreement by July 15, 2025?',
+    category: 'politics',
     status: 'active',
     resolutionType: 'binary',
-    createdAt: '2024-03-01T00:00:00Z',
-    endDate: '2024-09-30T23:59:59Z',
+    createdAt: '2024-12-15T00:00:00Z',
+    endDate: '2025-07-15T23:59:59Z',
     creator: {
-      id: 'user3',
-      username: 'ethereum_dev',
-      reputation: 94
+      id: 'user5',
+      username: 'geopolitical_degen',
+      reputation: 91
     },
     outcomes: [
       {
         id: 'yes',
         label: 'Yes',
-        probability: 0.80,
-        price: 0.80,
-        volume: 1200000
+        probability: 0.81,
+        price: 0.81,
+        volume: 14580000
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.20,
-        price: 0.20,
-        volume: 300000
+        probability: 0.19,
+        price: 0.19,
+        volume: 3420000
       }
     ],
-    totalVolume: 1500000,
-    liquidity: 750000,
+    totalVolume: 18000000,
+    liquidity: 5000000,
     comments: [],
-    tags: ['ethereum', 'eip-4844', 'proto-danksharding'],
-    imageUrl: '/images/ethereum.svg'
+    tags: ['politics', 'israel', 'hamas', 'ceasefire', 'middle-east'],
+    imageUrl: '/images/placeholder.svg'
   },
   {
-    id: '5',
-    title: 'Will global AI regulation framework be adopted by 20+ countries in 2024?',
-    description: 'This market resolves to "Yes" if 20 or more countries adopt a unified AI regulation framework by the end of 2024.',
+    id: 'tesla-robotaxi-august',
+    title: 'Tesla Robotaxi Launch by August?',
+    description: 'Will Tesla launch a fully autonomous robotaxi service to the public by August 2025?',
     category: 'technology',
     status: 'active',
     resolutionType: 'binary',
-    createdAt: '2024-02-15T00:00:00Z',
-    endDate: '2024-12-31T23:59:59Z',
+    createdAt: '2024-12-20T00:00:00Z',
+    endDate: '2025-08-31T23:59:59Z',
     creator: {
-      id: 'user4',
-      username: 'tech_policy_expert',
+      id: 'user6',
+      username: 'tesla_moon_boy',
       reputation: 89
     },
     outcomes: [
       {
         id: 'yes',
         label: 'Yes',
-        probability: 0.35,
-        price: 0.35,
-        volume: 700000
+        probability: 0.15,
+        price: 0.15,
+        volume: 1200000
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.65,
-        price: 0.65,
-        volume: 1300000
+        probability: 0.85,
+        price: 0.85,
+        volume: 6800000
       }
     ],
-    totalVolume: 2000000,
-    liquidity: 500000,
+    totalVolume: 8000000,
+    liquidity: 2500000,
     comments: [],
-    tags: ['ai', 'regulation', 'policy'],
+    tags: ['technology', 'tesla', 'autonomous', 'robotaxi'],
     imageUrl: '/images/placeholder.svg'
   },
   {
-    id: 'btc-100k',
-    title: 'Bitcoin to reach $100K by EOY',
-    description: 'Will Bitcoin (BTC) reach a price of $100,000 USD by December 31, 2023?',
-    category: 'crypto',
+    id: 'us-recession-2025',
+    title: 'US Recession in 2025?',
+    description: 'Will the United States officially enter a recession (two consecutive quarters of negative GDP growth) in 2025?',
+    category: 'finance',
     status: 'active',
     resolutionType: 'binary',
-    createdAt: '2023-01-15T00:00:00Z',
-    endDate: '2023-12-31T23:59:59Z',
+    createdAt: '2024-12-01T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
     creator: {
-      id: 'user5',
-      username: 'btc_enthusiast',
-      reputation: 87
+      id: 'user7',
+      username: 'macro_bear_degen',
+      reputation: 93
     },
     outcomes: [
       {
         id: 'yes',
         label: 'Yes',
-        probability: 0.42,
-        price: 0.42,
-        volume: 1234567
+        probability: 0.28,
+        price: 0.28,
+        volume: 4200000
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.58,
-        price: 0.58,
-        volume: 987654
+        probability: 0.72,
+        price: 0.72,
+        volume: 10800000
       }
     ],
-    totalVolume: 1234567,
-    liquidity: 500000,
+    totalVolume: 15000000,
+    liquidity: 4500000,
     comments: [],
-    tags: ['bitcoin', 'price-prediction'],
-    imageUrl: '/images/bitcoin.svg'
+    tags: ['finance', 'recession', 'economy', 'gdp'],
+    imageUrl: '/images/placeholder.svg'
   },
   {
-    id: 'eth-merge',
-    title: 'ETH to gain 50% after merge',
-    description: 'Will Ethereum (ETH) gain at least 50% in value within 3 months after the Shanghai upgrade?',
+    id: 'btc-above-105k-july',
+    title: 'Bitcoin Above $105k on July 1?',
+    description: 'Will Bitcoin be trading above $105,000 on July 1st, 2025?',
     category: 'crypto',
     status: 'active',
     resolutionType: 'binary',
-    createdAt: '2023-02-20T00:00:00Z',
-    endDate: '2023-10-15T23:59:59Z',
+    createdAt: '2024-12-15T00:00:00Z',
+    endDate: '2025-07-01T23:59:59Z',
     creator: {
-      id: 'user6',
-      username: 'eth_developer',
+      id: 'user8',
+      username: 'btc_hopium_dealer',
+      reputation: 96
+    },
+    outcomes: [
+      {
+        id: 'yes',
+        label: 'Yes',
+        probability: 0.94,
+        price: 0.94,
+        volume: 7520000
+      },
+      {
+        id: 'no',
+        label: 'No',
+        probability: 0.06,
+        price: 0.06,
+        volume: 480000
+      }
+    ],
+    totalVolume: 8000000,
+    liquidity: 2400000,
+    comments: [],
+    tags: ['bitcoin', 'btc', 'price-prediction', 'crypto'],
+    imageUrl: '/images/bitcoin.svg'
+  },
+  {
+    id: 'solana-etf-july',
+    title: 'Solana ETF Approved by July 31?',
+    description: 'Will the SEC approve a spot Solana ETF by July 31, 2025?',
+    category: 'crypto',
+    status: 'active',
+    resolutionType: 'binary',
+    createdAt: '2024-12-10T00:00:00Z',
+    endDate: '2025-07-31T23:59:59Z',
+    creator: {
+      id: 'user9',
+      username: 'sol_gang_leader',
       reputation: 92
     },
     outcomes: [
       {
         id: 'yes',
         label: 'Yes',
-        probability: 0.78,
-        price: 0.78,
-        volume: 987654
+        probability: 0.97,
+        price: 0.97,
+        volume: 4850000
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.22,
-        price: 0.22,
-        volume: 456789
+        probability: 0.03,
+        price: 0.03,
+        volume: 150000
       }
     ],
-    totalVolume: 987654,
-    liquidity: 400000,
+    totalVolume: 5000000,
+    liquidity: 1500000,
     comments: [],
-    tags: ['ethereum', 'merge', 'defi'],
-    imageUrl: '/images/ethereum.svg'
+    tags: ['solana', 'sol', 'etf', 'sec', 'crypto'],
+    imageUrl: '/images/placeholder.svg'
+  },
+
+  // SPORTS & ENTERTAINMENT
+  {
+    id: 'wimbledon-mens-2025',
+    title: '2025 Wimbledon Men\'s Winner',
+    description: 'Who will win the 2025 Wimbledon Men\'s Singles Championship?',
+    category: 'sports',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2024-12-01T00:00:00Z',
+    endDate: '2025-07-15T23:59:59Z',
+    creator: {
+      id: 'user10',
+      username: 'tennis_degen_king',
+      reputation: 88
+    },
+    outcomes: [
+      {
+        id: 'alcaraz',
+        label: 'Carlos Alcaraz',
+        probability: 0.41,
+        price: 0.41,
+        volume: 4920000
+      },
+      {
+        id: 'sinner',
+        label: 'Jannik Sinner',
+        probability: 0.34,
+        price: 0.34,
+        volume: 4080000
+      },
+      {
+        id: 'djokovic',
+        label: 'Novak Djokovic',
+        probability: 0.16,
+        price: 0.16,
+        volume: 1920000
+      },
+      {
+        id: 'draper',
+        label: 'Jack Draper',
+        probability: 0.05,
+        price: 0.05,
+        volume: 600000
+      },
+      {
+        id: 'others',
+        label: 'Others',
+        probability: 0.04,
+        price: 0.04,
+        volume: 480000
+      }
+    ],
+    totalVolume: 12000000,
+    liquidity: 3600000,
+    comments: [],
+    tags: ['sports', 'tennis', 'wimbledon', 'grand-slam'],
+    imageUrl: '/images/sports.svg'
   },
   {
-    id: 'fed-rates',
-    title: 'Fed to cut rates in Q3',
-    description: 'Will the Federal Reserve announce an interest rate cut during Q3 2023?',
+    id: 'world-series-2025',
+    title: 'World Series Champion 2025',
+    description: 'Which team will win the 2025 MLB World Series?',
+    category: 'sports',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2024-11-15T00:00:00Z',
+    endDate: '2025-11-01T23:59:59Z',
+    creator: {
+      id: 'user11',
+      username: 'baseball_whale_69',
+      reputation: 87
+    },
+    outcomes: [
+      {
+        id: 'dodgers',
+        label: 'LA Dodgers',
+        probability: 0.28,
+        price: 0.28,
+        volume: 5040000
+      },
+      {
+        id: 'yankees',
+        label: 'NY Yankees',
+        probability: 0.16,
+        price: 0.16,
+        volume: 2880000
+      },
+      {
+        id: 'tigers',
+        label: 'Detroit Tigers',
+        probability: 0.12,
+        price: 0.12,
+        volume: 2160000
+      },
+      {
+        id: 'phillies',
+        label: 'Philadelphia Phillies',
+        probability: 0.08,
+        price: 0.08,
+        volume: 1440000
+      },
+      {
+        id: 'others',
+        label: 'Others',
+        probability: 0.36,
+        price: 0.36,
+        volume: 6480000
+      }
+    ],
+    totalVolume: 18000000,
+    liquidity: 5400000,
+    comments: [],
+    tags: ['sports', 'baseball', 'mlb', 'world-series'],
+    imageUrl: '/images/sports.svg'
+  },
+  {
+    id: 'f1-champion-2025',
+    title: 'F1 Drivers Champion 2025',
+    description: 'Who will win the 2025 Formula 1 World Drivers\' Championship?',
+    category: 'sports',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2024-11-20T00:00:00Z',
+    endDate: '2025-12-01T23:59:59Z',
+    creator: {
+      id: 'user12',
+      username: 'f1_speed_demon',
+      reputation: 90
+    },
+    outcomes: [
+      {
+        id: 'piastri',
+        label: 'Oscar Piastri',
+        probability: 0.56,
+        price: 0.56,
+        volume: 27440000
+      },
+      {
+        id: 'norris',
+        label: 'Lando Norris',
+        probability: 0.37,
+        price: 0.37,
+        volume: 18130000
+      },
+      {
+        id: 'verstappen',
+        label: 'Max Verstappen',
+        probability: 0.05,
+        price: 0.05,
+        volume: 2450000
+      },
+      {
+        id: 'others',
+        label: 'Others',
+        probability: 0.02,
+        price: 0.02,
+        volume: 980000
+      }
+    ],
+    totalVolume: 49000000,
+    liquidity: 14700000,
+    comments: [],
+    tags: ['sports', 'f1', 'formula1', 'racing'],
+    imageUrl: '/images/sports.svg',
+    featured: true
+  },
+
+  // CRYPTO MARKETS
+  {
+    id: 'btc-price-2025-max',
+    title: 'What Price Will Bitcoin Hit in 2025?',
+    description: 'What will be the highest price Bitcoin reaches during 2025? Current ATH is around $108k.',
+    category: 'crypto',
+    status: 'active',
+    resolutionType: 'scalar',
+    createdAt: '2024-12-01T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
+    creator: {
+      id: 'user13',
+      username: 'btc_price_oracle',
+      reputation: 99
+    },
+    outcomes: [
+      {
+        id: 'btc-1m',
+        label: '$1,000,000',
+        probability: 0.02,
+        price: 0.02,
+        volume: 700000
+      },
+      {
+        id: 'btc-250k',
+        label: '$250,000',
+        probability: 0.05,
+        price: 0.05,
+        volume: 1750000
+      },
+      {
+        id: 'btc-200k',
+        label: '$200,000',
+        probability: 0.08,
+        price: 0.08,
+        volume: 2800000
+      },
+      {
+        id: 'btc-150k',
+        label: '$150,000',
+        probability: 0.28,
+        price: 0.28,
+        volume: 9800000
+      },
+      {
+        id: 'btc-130k',
+        label: '$130,000',
+        probability: 0.45,
+        price: 0.45,
+        volume: 15750000
+      },
+      {
+        id: 'btc-120k',
+        label: '$120,000',
+        probability: 0.12,
+        price: 0.12,
+        volume: 4200000
+      }
+    ],
+    totalVolume: 35000000,
+    liquidity: 10500000,
+    comments: [],
+    tags: ['bitcoin', 'btc', 'price-prediction', 'crypto', 'ath'],
+    imageUrl: '/images/bitcoin.svg',
+    featured: true
+  },
+  {
+    id: 'eth-july-1-2025',
+    title: 'Ethereum Price July 1, 2025',
+    description: 'What will be the price of Ethereum on July 1st, 2025?',
+    category: 'crypto',
+    status: 'active',
+    resolutionType: 'scalar',
+    createdAt: '2024-12-15T00:00:00Z',
+    endDate: '2025-07-01T23:59:59Z',
+    creator: {
+      id: 'user14',
+      username: 'eth_whale_2025',
+      reputation: 95
+    },
+    outcomes: [
+      {
+        id: 'eth-under-2200',
+        label: '<$2200',
+        probability: 0.02,
+        price: 0.02,
+        volume: 120000
+      },
+      {
+        id: 'eth-2200-2300',
+        label: '$2200-2300',
+        probability: 0.03,
+        price: 0.03,
+        volume: 180000
+      },
+      {
+        id: 'eth-2300-2400',
+        label: '$2300-2400',
+        probability: 0.12,
+        price: 0.12,
+        volume: 720000
+      },
+      {
+        id: 'eth-2400-2500',
+        label: '$2400-2500',
+        probability: 0.81,
+        price: 0.81,
+        volume: 4860000
+      },
+      {
+        id: 'eth-over-2500',
+        label: '>$2500',
+        probability: 0.02,
+        price: 0.02,
+        volume: 120000
+      }
+    ],
+    totalVolume: 6000000,
+    liquidity: 1800000,
+    comments: [],
+    tags: ['ethereum', 'eth', 'price-prediction', 'crypto'],
+    imageUrl: '/images/ethereum.svg'
+  },
+
+  // POLITICAL MARKETS
+  {
+    id: 'chile-president-2025',
+    title: 'Chile Presidential Election',
+    description: 'Who will win the 2025 Chilean Presidential Election?',
+    category: 'politics',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2024-11-01T00:00:00Z',
+    endDate: '2025-11-30T23:59:59Z',
+    creator: {
+      id: 'user15',
+      username: 'latam_politics_degen',
+      reputation: 86
+    },
+    outcomes: [
+      {
+        id: 'kast',
+        label: 'José Antonio Kast',
+        probability: 0.46,
+        price: 0.46,
+        volume: 3680000
+      },
+      {
+        id: 'matthei',
+        label: 'Evelyn Matthei',
+        probability: 0.28,
+        price: 0.28,
+        volume: 2240000
+      },
+      {
+        id: 'jara',
+        label: 'Jeannette Jara',
+        probability: 0.21,
+        price: 0.21,
+        volume: 1680000
+      },
+      {
+        id: 'others',
+        label: 'Others',
+        probability: 0.05,
+        price: 0.05,
+        volume: 400000
+      }
+    ],
+    totalVolume: 8000000,
+    liquidity: 2400000,
+    comments: [],
+    tags: ['politics', 'chile', 'election', 'latin-america'],
+    imageUrl: '/images/election.svg'
+  },
+
+  // TIME-BASED MARKETS
+  {
+    id: 'reconciliation-bill-timing',
+    title: 'Reconciliation Bill Passed By...?',
+    description: 'When will the reconciliation bill be passed by Congress?',
+    category: 'politics',
+    status: 'active',
+    resolutionType: 'time-based',
+    createdAt: '2024-12-20T00:00:00Z',
+    endDate: '2025-08-31T23:59:59Z',
+    creator: {
+      id: 'user16',
+      username: 'congress_tracker_420',
+      reputation: 84
+    },
+    outcomes: [
+      {
+        id: 'july-3',
+        label: 'July 3',
+        probability: 0.15,
+        price: 0.15,
+        volume: 1200000
+      },
+      {
+        id: 'july-4',
+        label: 'July 4',
+        probability: 0.48,
+        price: 0.48,
+        volume: 3840000
+      },
+      {
+        id: 'july-5',
+        label: 'July 5',
+        probability: 0.32,
+        price: 0.32,
+        volume: 2560000
+      },
+      {
+        id: 'july-31',
+        label: 'July 31',
+        probability: 0.04,
+        price: 0.04,
+        volume: 320000
+      },
+      {
+        id: 'august-31',
+        label: 'August 31',
+        probability: 0.01,
+        price: 0.01,
+        volume: 80000
+      }
+    ],
+    totalVolume: 8000000,
+    liquidity: 2400000,
+    comments: [],
+    tags: ['politics', 'congress', 'reconciliation', 'timing'],
+    imageUrl: '/images/election.svg'
+  },
+  {
+    id: 'gpt5-release-timing',
+    title: 'GPT-5 Released By...?',
+    description: 'When will OpenAI release GPT-5 to the public?',
+    category: 'technology',
+    status: 'active',
+    resolutionType: 'time-based',
+    createdAt: '2024-12-01T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
+    creator: {
+      id: 'user17',
+      username: 'ai_release_tracker',
+      reputation: 91
+    },
+    outcomes: [
+      {
+        id: 'june-30',
+        label: 'June 30',
+        probability: 0.001,
+        price: 0.001,
+        volume: 8000
+      },
+      {
+        id: 'july-31',
+        label: 'July 31',
+        probability: 0.26,
+        price: 0.26,
+        volume: 2080000
+      },
+      {
+        id: 'december-31',
+        label: 'December 31',
+        probability: 0.739,
+        price: 0.739,
+        volume: 5912000
+      }
+    ],
+    totalVolume: 8000000,
+    liquidity: 2400000,
+    comments: [],
+    tags: ['technology', 'ai', 'openai', 'gpt5', 'release'],
+    imageUrl: '/images/placeholder.svg'
+  },
+
+  // ECONOMIC & FINANCE
+  {
+    id: 'fed-rate-cuts-2025',
+    title: 'How Many Fed Rate Cuts in 2025?',
+    description: 'How many times will the Federal Reserve cut interest rates in 2025?',
     category: 'finance',
     status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2023-03-10T00:00:00Z',
-    endDate: '2023-09-30T23:59:59Z',
+    resolutionType: 'scalar',
+    createdAt: '2024-12-01T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
     creator: {
-      id: 'user7',
-      username: 'macro_trader',
+      id: 'user18',
+      username: 'rate_cut_predictor',
+      reputation: 92
+    },
+    outcomes: [
+      {
+        id: 'zero-cuts',
+        label: '0 cuts',
+        probability: 0.12,
+        price: 0.12,
+        volume: 1200000
+      },
+      {
+        id: 'one-cut',
+        label: '1 cut (25 bps)',
+        probability: 0.19,
+        price: 0.19,
+        volume: 1900000
+      },
+      {
+        id: 'two-cuts',
+        label: '2 cuts (50 bps)',
+        probability: 0.41,
+        price: 0.41,
+        volume: 4100000
+      },
+      {
+        id: 'three-cuts',
+        label: '3 cuts (75 bps)',
+        probability: 0.18,
+        price: 0.18,
+        volume: 1800000
+      },
+      {
+        id: 'four-plus-cuts',
+        label: '4+ cuts',
+        probability: 0.10,
+        price: 0.10,
+        volume: 1000000
+      }
+    ],
+    totalVolume: 10000000,
+    liquidity: 3000000,
+    comments: [],
+    tags: ['finance', 'fed', 'interest-rates', 'monetary-policy'],
+    imageUrl: '/images/placeholder.svg'
+  },
+
+  // TECHNOLOGY & AI
+  {
+    id: 'best-ai-model-july-2025',
+    title: 'Best AI Model End of July 2025',
+    description: 'Which company will have the most advanced AI model by the end of July 2025?',
+    category: 'technology',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2024-12-15T00:00:00Z',
+    endDate: '2025-08-01T23:59:59Z',
+    creator: {
+      id: 'user19',
+      username: 'ai_model_ranker',
+      reputation: 95
+    },
+    outcomes: [
+      {
+        id: 'google',
+        label: 'Google',
+        probability: 0.68,
+        price: 0.68,
+        volume: 8160000
+      },
+      {
+        id: 'xai',
+        label: 'xAI',
+        probability: 0.22,
+        price: 0.22,
+        volume: 2640000
+      },
+      {
+        id: 'openai',
+        label: 'OpenAI',
+        probability: 0.08,
+        price: 0.08,
+        volume: 960000
+      },
+      {
+        id: 'others',
+        label: 'Others',
+        probability: 0.02,
+        price: 0.02,
+        volume: 240000
+      }
+    ],
+    totalVolume: 12000000,
+    liquidity: 3600000,
+    comments: [],
+    tags: ['technology', 'ai', 'google', 'xai', 'openai'],
+    imageUrl: '/images/placeholder.svg'
+  },
+
+  // GLOBAL EVENTS
+  {
+    id: 'xi-jinping-out-2025',
+    title: 'Xi Jinping Out in 2025?',
+    description: 'Will Xi Jinping step down or be removed from power in China in 2025?',
+    category: 'politics',
+    status: 'active',
+    resolutionType: 'binary',
+    createdAt: '2024-11-15T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
+    creator: {
+      id: 'user20',
+      username: 'china_watcher_degen',
+      reputation: 88
+    },
+    outcomes: [
+      {
+        id: 'yes',
+        label: 'Yes',
+        probability: 0.13,
+        price: 0.13,
+        volume: 780000
+      },
+      {
+        id: 'no',
+        label: 'No',
+        probability: 0.87,
+        price: 0.87,
+        volume: 5220000
+      }
+    ],
+    totalVolume: 6000000,
+    liquidity: 1800000,
+    comments: [],
+    tags: ['politics', 'china', 'xi-jinping', 'leadership'],
+    imageUrl: '/images/placeholder.svg'
+  },
+
+  // DAILY LIVE MARKETS
+  {
+    id: 'btc-up-down-july-1-3am',
+    title: 'Bitcoin Up/Down July 1, 3AM ET',
+    description: 'Will Bitcoin be up or down at 3AM ET on July 1st compared to current price?',
+    category: 'crypto',
+    status: 'active',
+    resolutionType: 'binary',
+    createdAt: '2025-06-30T00:00:00Z',
+    endDate: '2025-07-01T07:00:00Z',
+    creator: {
+      id: 'user21',
+      username: 'scalp_master_9000',
+      reputation: 82
+    },
+    outcomes: [
+      {
+        id: 'up',
+        label: 'Up',
+        probability: 1.00,
+        price: 1.00,
+        volume: 500000
+      },
+      {
+        id: 'down',
+        label: 'Down',
+        probability: 0.00,
+        price: 0.00,
+        volume: 0
+      }
+    ],
+    totalVolume: 500000,
+    liquidity: 150000,
+    comments: [],
+    tags: ['crypto', 'bitcoin', 'short-term', 'live'],
+    imageUrl: '/images/bitcoin.svg'
+  },
+  {
+    id: 'yankees-vs-blue-jays-today',
+    title: 'Yankees vs Blue Jays Today',
+    description: 'Will the New York Yankees beat the Toronto Blue Jays in today\'s game?',
+    category: 'sports',
+    status: 'active',
+    resolutionType: 'binary',
+    createdAt: '2025-07-01T00:00:00Z',
+    endDate: '2025-07-01T23:59:59Z',
+    creator: {
+      id: 'user22',
+      username: 'daily_sports_degen',
+      reputation: 79
+    },
+    outcomes: [
+      {
+        id: 'yankees',
+        label: 'Yankees Win',
+        probability: 0.61,
+        price: 0.61,
+        volume: 122000
+      },
+      {
+        id: 'blue-jays',
+        label: 'Blue Jays Win',
+        probability: 0.39,
+        price: 0.39,
+        volume: 78000
+      }
+    ],
+    totalVolume: 200000,
+    liquidity: 60000,
+    comments: [],
+    tags: ['sports', 'baseball', 'yankees', 'blue-jays', 'daily'],
+    imageUrl: '/images/sports.svg'
+  },
+
+  // ENTERTAINMENT
+  {
+    id: 'highest-grossing-movie-2025',
+    title: 'Highest Grossing Movie 2025',
+    description: 'Which movie will have the highest worldwide box office gross in 2025?',
+    category: 'entertainment',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2024-11-01T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
+    creator: {
+      id: 'user23',
+      username: 'box_office_whale',
       reputation: 85
     },
     outcomes: [
       {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.63,
-        price: 0.63,
-        volume: 765432
+        id: 'minecraft-movie',
+        label: 'A Minecraft Movie',
+        probability: 0.31,
+        price: 0.31,
+        volume: 2790000
       },
       {
-        id: 'no',
-        label: 'No',
-        probability: 0.37,
-        price: 0.37,
-        volume: 345678
+        id: 'zootopia-2',
+        label: 'Zootopia 2',
+        probability: 0.29,
+        price: 0.29,
+        volume: 2610000
+      },
+      {
+        id: 'superman',
+        label: 'Superman',
+        probability: 0.16,
+        price: 0.16,
+        volume: 1440000
+      },
+      {
+        id: 'avatar-3',
+        label: 'Avatar 3',
+        probability: 0.14,
+        price: 0.14,
+        volume: 1260000
+      },
+      {
+        id: 'others',
+        label: 'Others',
+        probability: 0.10,
+        price: 0.10,
+        volume: 900000
       }
     ],
-    totalVolume: 765432,
-    liquidity: 350000,
+    totalVolume: 9000000,
+    liquidity: 2700000,
     comments: [],
-    tags: ['finance', 'fed', 'rates'],
+    tags: ['entertainment', 'movies', 'box-office', 'minecraft', 'disney'],
     imageUrl: '/images/placeholder.svg'
   },
+
+  // UNUSUAL/MEME MARKETS
   {
-    id: 'sol-1000',
-    title: 'Solana to reach $1000',
-    description: 'Will Solana (SOL) reach a price of $1,000 USD before the end of 2023?',
-    category: 'crypto',
+    id: 'jesus-christ-return-2025',
+    title: 'Will Jesus Christ Return in 2025?',
+    description: 'Will the Second Coming of Jesus Christ occur in 2025? Market resolves based on global consensus.',
+    category: 'other',
     status: 'active',
     resolutionType: 'binary',
-    createdAt: '2023-04-05T00:00:00Z',
-    endDate: '2023-12-31T23:59:59Z',
+    createdAt: '2024-12-01T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
     creator: {
-      id: 'user8',
-      username: 'sol_maximalist',
-      reputation: 78
+      id: 'user24',
+      username: 'apocalypse_trader',
+      reputation: 73
     },
     outcomes: [
       {
         id: 'yes',
         label: 'Yes',
-        probability: 0.24,
-        price: 0.24,
-        volume: 543210
+        probability: 0.02,
+        price: 0.02,
+        volume: 14160
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.76,
-        price: 0.76,
-        volume: 321098
+        probability: 0.98,
+        price: 0.98,
+        volume: 693840
       }
     ],
-    totalVolume: 543210,
-    liquidity: 250000,
+    totalVolume: 708000,
+    liquidity: 212400,
     comments: [],
-    tags: ['solana', 'price-prediction'],
+    tags: ['unusual', 'religion', 'apocalypse', 'meme'],
     imageUrl: '/images/placeholder.svg'
   },
   {
-    id: 'arb-gain',
-    title: 'Arbitrum to gain 100% in Q3',
-    description: 'Will Arbitrum (ARB) gain at least 100% in value during Q3 2023?',
-    category: 'crypto',
+    id: 'what-happens-before-gta-6',
+    title: 'What Will Happen Before GTA VI?',
+    description: 'Which of these events will happen before GTA VI is released?',
+    category: 'other',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2024-11-15T00:00:00Z',
+    endDate: '2026-12-31T23:59:59Z',
+    creator: {
+      id: 'user25',
+      username: 'gta6_waiting_room',
+      reputation: 76
+    },
+    outcomes: [
+      {
+        id: 'rihanna-album',
+        label: 'New Rihanna Album',
+        probability: 0.68,
+        price: 0.68,
+        volume: 1360000
+      },
+      {
+        id: 'carti-album',
+        label: 'New Playboi Carti Album',
+        probability: 0.52,
+        price: 0.52,
+        volume: 1040000
+      },
+      {
+        id: 'ukraine-ceasefire',
+        label: 'Russia-Ukraine Ceasefire',
+        probability: 0.47,
+        price: 0.47,
+        volume: 940000
+      },
+      {
+        id: 'china-taiwan',
+        label: 'China Invades Taiwan',
+        probability: 0.19,
+        price: 0.19,
+        volume: 380000
+      },
+      {
+        id: 'btc-1m',
+        label: 'Bitcoin Hits $1m',
+        probability: 0.14,
+        price: 0.14,
+        volume: 280000
+      }
+    ],
+    totalVolume: 2000000,
+    liquidity: 600000,
+    comments: [],
+    tags: ['unusual', 'gta6', 'pop-culture', 'meme'],
+    imageUrl: '/images/placeholder.svg'
+  },
+
+  // TRENDING CURRENT EVENTS (ADDED FROM KALSHI/POLYMARKET)
+  {
+    id: 'israel-hamas-ceasefire-july-end',
+    title: 'Israel-Hamas Ceasefire Announced Before End of July?',
+    description: 'Will Israel and Hamas officially announce a ceasefire agreement before July 31, 2025? This is one of the hottest markets on Polymarket right now.',
+    category: 'politics',
     status: 'active',
     resolutionType: 'binary',
-    createdAt: '2023-05-15T00:00:00Z',
-    endDate: '2023-09-30T23:59:59Z',
+    createdAt: '2025-06-25T00:00:00Z',
+    endDate: '2025-07-31T23:59:59Z',
     creator: {
-      id: 'user9',
-      username: 'arb_investor',
-      reputation: 81
+      id: 'user100',
+      username: 'middle_east_oracle',
+      reputation: 94
     },
     outcomes: [
       {
         id: 'yes',
         label: 'Yes',
-        probability: 0.56,
-        price: 0.56,
-        volume: 432109
+        probability: 0.73,
+        price: 0.73,
+        volume: 12775000
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.44,
-        price: 0.44,
-        volume: 210987
+        probability: 0.27,
+        price: 0.27,
+        volume: 4725000
       }
     ],
-    totalVolume: 432109,
-    liquidity: 200000,
-    comments: [],
-    tags: ['arbitrum', 'layer2', 'defi'],
-    imageUrl: '/images/placeholder.svg'
+    totalVolume: 17500000,
+    liquidity: 5250000,
+    comments: [
+      {
+        id: 'comment100',
+        userId: 'user101',
+        username: 'gaza_trader_420',
+        content: 'CEASEFIRE LOOKING LIKELY 📈 Big money flowing in',
+        timestamp: '2025-06-25T15:30:00Z',
+        likes: 234
+      }
+    ],
+    tags: ['politics', 'israel', 'hamas', 'ceasefire', 'trending', 'polymarket-hot'],
+    imageUrl: '/images/placeholder.svg',
+    featured: true
   },
   {
-    id: 'usdc-recover',
-    title: 'USDC to regain $10B market cap',
-    description: 'Will USD Coin (USDC) regain a market cap of at least $10 billion before the end of 2023?',
+    id: 'nba-draft-top-5-picks-2025',
+    title: 'NBA Top 5 Draft Picks 2025',
+    description: 'Who will be selected in the top 5 picks of the 2025 NBA Draft? Currently trending on both Kalshi and Polymarket.',
+    category: 'sports',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2025-06-20T00:00:00Z',
+    endDate: '2025-06-26T23:59:59Z',
+    creator: {
+      id: 'user102',
+      username: 'draft_king_degen',
+      reputation: 91
+    },
+    outcomes: [
+      {
+        id: 'cooper-flagg',
+        label: 'Cooper Flagg #1',
+        probability: 0.67,
+        price: 0.67,
+        volume: 8710000
+      },
+      {
+        id: 'ace-bailey',
+        label: 'Ace Bailey Top 3',
+        probability: 0.78,
+        price: 0.78,
+        volume: 5460000
+      },
+      {
+        id: 'dylan-harper',
+        label: 'Dylan Harper Top 5',
+        probability: 0.89,
+        price: 0.89,
+        volume: 4230000
+      },
+      {
+        id: 'others',
+        label: 'Others in Top 5',
+        probability: 0.45,
+        price: 0.45,
+        volume: 2600000
+      }
+    ],
+    totalVolume: 13000000,
+    liquidity: 3900000,
+    comments: [],
+    tags: ['sports', 'nba', 'draft', 'basketball', 'trending', 'kalshi-hot'],
+    imageUrl: '/images/sports.svg',
+    featured: true
+  },
+  {
+    id: 'bitcoin-yearly-high-2025',
+    title: 'How High Will Bitcoin Get This Year?',
+    description: 'What will be Bitcoin\'s highest price point in 2025? One of the most active crypto markets on Kalshi right now.',
+    category: 'crypto',
+    status: 'active',
+    resolutionType: 'scalar',
+    createdAt: '2025-06-25T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
+    creator: {
+      id: 'user103',
+      username: 'btc_yearly_tracker',
+      reputation: 98
+    },
+    outcomes: [
+      {
+        id: 'btc-110k',
+        label: '$110,000',
+        probability: 0.15,
+        price: 0.15,
+        volume: 3900000
+      },
+      {
+        id: 'btc-125k',
+        label: '$125,000',
+        probability: 0.28,
+        price: 0.28,
+        volume: 7280000
+      },
+      {
+        id: 'btc-150k',
+        label: '$150,000',
+        probability: 0.34,
+        price: 0.34,
+        volume: 8840000
+      },
+      {
+        id: 'btc-200k',
+        label: '$200,000',
+        probability: 0.18,
+        price: 0.18,
+        volume: 4680000
+      },
+      {
+        id: 'btc-250k-plus',
+        label: '$250,000+',
+        probability: 0.05,
+        price: 0.05,
+        volume: 1300000
+      }
+    ],
+    totalVolume: 26000000,
+    liquidity: 7800000,
+    comments: [],
+    tags: ['crypto', 'bitcoin', 'yearly-high', 'trending', 'kalshi-hot'],
+    imageUrl: '/images/bitcoin.svg',
+    featured: true
+  },
+  {
+    id: 'australian-election-winner-2025',
+    title: 'Australian Election Winner',
+    description: 'Who will win the next Australian federal election? Trending heavily on international prediction markets.',
+    category: 'politics',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2025-06-15T00:00:00Z',
+    endDate: '2026-05-31T23:59:59Z',
+    creator: {
+      id: 'user104',
+      username: 'aussie_politics_whale',
+      reputation: 87
+    },
+    outcomes: [
+      {
+        id: 'labor-albanese',
+        label: 'Labor (Albanese)',
+        probability: 0.58,
+        price: 0.58,
+        volume: 4060000
+      },
+      {
+        id: 'liberal-dutton',
+        label: 'Liberal (Dutton)',
+        probability: 0.39,
+        price: 0.39,
+        volume: 2730000
+      },
+      {
+        id: 'coalition-others',
+        label: 'Coalition/Others',
+        probability: 0.03,
+        price: 0.03,
+        volume: 210000
+      }
+    ],
+    totalVolume: 7000000,
+    liquidity: 2100000,
+    comments: [],
+    tags: ['politics', 'australia', 'election', 'international', 'trending'],
+    imageUrl: '/images/election.svg'
+  },
+  {
+    id: 'crypto-market-cap-3t',
+    title: 'Crypto Market Cap Above $3 Trillion in 2025?',
+    description: 'Will the total cryptocurrency market capitalization exceed $3 trillion before end of 2025?',
     category: 'crypto',
     status: 'active',
     resolutionType: 'binary',
-    createdAt: '2023-06-20T00:00:00Z',
-    endDate: '2023-12-31T23:59:59Z',
+    createdAt: '2025-06-24T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
     creator: {
-      id: 'user10',
-      username: 'stablecoin_tracker',
-      reputation: 79
+      id: 'user105',
+      username: 'total_market_cap_chad',
+      reputation: 93
+    },
+    outcomes: [
+      {
+        id: 'yes',
+        label: 'Yes',
+        probability: 0.72,
+        price: 0.72,
+        volume: 7920000
+      },
+      {
+        id: 'no',
+        label: 'No',
+        probability: 0.28,
+        price: 0.28,
+        volume: 3080000
+      }
+    ],
+    totalVolume: 11000000,
+    liquidity: 3300000,
+    comments: [],
+    tags: ['crypto', 'market-cap', 'total-market', 'trending'],
+    imageUrl: '/images/placeholder.svg'
+  },
+  {
+    id: 'ai-agi-breakthrough-2025',
+    title: 'AGI Breakthrough Announced in 2025?',
+    description: 'Will a major AI company announce they have achieved Artificial General Intelligence (AGI) in 2025?',
+    category: 'technology',
+    status: 'active',
+    resolutionType: 'binary',
+    createdAt: '2025-06-23T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
+    creator: {
+      id: 'user106',
+      username: 'agi_singularity_bet',
+      reputation: 89
+    },
+    outcomes: [
+      {
+        id: 'yes',
+        label: 'Yes',
+        probability: 0.23,
+        price: 0.23,
+        volume: 1610000
+      },
+      {
+        id: 'no',
+        label: 'No',
+        probability: 0.77,
+        price: 0.77,
+        volume: 5390000
+      }
+    ],
+    totalVolume: 7000000,
+    liquidity: 2100000,
+    comments: [],
+    tags: ['technology', 'ai', 'agi', 'breakthrough', 'trending'],
+    imageUrl: '/images/placeholder.svg'
+  },
+  {
+    id: 'summer-olympics-2025-medal-count',
+    title: 'Top 3 Countries by Medal Count - Summer Olympics 2025',
+    description: 'Which countries will finish in the top 3 for total medal count at the 2025 Summer Olympics?',
+    category: 'sports',
+    status: 'active',
+    resolutionType: 'multiple-choice',
+    createdAt: '2025-06-22T00:00:00Z',
+    endDate: '2025-08-15T23:59:59Z',
+    creator: {
+      id: 'user107',
+      username: 'olympics_medal_tracker',
+      reputation: 86
+    },
+    outcomes: [
+      {
+        id: 'usa-top-3',
+        label: 'USA Top 3',
+        probability: 0.95,
+        price: 0.95,
+        volume: 4750000
+      },
+      {
+        id: 'china-top-3',
+        label: 'China Top 3',
+        probability: 0.92,
+        price: 0.92,
+        volume: 4600000
+      },
+      {
+        id: 'japan-top-3',
+        label: 'Japan Top 3',
+        probability: 0.34,
+        price: 0.34,
+        volume: 1700000
+      },
+      {
+        id: 'france-top-3',
+        label: 'France Top 3',
+        probability: 0.28,
+        price: 0.28,
+        volume: 1400000
+      },
+      {
+        id: 'others-top-3',
+        label: 'Others Top 3',
+        probability: 0.15,
+        price: 0.15,
+        volume: 750000
+      }
+    ],
+    totalVolume: 5000000,
+    liquidity: 1500000,
+    comments: [],
+    tags: ['sports', 'olympics', 'medals', 'trending'],
+    imageUrl: '/images/sports.svg'
+  },
+  {
+    id: 'polymarket-us-return-2025',
+    title: 'Polymarket Returns to US Market in 2025?',
+    description: 'Will Polymarket gain regulatory approval and return to serving US customers in 2025? Meta-betting on prediction markets!',
+    category: 'technology',
+    status: 'active',
+    resolutionType: 'binary',
+    createdAt: '2025-06-25T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
+    creator: {
+      id: 'user108',
+      username: 'polymarket_return_bet',
+      reputation: 82
     },
     outcomes: [
       {
@@ -408,984 +1525,168 @@ export const sampleMarkets: Market[] = [
         label: 'Yes',
         probability: 0.67,
         price: 0.67,
-        volume: 321098
+        volume: 2010000
       },
       {
         id: 'no',
         label: 'No',
         probability: 0.33,
         price: 0.33,
-        volume: 109876
+        volume: 990000
       }
     ],
-    totalVolume: 321098,
-    liquidity: 150000,
+    totalVolume: 3000000,
+    liquidity: 900000,
     comments: [],
-    tags: ['usdc', 'stablecoin', 'market-cap'],
+    tags: ['technology', 'polymarket', 'regulation', 'meta-betting', 'trending'],
     imageUrl: '/images/placeholder.svg'
   },
   {
-    id: 'btc-dominance',
-    title: 'Bitcoin dominance to rise above 60%',
-    description: 'Will Bitcoin market cap dominance rise above 60% before the end of 2023?',
-    category: 'crypto',
+    id: 'climate-tipping-point-2025',
+    title: 'Major Climate Tipping Point Reached in 2025?',
+    description: 'Will scientists announce that a major climate tipping point has been reached or crossed in 2025?',
+    category: 'science',
     status: 'active',
     resolutionType: 'binary',
-    createdAt: '2023-07-10T00:00:00Z',
-    endDate: '2023-12-31T23:59:59Z',
-    creator: {
-      id: 'user11',
-      username: 'dominance_watcher',
-      reputation: 84
-    },
-    outcomes: [
-      {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.38,
-        price: 0.38,
-        volume: 210987
-      },
-      {
-        id: 'no',
-        label: 'No',
-        probability: 0.62,
-        price: 0.62,
-        volume: 190876
-      }
-    ],
-    totalVolume: 210987,
-    liquidity: 120000,
-    comments: [],
-    tags: ['bitcoin', 'dominance', 'market-analysis'],
-    imageUrl: '/images/bitcoin.svg'
-  },
-  {
-    id: 'nft-floor-prices',
-    title: 'BAYC floor price to double',
-    description: 'Will the floor price of Bored Ape Yacht Club NFTs double in ETH value by end of 2023?',
-    category: 'crypto',
-    status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2023-08-05T00:00:00Z',
-    endDate: '2023-12-31T23:59:59Z',
-    creator: {
-      id: 'user12',
-      username: 'nft_collector',
-      reputation: 83
-    },
-    outcomes: [
-      {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.37,
-        price: 0.37,
-        volume: 198765
-      },
-      {
-        id: 'no',
-        label: 'No',
-        probability: 0.63,
-        price: 0.63,
-        volume: 165432
-      }
-    ],
-    totalVolume: 198765,
-    liquidity: 100000,
-    comments: [],
-    tags: ['nft', 'bayc', 'floor-price'],
-    imageUrl: '/images/placeholder.svg'
-  },
-  {
-    id: 'sec-etf',
-    title: 'SEC to approve BTC ETF',
-    description: 'Will the SEC approve a spot Bitcoin ETF application in 2023?',
-    category: 'crypto',
-    status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2023-02-25T00:00:00Z',
-    endDate: '2023-12-31T23:59:59Z',
-    creator: {
-      id: 'user13',
-      username: 'etf_analyst',
-      reputation: 94
-    },
-    outcomes: [
-      {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.44,
-        price: 0.44,
-        volume: 657432
-      },
-      {
-        id: 'no',
-        label: 'No',
-        probability: 0.56,
-        price: 0.56,
-        volume: 432198
-      }
-    ],
-    totalVolume: 657432,
-    liquidity: 300000,
-    comments: [],
-    tags: ['bitcoin', 'etf', 'sec', 'regulation'],
-    imageUrl: '/images/placeholder.svg'
-  },
-  {
-    id: 'layer2-users',
-    title: 'Layer 2 to exceed 5M users',
-    description: 'Will Ethereum Layer 2 solutions collectively exceed 5 million unique users by end of 2023?',
-    category: 'crypto',
-    status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2023-03-15T00:00:00Z',
-    endDate: '2023-12-31T23:59:59Z',
-    creator: {
-      id: 'user14',
-      username: 'layer2_dev',
-      reputation: 89
-    },
-    outcomes: [
-      {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.76,
-        price: 0.76,
-        volume: 345678
-      },
-      {
-        id: 'no',
-        label: 'No',
-        probability: 0.24,
-        price: 0.24,
-        volume: 123456
-      }
-    ],
-    totalVolume: 345678,
-    liquidity: 175000,
-    comments: [],
-    tags: ['ethereum', 'layer2', 'scaling', 'users'],
-    imageUrl: '/images/placeholder.svg'
-  },
-  {
-    id: 'dao-governance',
-    title: 'MakerDAO to change governance',
-    description: 'Will MakerDAO implement a major governance structure change in 2023?',
-    category: 'crypto',
-    status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2023-04-20T00:00:00Z',
-    endDate: '2023-12-31T23:59:59Z',
-    creator: {
-      id: 'user15',
-      username: 'dao_governor',
-      reputation: 91
-    },
-    outcomes: [
-      {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.52,
-        price: 0.52,
-        volume: 234567
-      },
-      {
-        id: 'no',
-        label: 'No',
-        probability: 0.48,
-        price: 0.48,
-        volume: 210987
-      }
-    ],
-    totalVolume: 234567,
-    liquidity: 120000,
-    comments: [],
-    tags: ['makerdao', 'dao', 'governance'],
-    imageUrl: '/images/placeholder.svg'
-  },
-  {
-    id: 'defi-hack',
-    title: 'Major DeFi protocol to be hacked',
-    description: 'Will a DeFi protocol with >$100M TVL suffer a hack with losses >$10M before end of 2023?',
-    category: 'crypto',
-    status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2023-05-05T00:00:00Z',
-    endDate: '2023-12-31T23:59:59Z',
-    creator: {
-      id: 'user16',
-      username: 'security_researcher',
-      reputation: 95
-    },
-    outcomes: [
-      {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.83,
-        price: 0.83,
-        volume: 432109
-      },
-      {
-        id: 'no',
-        label: 'No',
-        probability: 0.17,
-        price: 0.17,
-        volume: 109876
-      }
-    ],
-    totalVolume: 432109,
-    liquidity: 200000,
-    comments: [],
-    tags: ['defi', 'security', 'hack', 'risk'],
-    imageUrl: '/images/placeholder.svg'
-  },
-  {
-    id: 'la-liga-winner-2025',
-    title: 'La Liga Winner 2025',
-    description: 'Predict the winner of the Spanish La Liga for the 2024-2025 season.',
-    category: 'sports',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-03-15T00:00:00Z',
-    endDate: '2025-05-30T23:59:59Z',
-    creator: {
-      id: 'user20',
-      username: 'soccer_expert',
-      reputation: 91
-    },
-    outcomes: [
-      {
-        id: 'barcelona',
-        label: 'Barcelona',
-        probability: 0.66,
-        price: 0.66,
-        volume: 179520000
-      },
-      {
-        id: 'real-madrid',
-        label: 'Real Madrid',
-        probability: 0.29,
-        price: 0.29,
-        volume: 78880000
-      },
-      {
-        id: 'atletico-madrid',
-        label: 'Atletico Madrid',
-        probability: 0.05,
-        price: 0.05,
-        volume: 13600000
-      }
-    ],
-    totalVolume: 272000000,
-    liquidity: 100000000,
-    comments: [],
-    tags: ['sports', 'soccer', 'la-liga', 'barcelona', 'real-madrid'],
-    imageUrl: '/images/sports.svg'
-  },
-  {
-    id: 'premier-league-winner-2025',
-    title: 'Premier League Winner 2025',
-    description: 'Predict the winner of the English Premier League for the 2024-2025 season.',
-    category: 'sports',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-03-15T00:00:00Z',
-    endDate: '2025-05-30T23:59:59Z',
-    creator: {
-      id: 'user20',
-      username: 'soccer_expert',
-      reputation: 91
-    },
-    outcomes: [
-      {
-        id: 'liverpool',
-        label: 'Liverpool',
-        probability: 0.96,
-        price: 0.96,
-        volume: 764160000
-      },
-      {
-        id: 'arsenal',
-        label: 'Arsenal',
-        probability: 0.03,
-        price: 0.03,
-        volume: 23880000
-      },
-      {
-        id: 'others',
-        label: 'Others',
-        probability: 0.01,
-        price: 0.01,
-        volume: 7960000
-      }
-    ],
-    totalVolume: 796000000,
-    liquidity: 200000000,
-    comments: [],
-    tags: ['sports', 'soccer', 'premier-league', 'liverpool', 'arsenal'],
-    imageUrl: '/images/sports.svg'
-  },
-  {
-    id: 'champions-league-winner-2025',
-    title: 'Champions League Winner 2025',
-    description: 'Predict the winner of the UEFA Champions League for the 2024-2025 season.',
-    category: 'sports',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-03-15T00:00:00Z',
-    endDate: '2025-06-15T23:59:59Z',
-    creator: {
-      id: 'user20',
-      username: 'soccer_expert',
-      reputation: 91
-    },
-    outcomes: [
-      {
-        id: 'barcelona',
-        label: 'Barcelona',
-        probability: 0.23,
-        price: 0.23,
-        volume: 226780000
-      },
-      {
-        id: 'psg',
-        label: 'Paris Saint-Germain',
-        probability: 0.21,
-        price: 0.21,
-        volume: 207060000
-      },
-      {
-        id: 'real-madrid',
-        label: 'Real Madrid',
-        probability: 0.20,
-        price: 0.20,
-        volume: 197200000
-      },
-      {
-        id: 'bayern-munich',
-        label: 'Bayern Munich',
-        probability: 0.15,
-        price: 0.15,
-        volume: 147900000
-      },
-      {
-        id: 'arsenal',
-        label: 'Arsenal',
-        probability: 0.12,
-        price: 0.12,
-        volume: 118320000
-      },
-      {
-        id: 'others',
-        label: 'Others',
-        probability: 0.09,
-        price: 0.09,
-        volume: 88740000
-      }
-    ],
-    totalVolume: 986000000,
-    liquidity: 300000000,
-    comments: [],
-    tags: ['sports', 'soccer', 'champions-league', 'barcelona', 'psg', 'real-madrid'],
-    imageUrl: '/images/sports.svg',
-    featured: true
-  },
-  {
-    id: 'nba-champion-2025',
-    title: 'NBA Champion 2025',
-    description: 'Predict the winner of the NBA Championship for the 2024-2025 season.',
-    category: 'sports',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-03-10T00:00:00Z',
-    endDate: '2025-06-30T23:59:59Z',
-    creator: {
-      id: 'user21',
-      username: 'basketball_analyst',
-      reputation: 89
-    },
-    outcomes: [
-      {
-        id: 'okc-thunder',
-        label: 'Oklahoma City Thunder',
-        probability: 0.30,
-        price: 0.30,
-        volume: 600000000
-      },
-      {
-        id: 'boston-celtics',
-        label: 'Boston Celtics',
-        probability: 0.29,
-        price: 0.29,
-        volume: 580000000
-      },
-      {
-        id: 'cleveland-cavaliers',
-        label: 'Cleveland Cavaliers',
-        probability: 0.14,
-        price: 0.14,
-        volume: 280000000
-      },
-      {
-        id: 'others',
-        label: 'Others',
-        probability: 0.27,
-        price: 0.27,
-        volume: 540000000
-      }
-    ],
-    totalVolume: 2000000000,
-    liquidity: 500000000,
-    comments: [],
-    tags: ['sports', 'basketball', 'nba', 'okc-thunder', 'boston-celtics'],
-    imageUrl: '/images/sports.svg',
-    featured: true
-  },
-  {
-    id: 'nba-eastern-conference-2025',
-    title: 'NBA Eastern Conference Champion 2025',
-    description: 'Predict the winner of the NBA Eastern Conference for the 2024-2025 season.',
-    category: 'sports',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-03-10T00:00:00Z',
-    endDate: '2025-06-15T23:59:59Z',
-    creator: {
-      id: 'user21',
-      username: 'basketball_analyst',
-      reputation: 89
-    },
-    outcomes: [
-      {
-        id: 'boston-celtics',
-        label: 'Boston Celtics',
-        probability: 0.54,
-        price: 0.54,
-        volume: 148500000
-      },
-      {
-        id: 'cleveland-cavaliers',
-        label: 'Cleveland Cavaliers',
-        probability: 0.32,
-        price: 0.32,
-        volume: 88000000
-      },
-      {
-        id: 'new-york-knicks',
-        label: 'New York Knicks',
-        probability: 0.08,
-        price: 0.08,
-        volume: 22000000
-      },
-      {
-        id: 'others',
-        label: 'Others',
-        probability: 0.06,
-        price: 0.06,
-        volume: 16500000
-      }
-    ],
-    totalVolume: 275000000,
-    liquidity: 100000000,
-    comments: [],
-    tags: ['sports', 'basketball', 'nba', 'eastern-conference', 'celtics', 'cavaliers', 'knicks'],
-    imageUrl: '/images/sports.svg'
-  },
-  {
-    id: 'canada-elections-pm-2025',
-    title: 'Next Canadian Prime Minister',
-    description: 'Who will be the next Prime Minister of Canada after the upcoming federal election?',
-    category: 'politics',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-03-05T00:00:00Z',
-    endDate: '2025-01-31T23:59:59Z',
-    creator: {
-      id: 'user22',
-      username: 'political_forecaster',
-      reputation: 93
-    },
-    outcomes: [
-      {
-        id: 'mark-carney',
-        label: 'Mark Carney',
-        probability: 0.58,
-        price: 0.58,
-        volume: 9280000
-      },
-      {
-        id: 'pierre-poilievre',
-        label: 'Pierre Poilievre',
-        probability: 0.41,
-        price: 0.41,
-        volume: 6560000
-      },
-      {
-        id: 'others',
-        label: 'Others',
-        probability: 0.01,
-        price: 0.01,
-        volume: 160000
-      }
-    ],
-    totalVolume: 16000000,
-    liquidity: 5000000,
-    comments: [],
-    tags: ['politics', 'canada', 'elections', 'prime-minister', 'liberal-party', 'conservative-party'],
-    imageUrl: '/images/election.svg'
-  },
-  {
-    id: 'trump-ukraine-war-90-days',
-    title: 'Trump Ends Ukraine War in First 90 Days',
-    description: 'Will President Trump end the Russia-Ukraine conflict within the first 90 days of his administration?',
-    category: 'politics',
-    status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2024-03-01T00:00:00Z',
-    endDate: '2025-04-20T23:59:59Z',
-    creator: {
-      id: 'user23',
-      username: 'geopolitical_analyst',
-      reputation: 90
-    },
-    outcomes: [
-      {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.15,
-        price: 0.15,
-        volume: 5250000
-      },
-      {
-        id: 'no',
-        label: 'No',
-        probability: 0.85,
-        price: 0.85,
-        volume: 29750000
-      }
-    ],
-    totalVolume: 35000000,
-    liquidity: 10000000,
-    comments: [],
-    tags: ['politics', 'usa', 'trump', 'ukraine', 'russia', 'foreign-policy'],
-    imageUrl: '/images/election.svg'
-  },
-  {
-    id: 'bitcoin-price-march-31',
-    title: 'Bitcoin Price by March 31',
-    description: 'What will be the price of Bitcoin (BTC) by March 31, 2025?',
-    category: 'crypto',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-03-01T00:00:00Z',
-    endDate: '2025-03-31T23:59:59Z',
-    creator: {
-      id: 'user24',
-      username: 'crypto_whale',
-      reputation: 96
-    },
-    outcomes: [
-      {
-        id: 'price-75k',
-        label: '$75,000',
-        probability: 0.20,
-        price: 0.20,
-        volume: 7800000
-      },
-      {
-        id: 'price-95k',
-        label: '$95,000',
-        probability: 0.13,
-        price: 0.13,
-        volume: 5070000
-      },
-      {
-        id: 'price-100k',
-        label: '$100,000',
-        probability: 0.06,
-        price: 0.06,
-        volume: 2340000
-      },
-      {
-        id: 'others',
-        label: 'Others',
-        probability: 0.61,
-        price: 0.61,
-        volume: 23790000
-      }
-    ],
-    totalVolume: 39000000,
-    liquidity: 15000000,
-    comments: [],
-    tags: ['crypto', 'bitcoin', 'price-prediction', 'btc'],
-    imageUrl: '/images/bitcoin.svg'
-  },
-  {
-    id: 'ethereum-march-21',
-    title: 'Ethereum Price on March 21',
-    description: 'Will the price of Ethereum (ETH) be above $1,900 on March 21, 2025?',
-    category: 'crypto',
-    status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2024-03-01T00:00:00Z',
-    endDate: '2025-03-21T23:59:59Z',
-    creator: {
-      id: 'user24',
-      username: 'crypto_whale',
-      reputation: 96
-    },
-    outcomes: [
-      {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.91,
-        price: 0.91,
-        volume: 910000
-      },
-      {
-        id: 'no',
-        label: 'No',
-        probability: 0.09,
-        price: 0.09,
-        volume: 90000
-      }
-    ],
-    totalVolume: 1000000,
-    liquidity: 300000,
-    comments: [],
-    tags: ['crypto', 'ethereum', 'price-prediction', 'eth'],
-    imageUrl: '/images/ethereum.svg'
-  },
-  {
-    id: 'highest-grossing-movie-2025',
-    title: 'Highest Grossing Movie 2025',
-    description: 'Which film will have the highest worldwide box office gross in 2025?',
-    category: 'entertainment',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-02-28T00:00:00Z',
+    createdAt: '2025-06-21T00:00:00Z',
     endDate: '2025-12-31T23:59:59Z',
     creator: {
-      id: 'user25',
-      username: 'film_buff',
+      id: 'user109',
+      username: 'climate_tipping_predictor',
       reputation: 88
     },
     outcomes: [
       {
-        id: 'zootopia-2',
-        label: 'Zootopia 2',
-        probability: 0.41,
-        price: 0.41,
-        volume: 820000
+        id: 'yes',
+        label: 'Yes',
+        probability: 0.31,
+        price: 0.31,
+        volume: 930000
       },
       {
-        id: 'jurassic-world',
-        label: 'Jurassic World: Rebirth',
-        probability: 0.28,
-        price: 0.28,
-        volume: 560000
-      },
-      {
-        id: 'avatar-3',
-        label: 'Avatar 3',
-        probability: 0.10,
-        price: 0.10,
-        volume: 200000
-      },
-      {
-        id: 'others',
-        label: 'Others',
-        probability: 0.21,
-        price: 0.21,
-        volume: 420000
+        id: 'no',
+        label: 'No',
+        probability: 0.69,
+        price: 0.69,
+        volume: 2070000
       }
     ],
-    totalVolume: 2000000,
-    liquidity: 800000,
+    totalVolume: 3000000,
+    liquidity: 900000,
     comments: [],
-    tags: ['entertainment', 'movies', 'box-office', 'disney', 'universal'],
+    tags: ['science', 'climate', 'environment', 'tipping-point'],
     imageUrl: '/images/placeholder.svg'
   },
   {
-    id: 'eurovision-winner-2025',
-    title: 'Eurovision Winner 2025',
-    description: 'Which country will win the Eurovision Song Contest in 2025?',
-    category: 'entertainment',
+    id: 'kalshi-ipo-2025',
+    title: 'Kalshi Goes Public in 2025?',
+    description: 'Will Kalshi announce plans for an IPO or go public in 2025? With their recent $185M raise at $2B valuation, could be next!',
+    category: 'finance',
     status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-03-05T00:00:00Z',
-    endDate: '2025-05-31T23:59:59Z',
+    resolutionType: 'binary',
+    createdAt: '2025-06-25T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
     creator: {
-      id: 'user26',
-      username: 'eurovision_fan',
+      id: 'user110',
+      username: 'kalshi_ipo_watcher',
       reputation: 85
     },
     outcomes: [
       {
-        id: 'sweden',
-        label: 'Sweden',
-        probability: 0.30,
-        price: 0.30,
-        volume: 5100000
-      },
-      {
-        id: 'austria',
-        label: 'Austria',
-        probability: 0.23,
-        price: 0.23,
-        volume: 3910000
-      },
-      {
-        id: 'france',
-        label: 'France',
-        probability: 0.13,
-        price: 0.13,
-        volume: 2210000
-      },
-      {
-        id: 'others',
-        label: 'Others',
-        probability: 0.34,
-        price: 0.34,
-        volume: 5780000
-      }
-    ],
-    totalVolume: 17000000,
-    liquidity: 5000000,
-    comments: [],
-    tags: ['entertainment', 'music', 'eurovision', 'contest', 'europe'],
-    imageUrl: '/images/placeholder.svg'
-  },
-  {
-    id: 'jfk-inside-job',
-    title: 'Was JFK Assassination an Inside Job?',
-    description: 'Will conclusive evidence be released by 2026 proving the JFK assassination was an inside job?',
-    category: 'other',
-    status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2024-02-15T00:00:00Z',
-    endDate: '2026-01-01T23:59:59Z',
-    creator: {
-      id: 'user27',
-      username: 'conspiracy_analyst',
-      reputation: 75
-    },
-    outcomes: [
-      {
         id: 'yes',
         label: 'Yes',
-        probability: 0.01,
-        price: 0.01,
-        volume: 70000
+        probability: 0.18,
+        price: 0.18,
+        volume: 360000
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.99,
-        price: 0.99,
-        volume: 6930000
-      }
-    ],
-    totalVolume: 7000000,
-    liquidity: 2000000,
-    comments: [],
-    tags: ['unusual', 'conspiracy', 'history', 'jfk', 'government'],
-    imageUrl: '/images/placeholder.svg'
-  },
-  {
-    id: 'elon-buys-tiktok',
-    title: 'Will Elon Musk Buy TikTok?',
-    description: 'Will Elon Musk buy or acquire a controlling stake in TikTok before April 2025?',
-    category: 'other',
-    status: 'active',
-    resolutionType: 'binary',
-    createdAt: '2024-03-10T00:00:00Z',
-    endDate: '2025-04-01T23:59:59Z',
-    creator: {
-      id: 'user28',
-      username: 'tech_speculator',
-      reputation: 82
-    },
-    outcomes: [
-      {
-        id: 'yes',
-        label: 'Yes',
-        probability: 0.01,
-        price: 0.01,
-        volume: 10000
-      },
-      {
-        id: 'no',
-        label: 'No',
-        probability: 0.99,
-        price: 0.99,
-        volume: 990000
-      }
-    ],
-    totalVolume: 1000000,
-    liquidity: 300000,
-    comments: [],
-    tags: ['unusual', 'tech', 'business', 'elon-musk', 'tiktok', 'acquisition'],
-    imageUrl: '/images/placeholder.svg'
-  },
-  {
-    id: 'march-2025-temperature',
-    title: 'March 2025 Global Temperature Increase',
-    description: 'What will be the global temperature increase in March 2025 compared to pre-industrial levels?',
-    category: 'science',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-02-20T00:00:00Z',
-    endDate: '2025-04-15T23:59:59Z',
-    creator: {
-      id: 'user29',
-      username: 'climate_scientist',
-      reputation: 94
-    },
-    outcomes: [
-      {
-        id: 'temp-1.32-1.36',
-        label: '1.32-1.36°C',
-        probability: 0.80,
-        price: 0.80,
-        volume: 800000
-      },
-      {
-        id: 'temp-1.37-1.41',
-        label: '1.37-1.41°C',
-        probability: 0.12,
-        price: 0.12,
-        volume: 120000
-      },
-      {
-        id: 'others',
-        label: 'Others',
-        probability: 0.08,
-        price: 0.08,
-        volume: 80000
-      }
-    ],
-    totalVolume: 1000000,
-    liquidity: 400000,
-    comments: [],
-    tags: ['science', 'climate', 'temperature', 'global-warming', 'environment'],
-    imageUrl: '/images/placeholder.svg'
-  },
-  {
-    id: 'best-ai-model-march',
-    title: 'Best AI Model End of March 2025',
-    description: 'Which company will have the most advanced general artificial intelligence model by the end of March 2025?',
-    category: 'technology',
-    status: 'active',
-    resolutionType: 'multiple-choice',
-    createdAt: '2024-03-01T00:00:00Z',
-    endDate: '2025-04-05T23:59:59Z',
-    creator: {
-      id: 'user30',
-      username: 'ai_researcher',
-      reputation: 97
-    },
-    outcomes: [
-      {
-        id: 'xai',
-        label: 'xAI',
-        probability: 0.91,
-        price: 0.91,
-        volume: 1820000
-      },
-      {
-        id: 'openai',
-        label: 'OpenAI',
-        probability: 0.08,
-        price: 0.08,
-        volume: 160000
-      },
-      {
-        id: 'others',
-        label: 'Others',
-        probability: 0.01,
-        price: 0.01,
-        volume: 20000
+        probability: 0.82,
+        price: 0.82,
+        volume: 1640000
       }
     ],
     totalVolume: 2000000,
-    liquidity: 800000,
+    liquidity: 600000,
     comments: [],
-    tags: ['technology', 'ai', 'machine-learning', 'xai', 'openai'],
-    imageUrl: '/images/placeholder.svg',
-    featured: true
+    tags: ['finance', 'kalshi', 'ipo', 'trending', 'meta-betting'],
+    imageUrl: '/images/placeholder.svg'
   },
+
+  // CRYPTO HOT TOPICS
   {
-    id: 'ukraine-ceasefire-july',
-    title: 'Ukraine-Russia Ceasefire Before July',
-    description: 'Will there be a formal ceasefire agreement between Ukraine and Russia before July 2025?',
-    category: 'politics',
+    id: 'ethereum-pos-upgrade-2025',
+    title: 'Major Ethereum Upgrade Deployed in 2025?',
+    description: 'Will Ethereum deploy a major protocol upgrade (beyond routine updates) in 2025?',
+    category: 'crypto',
     status: 'active',
     resolutionType: 'binary',
-    createdAt: '2024-03-01T00:00:00Z',
-    endDate: '2025-07-01T23:59:59Z',
+    createdAt: '2025-06-24T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
     creator: {
-      id: 'user31',
-      username: 'conflict_analyst',
-      reputation: 93
+      id: 'user111',
+      username: 'eth_upgrade_scout',
+      reputation: 91
     },
     outcomes: [
       {
         id: 'yes',
         label: 'Yes',
-        probability: 0.50,
-        price: 0.50,
-        volume: 2000000
+        probability: 0.58,
+        price: 0.58,
+        volume: 2320000
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.50,
-        price: 0.50,
-        volume: 2000000
+        probability: 0.42,
+        price: 0.42,
+        volume: 1680000
       }
     ],
     totalVolume: 4000000,
-    liquidity: 1500000,
+    liquidity: 1200000,
     comments: [],
-    tags: ['politics', 'geopolitics', 'ukraine', 'russia', 'conflict', 'ceasefire'],
-    imageUrl: '/images/placeholder.svg'
+    tags: ['crypto', 'ethereum', 'upgrade', 'protocol'],
+    imageUrl: '/images/ethereum.svg'
   },
+
+  // UNUSUAL TRENDING MARKETS
   {
-    id: 'israel-hamas-ceasefire',
-    title: 'Israel-Hamas Ceasefire by Friday',
-    description: 'Will Israel and Hamas agree to a formal ceasefire by this Friday?',
-    category: 'politics',
+    id: 'aliens-contact-earth-2025',
+    title: 'Official Alien Contact Announced in 2025?',
+    description: 'Will any government officially announce contact with extraterrestrial intelligence in 2025?',
+    category: 'other',
     status: 'active',
     resolutionType: 'binary',
-    createdAt: '2024-03-18T00:00:00Z',
-    endDate: '2024-03-22T23:59:59Z',
+    createdAt: '2025-06-20T00:00:00Z',
+    endDate: '2025-12-31T23:59:59Z',
     creator: {
-      id: 'user31',
-      username: 'conflict_analyst',
-      reputation: 93
+      id: 'user112',
+      username: 'alien_contact_believer',
+      reputation: 74
     },
     outcomes: [
       {
         id: 'yes',
         label: 'Yes',
-        probability: 0.01,
-        price: 0.01,
-        volume: 2210
+        probability: 0.04,
+        price: 0.04,
+        volume: 80000
       },
       {
         id: 'no',
         label: 'No',
-        probability: 0.99,
-        price: 0.99,
-        volume: 218790
+        probability: 0.96,
+        price: 0.96,
+        volume: 1920000
       }
     ],
-    totalVolume: 221000,
-    liquidity: 100000,
+    totalVolume: 2000000,
+    liquidity: 600000,
     comments: [],
-    tags: ['politics', 'geopolitics', 'israel', 'hamas', 'conflict', 'ceasefire'],
+    tags: ['unusual', 'aliens', 'ufo', 'contact', 'government'],
     imageUrl: '/images/placeholder.svg'
   }
 ];

@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/_shared/components/ui/Button';
 import { sampleMarkets, getMarketSlug } from '@/data/markets';
-import Footer from '@/components/Footer';
-import { MarketCard } from '@/components/MarketCard';
-import { FeaturedMarket } from '@/components/FeaturedMarket';
-import { DegenHero2025 } from '@/components/DegenHero2025';
+import Footer from '@/_shared/components/layout/Footer';
+import { MarketCard } from '@/features/markets/components/MarketCard';
+import { FeaturedMarket } from '@/features/markets/components/FeaturedMarket';
+import { DegenHero2025 } from '@/_shared/components/DegenHero2025';
 import { ArrowRightIcon, ChartBarIcon, ShieldCheckIcon, UsersIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import type { Market } from '@/types/market';
+import type { Market } from '@/_shared/types/market';
 
 // Market categories with associated styling (restored full list)
 const marketCategories = [

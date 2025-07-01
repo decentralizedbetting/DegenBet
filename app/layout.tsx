@@ -1,8 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Navigation } from '@/components/ui/Navigation';
-import { ThemeProvider } from '@/ThemeContext';
+import { Navigation } from '@/_shared/components/ui/Navigation';
+import { ThemeProvider } from '@/_shared/providers/ThemeProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -110,13 +110,13 @@ export default function RootLayout({
           {/* Primary gradient background */}
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/20 via-black to-gray-950/20" />
           
-          {/* Subtle grid pattern */}
+          {/* Terminal grid pattern */}
           <div 
-            className="absolute inset-0 opacity-[0.015]"
+            className="absolute inset-0 opacity-20 animate-grid-move"
             style={{
               backgroundImage: `
-                linear-gradient(rgba(34, 197, 94, 0.2) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(34, 197, 94, 0.2) 1px, transparent 1px)
+                linear-gradient(rgba(34, 197, 94, 0.6) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 197, 94, 0.6) 1px, transparent 1px)
               `,
               backgroundSize: '80px 80px'
             }}

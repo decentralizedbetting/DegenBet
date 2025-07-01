@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { colors, typography, borderRadius, shadows, spacing } from './app/styles/design-system'
+import { colors, typography, borderRadius, shadows, spacing } from './app/_shared/styles/design-system'
 
 // Convert number values to strings for Tailwind compatibility
 const convertToStringValues = (obj: Record<string, number>): Record<string, string> => {
