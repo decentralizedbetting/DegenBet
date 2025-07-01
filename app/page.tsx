@@ -8,27 +8,9 @@ import Footer from '@/_shared/components/layout/Footer';
 import { MarketCard } from '@/features/markets/components/MarketCard';
 import { FeaturedMarket } from '@/features/markets/components/FeaturedMarket';
 import { DegenHero2025 } from '@/_shared/components/DegenHero2025';
-import { ArrowRightIcon, ChartBarIcon, ShieldCheckIcon, UsersIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import type { Market } from '@/_shared/types/market';
+import { ArrowRightIcon, ShieldCheckIcon, ChartBarIcon, UsersIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
-// Market categories with associated styling (restored full list)
-const marketCategories = [
-  { id: 'trending', name: 'Trending', color: 'text-pink-500', bg: 'bg-pink-500/10', border: 'border-pink-500/20' },
-  { id: 'new', name: 'New', color: 'text-blue-500', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
-  { id: 'politics', name: 'Politics', color: 'text-orange-500', bg: 'bg-orange-500/10', border: 'border-orange-500/20' },
-  { id: 'sports', name: 'Sports', color: 'text-green-500', bg: 'bg-green-500/10', border: 'border-green-500/20' },
-  { id: 'culture', name: 'Culture', color: 'text-purple-500', bg: 'bg-purple-500/10', border: 'border-purple-500/20' },
-  { id: 'crypto', name: 'Crypto', color: 'text-yellow-500', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20' },
-  { id: 'climate', name: 'Climate', color: 'text-emerald-500', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
-  { id: 'economics', name: 'Economics', color: 'text-red-500', bg: 'bg-red-500/10', border: 'border-red-500/20' },
-  { id: 'companies', name: 'Companies', color: 'text-sky-500', bg: 'bg-sky-500/10', border: 'border-sky-500/20' },
-  { id: 'financials', name: 'Financials', color: 'text-indigo-500', bg: 'bg-indigo-500/10', border: 'border-indigo-500/20' },
-  { id: 'tech', name: 'Tech & Science', color: 'text-cyan-500', bg: 'bg-cyan-500/10', border: 'border-cyan-500/20' },
-  { id: 'health', name: 'Health', color: 'text-teal-500', bg: 'bg-teal-500/10', border: 'border-teal-500/20' },
-  { id: 'world', name: 'World', color: 'text-violet-500', bg: 'bg-violet-500/10', border: 'border-violet-500/20' },
-];
-
-// Core value propositions
+// Core value propositions for "Why DegenBet" section
 const valueProps = [
   {
     title: 'Decentralized & Secure',
@@ -47,216 +29,233 @@ const valueProps = [
   }
 ];
 
-// Shuffle function for randomizing markets
-const shuffleArray = <T,>(array: T[]): T[] => {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-};
-
-// Use the actual market data
-const currentMarkets: Market[] = sampleMarkets;
-
 export default function HomePage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [shuffledMarkets, setShuffledMarkets] = useState<Market[]>([]);
-
-  // Initialize shuffled markets on component mount
-  useEffect(() => {
-    setShuffledMarkets(shuffleArray(currentMarkets));
-  }, []);
-
-  // Memoize expensive market filtering operations with shuffled markets
+  // Memoize market filtering to prevent recalculation on every render
   const { featuredMarkets, regularMarkets } = useMemo(() => {
-    const featured = shuffledMarkets.filter(market => market.featured);
-    const regular = shuffledMarkets.filter(market => !market.featured);
+    const featured = sampleMarkets.filter(market => market.featured);
+    const regular = sampleMarkets.filter(market => !market.featured);
     return { featuredMarkets: featured, regularMarkets: regular };
-  }, [shuffledMarkets]);
+  }, []); // Empty dependency array since sampleMarkets is static
+  
+  // Featured market carousel state
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Memoize filtered markets to prevent recalculation on every render
-  const { filteredFeaturedMarkets, filteredRegularMarkets } = useMemo(() => {
-    const filterMarkets = (markets: Market[]) => {
-      if (selectedCategory === 'all') return markets;
-      return markets.filter(market => market.category === selectedCategory);
-    };
-    
-    return {
-      filteredFeaturedMarkets: filterMarkets(featuredMarkets),
-      filteredRegularMarkets: filterMarkets(regularMarkets)
-    };
-  }, [featuredMarkets, regularMarkets, selectedCategory]);
-
-  // Optimize auto-slide with useCallback and reduced frequency
-  useEffect(() => {
-    if (filteredFeaturedMarkets.length <= 1) return; // No sliding needed
-    
-    const slideInterval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % filteredFeaturedMarkets.length);
-    }, 8000); // Increased to 8 seconds for better performance
-    
-    return () => clearInterval(slideInterval);
-  }, [filteredFeaturedMarkets.length]);
-
-  // Memoize event handlers
-  const handleCategorySelect = useCallback((categoryId: string) => {
-    setSelectedCategory(categoryId);
-    setCurrentSlide(0);
-  }, []);
-
+  // Memoize navigation handlers to prevent recreation on every render
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % Math.max(1, filteredFeaturedMarkets.length));
-  }, [filteredFeaturedMarkets.length]);
+    setCurrentSlide((prev) => (prev + 1) % Math.max(1, featuredMarkets.length));
+  }, [featuredMarkets.length]);
 
   const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + filteredFeaturedMarkets.length) % Math.max(1, filteredFeaturedMarkets.length));
-  }, [filteredFeaturedMarkets.length]);
+    setCurrentSlide((prev) => (prev - 1 + featuredMarkets.length) % Math.max(1, featuredMarkets.length));
+  }, [featuredMarkets.length]);
 
-  // Function to reshuffle markets
-  const reshuffleMarkets = useCallback(() => {
-    setShuffledMarkets(shuffleArray(currentMarkets));
-    setCurrentSlide(0);
+  const goToSlide = useCallback((index: number) => {
+    setCurrentSlide(index);
   }, []);
+
+  // Optimized auto-slide with proper cleanup
+  useEffect(() => {
+    if (featuredMarkets.length <= 1) return;
+    
+    const slideInterval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % featuredMarkets.length);
+    }, 8000);
+    
+    return () => clearInterval(slideInterval);
+  }, [featuredMarkets.length]);
+
+  // Memoize ticker markets to prevent recalculation
+  const tickerMarkets = useMemo(() => featuredMarkets.slice(0, 6), [featuredMarkets]);
 
   return (
     <div className="text-white">
       {/* Terminal Market Ticker */}
-      <div className="w-full bg-terminal border-y border-terminal py-6 overflow-hidden relative">
+      <div className="w-full bg-terminal border-y border-terminal py-4 overflow-hidden relative">
         <div className="container mx-auto px-4">
-          {/* Terminal Category Filters */}
-          <div className="flex items-center justify-center mb-6">
-            <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none max-w-full">
-              <button 
-                onClick={() => handleCategorySelect('all')}
-                className={`px-3 py-1.5 text-sm font-mono font-bold uppercase tracking-wider rounded transition-all duration-200 ${
-                  selectedCategory === 'all' 
-                    ? 'btn-degen text-black' 
-                    : 'btn-degen-secondary text-green-400'
-                }`}
-              >
-                ALL_MARKETS.EXE
-              </button>
-              {marketCategories.map(category => (
-                <button 
-                  key={category.id}
-                  onClick={() => handleCategorySelect(category.id)}
-                  className={`px-3 py-1.5 text-sm font-mono font-bold uppercase tracking-wider rounded transition-all duration-200 ${
-                    selectedCategory === category.id 
-                      ? 'btn-degen text-black' 
-                      : 'btn-degen-secondary text-green-400'
-                  }`}
-                >
-                  {category.name.toUpperCase()}
-                </button>
-              ))}
-            </div>
+          {/* Demo Notice */}
+          <div className="text-center mb-3">
+            <span className="text-yellow-400/80 font-mono text-sm">
+              {'>'} PREVIEW_MODE: Demo interface • Join presale for early access 🚀
+            </span>
           </div>
           
-          {/* Terminal Market Feed */}
+          {/* Live Market Feed */}
           <div className="relative overflow-hidden">
             <div className="flex animate-marquee hover:pause-marquee">
-              {/* Limit to first 8 markets for performance */}
-              {filteredFeaturedMarkets.slice(0, 8).map((market, index) => {
-                return (
-                  <Link 
-                    href={`/markets/${getMarketSlug(market)}`}
-                    key={market.id} 
-                    className="flex items-center space-x-3 terminal-card border border-green-500/30 hover:border-green-500/50 px-4 py-3 transition-all duration-200 min-w-max mx-2"
-                  >
-                    <div className="px-2 py-1 text-xs font-mono font-bold bg-green-500/20 text-green-400 border border-green-500/30 rounded">
-                      LIVE
-                    </div>
-                    <div className="flex items-center">
-                      <span className="text-sm text-white font-mono mr-2">{market.title}</span>
-                      <span className={`text-xs px-2 py-0.5 rounded font-mono font-bold ${market.outcomes[1].probability > 0.5 ? 'profit-text bg-green-500/20' : 'loss-text bg-red-500/20'}`}>
-                        {(market.outcomes[1].probability * 100).toFixed(0)}%
-                      </span>
-                    </div>
-                    <div className="text-xs text-gray-400 font-mono">
-                      VOL: ${(market.totalVolume / 1000).toFixed(1)}K
-                    </div>
-                  </Link>
-                );
-              })}
-              {/* Single duplication for seamless loop */}
-              {filteredFeaturedMarkets.slice(0, 8).map((market, index) => {
-                return (
-                  <Link 
-                    href={`/markets/${getMarketSlug(market)}`}
-                    key={`dup-${market.id}`} 
-                    className="flex items-center space-x-3 terminal-card border border-green-500/30 hover:border-green-500/50 px-4 py-3 transition-all duration-200 min-w-max mx-2"
-                  >
-                    <div className="px-2 py-1 text-xs font-mono font-bold bg-green-500/20 text-green-400 border border-green-500/30 rounded">
-                      LIVE
-                    </div>
-                    <div className="flex items-center">
-                      <span className="text-sm text-white font-mono mr-2">{market.title}</span>
-                      <span className={`text-xs px-2 py-0.5 rounded font-mono font-bold ${market.outcomes[1].probability > 0.5 ? 'profit-text bg-green-500/20' : 'loss-text bg-red-500/20'}`}>
-                        {(market.outcomes[1].probability * 100).toFixed(0)}%
-                      </span>
-                    </div>
-                    <div className="text-xs text-gray-400 font-mono">
-                      VOL: ${(market.totalVolume / 1000).toFixed(1)}K
-                    </div>
-                  </Link>
-                );
-              })}
+              {tickerMarkets.map((market) => (
+                <Link 
+                  href={`/markets/${getMarketSlug(market)}`}
+                  key={market.id} 
+                  className="flex items-center space-x-3 terminal-card border border-green-500/30 hover:border-green-500/50 px-4 py-2 transition-all duration-200 min-w-max mx-2"
+                >
+                  <div className="px-2 py-1 text-xs font-mono font-bold bg-green-500/20 text-green-400 border border-green-500/30 rounded">
+                    DEMO
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-sm text-white font-mono mr-2">{market.title}</span>
+                    <span className={`text-xs px-2 py-0.5 rounded font-mono font-bold ${
+                      market.outcomes[1].probability > 0.5 ? 'profit-text bg-green-500/20' : 'loss-text bg-red-500/20'
+                    }`}>
+                      {(market.outcomes[1].probability * 100).toFixed(0)}%
+                    </span>
+                  </div>
+                </Link>
+              ))}
+              {/* Duplicate for seamless loop */}
+              {tickerMarkets.map((market) => (
+                <Link 
+                  href={`/markets/${getMarketSlug(market)}`}
+                  key={`dup-${market.id}`} 
+                  className="flex items-center space-x-3 terminal-card border border-green-500/30 hover:border-green-500/50 px-4 py-2 transition-all duration-200 min-w-max mx-2"
+                >
+                  <div className="px-2 py-1 text-xs font-mono font-bold bg-green-500/20 text-green-400 border border-green-500/30 rounded">
+                    DEMO
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-sm text-white font-mono mr-2">{market.title}</span>
+                    <span className={`text-xs px-2 py-0.5 rounded font-mono font-bold ${
+                      market.outcomes[1].probability > 0.5 ? 'profit-text bg-green-500/20' : 'loss-text bg-red-500/20'
+                    }`}>
+                      {(market.outcomes[1].probability * 100).toFixed(0)}%
+                    </span>
+                  </div>
+                </Link>
+              ))}
             </div>
 
-            {/* Terminal gradient overlays */}
-            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent pointer-events-none"></div>
+            {/* Gradient overlays */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-black to-transparent pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-black to-transparent pointer-events-none"></div>
           </div>
         </div>
       </div>
 
-      {/* New 2025 Degen Hero Section */}
+      {/* Hero Section */}
       <DegenHero2025 />
 
-      {/* Terminal Live Markets */}
+      {/* DBT Utility Grid */}
+      <section className="py-16 px-6 bg-transparent border-y border-green-500/20">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-black mb-4 font-mono">
+              <span className="text-green-400">{'>'}</span> POWERED_BY_DBT.EXE
+            </h2>
+            <p className="text-green-300 font-mono">
+              {'>'} DegenBet Token utilities that power the entire ecosystem
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="terminal-card border border-purple-500/30 hover:border-purple-500/50 transition-all group">
+              <div className="p-4 text-center">
+                <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                  <span className="text-purple-400 text-2xl">🏛️</span>
+                </div>
+                <h3 className="font-mono font-bold text-xs text-purple-400 mb-1">DAO_GOVERNANCE</h3>
+                <p className="text-gray-400 text-xs font-mono">1 DBT = 1 Vote</p>
+              </div>
+            </div>
+
+            <div className="terminal-card border border-green-500/30 hover:border-green-500/50 transition-all group">
+              <div className="p-4 text-center">
+                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                  <span className="text-green-400 text-2xl">💎</span>
+                </div>
+                <h3 className="font-mono font-bold text-xs text-green-400 mb-1">BETTING_CURRENCY</h3>
+                <p className="text-gray-400 text-xs font-mono">100% Volume</p>
+              </div>
+            </div>
+
+            <div className="terminal-card border border-blue-500/30 hover:border-blue-500/50 transition-all group">
+              <div className="p-4 text-center">
+                <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                  <span className="text-blue-400 text-2xl">⚡</span>
+                </div>
+                <h3 className="font-mono font-bold text-xs text-blue-400 mb-1">VIP_STAKING</h3>
+                <p className="text-gray-400 text-xs font-mono">50% APY</p>
+              </div>
+            </div>
+
+            <div className="terminal-card border border-yellow-500/30 hover:border-yellow-500/50 transition-all group">
+              <div className="p-4 text-center">
+                <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                  <span className="text-yellow-400 text-2xl">💰</span>
+                </div>
+                <h3 className="font-mono font-bold text-xs text-yellow-400 mb-1">FEE_DISCOUNTS</h3>
+                <p className="text-gray-400 text-xs font-mono">Up to 50%</p>
+              </div>
+            </div>
+
+            <div className="terminal-card border border-orange-500/30 hover:border-orange-500/50 transition-all group">
+              <div className="p-4 text-center">
+                <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                  <span className="text-orange-400 text-2xl">🚀</span>
+                </div>
+                <h3 className="font-mono font-bold text-xs text-orange-400 mb-1">REFERRALS</h3>
+                <p className="text-gray-400 text-xs font-mono">Unlimited</p>
+              </div>
+            </div>
+
+            <div className="terminal-card border border-pink-500/30 hover:border-pink-500/50 transition-all group">
+              <div className="p-4 text-center">
+                <div className="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                  <span className="text-pink-400 text-2xl">🏦</span>
+                </div>
+                <h3 className="font-mono font-bold text-xs text-pink-400 mb-1">REVENUE_SHARE</h3>
+                <p className="text-gray-400 text-xs font-mono">2-5% Yield</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-8">
+            <Link href="/token">
+              <button className="btn-degen-secondary font-mono">
+                {'>'} VIEW_ALL_UTILITIES.EXE
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Demo Markets Section */}
       <section className="py-20 px-6 bg-transparent">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-black mb-6 font-mono">
-              <span className="text-green-400">{'>'}</span> LIVE_MARKETS.EXE
+              <span className="text-green-400">{'>'}</span> DEMO_MARKETS.EXE
             </h2>
             <p className="text-green-300 max-w-2xl mx-auto text-lg leading-relaxed font-mono">
-              {'>'} Scanning real-time prediction markets across all protocols...
+              {'>'} Preview of upcoming prediction markets interface...
               <br />
-              {'>'} Trade on live events with diamond hands precision
+              {'>'} These are DEMO markets only - no real trading yet
+              <br />
+              <span className="text-orange-400 font-bold">{'>'} Join presale to trade when we launch! 🚀</span>
             </p>
           </div>
 
-          {/* Terminal Featured Markets */}
-          {filteredFeaturedMarkets.length > 0 && (
+          {/* Featured Markets Section */}
+          {featuredMarkets.length > 0 && (
             <div className="mb-20">
-              {/* Terminal header with navigation */}
               <div className="flex items-center justify-between mb-8">
                 <h3 className="text-2xl font-black text-white font-mono">
                   <span className="text-green-400">{'>'}</span> FEATURED_MARKETS.SH
+                  <span className="text-orange-400 text-sm ml-2">[PREVIEW ONLY]</span>
                 </h3>
                 <div className="flex items-center gap-4">
-                  <button
-                    onClick={reshuffleMarkets}
-                    className="btn-degen-secondary font-mono text-sm"
-                  >
-                    SHUFFLE.EXE
-                  </button>
                   <div className="flex gap-2">
                     <button
                       onClick={prevSlide}
-                      disabled={filteredFeaturedMarkets.length <= 1}
-                      className="p-3 rounded bg-terminal border-terminal text-green-400 hover:bg-green-500/10 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 terminal-interactive"
+                      disabled={featuredMarkets.length <= 1}
+                      className="p-3 rounded bg-terminal border-terminal text-green-400 hover:bg-green-500/10 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
+                      aria-label="Previous featured market"
                     >
                       <ChevronLeftIcon className="w-5 h-5" />
                     </button>
                     <button
                       onClick={nextSlide}
-                      disabled={filteredFeaturedMarkets.length <= 1}
-                      className="p-3 rounded bg-terminal border-terminal text-green-400 hover:bg-green-500/10 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 terminal-interactive"
+                      disabled={featuredMarkets.length <= 1}
+                      className="p-3 rounded bg-terminal border-terminal text-green-400 hover:bg-green-500/10 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
+                      aria-label="Next featured market"
                     >
                       <ChevronRightIcon className="w-5 h-5" />
                     </button>
@@ -264,12 +263,13 @@ export default function HomePage() {
                 </div>
               </div>
               
+              {/* Optimized carousel with transform for better performance */}
               <div className="relative overflow-hidden rounded-xl">
                 <div 
-                  className="flex transition-transform duration-500 ease-in-out"
+                  className="flex transition-transform duration-500 ease-in-out will-change-transform"
                   style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                 >
-                  {filteredFeaturedMarkets.map((market, index) => (
+                  {featuredMarkets.map((market) => (
                     <div key={market.id} className="w-full flex-shrink-0">
                       <FeaturedMarket market={market} />
                     </div>
@@ -277,62 +277,44 @@ export default function HomePage() {
                 </div>
               </div>
               
-              {/* Terminal Slide Indicators */}
-              {filteredFeaturedMarkets.length > 1 && (
+              {/* Slide Indicators */}
+              {featuredMarkets.length > 1 && (
                 <div className="flex justify-center mt-8 space-x-3">
-                  {filteredFeaturedMarkets.map((_, index) => (
+                  {featuredMarkets.map((_, index) => (
                     <button
                       key={index}
-                      onClick={() => setCurrentSlide(index)}
+                      onClick={() => goToSlide(index)}
                       className={`w-3 h-3 rounded transition-all duration-200 border ${
                         index === currentSlide 
                           ? 'bg-green-500 border-green-500 scale-125 shadow-lg shadow-green-500/50' 
                           : 'bg-terminal border-terminal hover:bg-green-500/20'
                       }`}
+                      aria-label={`Go to slide ${index + 1}`}
                     />
                   ))}
                 </div>
               )}
             </div>
           )}
-          
-          {/* Terminal All Markets Grid */}
+
+          {/* Sample Markets Grid */}
           <div className="mb-16">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-2xl font-black text-white font-mono">
-                <span className="text-green-400">{'>'}</span> ALL_MARKETS.SH
+                <span className="text-green-400">{'>'}</span> SAMPLE_MARKETS.SH
               </h3>
               <span className="text-green-400 text-sm font-mono">
-                {filteredRegularMarkets.length} MARKETS_INDEXED
+                {regularMarkets.length} MARKETS_INDEXED
               </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredRegularMarkets.slice(0, 12).map(market => (
+              {regularMarkets.slice(0, 9).map(market => (
                 <MarketCard key={market.id} market={market} />
               ))}
             </div>
           </div>
-          
-          {/* Terminal No Markets Message */}
-          {filteredFeaturedMarkets.length === 0 && filteredRegularMarkets.length === 0 && (
-            <div className="text-center py-16">
-              <div className="text-green-400 mb-6 text-lg font-mono">
-                {'>'} ERROR: No markets found in selected protocol
-                <br />
-                {'>'} Switching to global scan...
-              </div>
-              <Button 
-                onClick={() => handleCategorySelect('all')}
-                variant="primary"
-                size="lg"
-                className="font-mono"
-              >
-                SCAN_ALL_MARKETS.EXE
-              </Button>
-            </div>
-          )}
 
-          {/* Terminal View All Markets CTA */}
+          {/* CTA to Full Markets */}
           <div className="flex justify-center">
             <Link href="/markets">
               <Button size="lg" className="px-12 py-4 group btn-degen text-black font-mono font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-200 hover:scale-105">
@@ -344,7 +326,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Terminal Why DegenBet */}
+      {/* Why DegenBet Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto">
           <div className="text-center mb-16">
@@ -361,10 +343,10 @@ export default function HomePage() {
           </div>
           
           <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-            {valueProps.map((prop, index) => (
+            {valueProps.map((prop) => (
               <div
                 key={prop.title}
-                className="terminal-card border-terminal hover:border-green-500/50 p-8 transition-all duration-200 text-center group hover:scale-105 mouse-glow hover-zone"
+                className="terminal-card border-terminal hover:border-green-500/50 p-8 transition-all duration-200 text-center group hover:scale-105"
               >
                 <div className="w-16 h-16 mx-auto mb-6 bg-green-500/10 rounded flex items-center justify-center group-hover:scale-110 transition-transform border border-green-500/20">
                   <prop.icon className="w-8 h-8 text-green-400" />
@@ -377,8 +359,6 @@ export default function HomePage() {
         </div>
       </section>
 
-
-      
       {/* Footer */}
       <Footer />
     </div>

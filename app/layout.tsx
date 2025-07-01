@@ -1,8 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Navigation } from '@/_shared/components/ui/Navigation';
-import { ThemeProvider } from '@/_shared/providers/ThemeProvider';
+import { NewNavigation } from '@/_shared/components/ui/NewNavigation';
+import { Providers } from './providers';
+import { ConditionalConstructionBanner } from '@/_shared/components/layout/ConditionalConstructionBanner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -123,12 +124,13 @@ export default function RootLayout({
           />
         </div>
         
-        <ThemeProvider>
-          <Navigation />
+        <Providers>
+          <NewNavigation />
+          <ConditionalConstructionBanner />
           <main className="bg-transparent text-white relative z-10">
             {children}
           </main>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

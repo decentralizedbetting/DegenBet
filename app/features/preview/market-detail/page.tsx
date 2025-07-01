@@ -8,17 +8,17 @@ import { Button } from '@/_shared/components/ui/Button';
 
 // Mock data
 const marketData = {
-  id: 'btc-100k-2024',
-  title: 'Will Bitcoin reach $100,000 by Dec 31, 2024?',
-  description: 'This market will resolve to YES if the price of Bitcoin (BTC) reaches or exceeds $100,000 USD on any major exchange before December 31, 2024 23:59:59 UTC.',
-  category: 'Crypto',
-  endDate: '2024-12-31T23:59:59Z',
-  volume: 2500000,
-  liquidity: 750000,
-  currentPrice: 0.65,
-  priceChange: '+5.2%',
-  resolution: 'Chainlink Price Feed',
-  creator: '0x1234...5678',
+  id: 'dbt-presale-success',
+  title: 'Will DegenBet reach $200K private presale goal?',
+  description: 'This market will resolve to YES if DegenBet completes their private presale target of $200,000 by February 29, 2024. Resolution based on official presale dashboard data.',
+  category: 'Presale',
+  endDate: '2024-02-29T23:59:59Z',
+  volume: 850000,
+  liquidity: 320000,
+  currentPrice: 0.89,
+  priceChange: '+12.8%',
+  resolution: 'Official Presale Dashboard',
+  creator: 'presale_oracle',
   createdAt: '2024-01-15T10:30:00Z',
   positions: [
     { outcome: 'Yes', shares: 1000, avgPrice: 0.58, currentPrice: 0.65, pnl: '+12.1%' },
@@ -55,7 +55,7 @@ export default function MarketDetailPreview() {
     <div className="min-h-screen bg-transparent">
       {/* Terminal Preview Banner */}
       <div className="terminal-card mb-6">
-        <div className="flex items-center justify-between p-3 border-b border-yellow-500/20">
+        <div className="flex items-center justify-between p-3 border-b border-orange-500/20">
           <div className="flex items-center space-x-2">
             <div className="w-2 h-2 rounded-full bg-red-500"></div>
             <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
@@ -66,14 +66,50 @@ export default function MarketDetailPreview() {
         <div className="p-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <span className="text-yellow-400 text-lg">⚠️</span>
-              <span className="text-yellow-400 font-medium font-mono">PREVIEW MODE - Market Detail Template</span>
+              <span className="text-orange-400 text-lg">🚀</span>
+              <span className="text-orange-400 font-medium font-mono">PRESALE EXCLUSIVE - Advanced Trading Interface</span>
             </div>
             <Link 
               href="/markets"
-              className="text-yellow-400 hover:text-yellow-300 text-sm font-medium font-mono"
+              className="text-orange-400 hover:text-orange-300 text-sm font-medium font-mono"
             >
               {'>'} exit_preview.sh
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Presale Trading Notice */}
+      <div className="terminal-card mb-6">
+        <div className="flex items-center justify-between p-4 border-b border-orange-500/20">
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <div className="terminal-text text-sm">trading_access.exe</div>
+        </div>
+        <div className="p-6 text-center">
+          <h2 className="text-2xl font-black mb-4 font-mono text-orange-400">
+            LIVE TRADING REQUIRES DBT
+          </h2>
+          <p className="text-gray-300 font-mono mb-6 leading-relaxed">
+            {'>'} Real prediction markets launch post-presale with DBT as base currency
+            <br />
+            {'>'} DBT holders get reduced fees & premium trading features
+            <br />
+            <span className="text-yellow-400">{'>'} Join presale to trade with the best rates!</span>
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/presale">
+              <button className="btn-degen w-full sm:w-auto font-mono text-black text-lg px-8 py-3">
+                {'>'} JOIN_PRESALE.EXE
+              </button>
+            </Link>
+            <Link href="/markets">
+              <button className="btn-degen-secondary w-full sm:w-auto font-mono text-lg px-8 py-3">
+                {'>'} BROWSE_DEMOS.SH
+              </button>
             </Link>
           </div>
         </div>

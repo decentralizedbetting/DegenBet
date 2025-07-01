@@ -165,7 +165,7 @@ export async function getMarkets(filters: MarketFilters = {}): Promise<ApiRespon
  */
 export async function getMarket(id: string): Promise<ApiResponse<Market>> {
   try {
-    const response = await fetch(`${API_BASE_URL}/markets/${id}`);
+    const response = await fetch(`${API_BASE_URL}/features/markets/${id}`);
     return handleResponse<Market>(response);
   } catch (error) {
     return { 
@@ -179,7 +179,7 @@ export async function getMarket(id: string): Promise<ApiResponse<Market>> {
  */
 export async function getOrderBook(marketId: string, outcomeId: string): Promise<ApiResponse<{ bids: Order[]; asks: Order[] }>> {
   try {
-    const response = await fetch(`${API_BASE_URL}/markets/${marketId}/orderbook?outcome=${outcomeId}`);
+    const response = await fetch(`${API_BASE_URL}/features/markets/${marketId}/orderbook?outcome=${outcomeId}`);
     return handleResponse<{ bids: Order[]; asks: Order[] }>(response);
   } catch (error) {
     return { 
@@ -193,7 +193,7 @@ export async function getOrderBook(marketId: string, outcomeId: string): Promise
  */
 export async function getMarketActivity(marketId: string, limit = 20): Promise<ApiResponse<ActivityItem[]>> {
   try {
-    const response = await fetch(`${API_BASE_URL}/markets/${marketId}/activity?limit=${limit}`);
+    const response = await fetch(`${API_BASE_URL}/features/markets/${marketId}/activity?limit=${limit}`);
     return handleResponse<ActivityItem[]>(response);
   } catch (error) {
     return { 
@@ -207,7 +207,7 @@ export async function getMarketActivity(marketId: string, limit = 20): Promise<A
  */
 export async function getTopHolders(marketId: string, limit = 10): Promise<ApiResponse<Holder[]>> {
   try {
-    const response = await fetch(`${API_BASE_URL}/markets/${marketId}/holders?limit=${limit}`);
+    const response = await fetch(`${API_BASE_URL}/features/markets/${marketId}/holders?limit=${limit}`);
     return handleResponse<Holder[]>(response);
   } catch (error) {
     return { 
@@ -226,7 +226,7 @@ export async function getPriceHistory(
 ): Promise<ApiResponse<ChartPoint[]>> {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/markets/${marketId}/price-history?outcome=${outcomeId}&timeframe=${timeframe}`
+      `${API_BASE_URL}/features/markets/${marketId}/price-history?outcome=${outcomeId}&timeframe=${timeframe}`
     );
     return handleResponse<ChartPoint[]>(response);
   } catch (error) {

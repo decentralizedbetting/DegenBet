@@ -188,7 +188,7 @@ const Footer = () => {
                 aria-label="Telegram"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12a12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.306.02.472c-.18 1.898-.962 6.502-1.36 8.627c-.168.9-.499 1.201-.82 1.23c-.696.065-1.225-.46-1.9-.902c-1.056-.693-1.653-1.124-2.678-1.8c-1.185-.78-.417-1.21.258-1.91c.177-.184 3.247-2.977 3.307-3.23c.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345c-.48.33-.913.49-1.302.48c-.428-.008-1.252-.241-1.865-.44c-.752-.245-1.349-.374-1.297-.789c.027-.216.325-.437.893-.663c3.498-1.524 5.83-2.529 6.998-3.014c3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12a12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.306.02.472c-.18 1.898-.962 6.502-1.36 8.627c-.168.9-.499 1.201-.82 1.23c-.696.065-1.225-.46-1.9-.902c-1.056-.693-1.653-1.124-2.678-1.8c-1.185-.78-.417-1.21.258-1.91c.177-.184 3.247-2.977 3.307-3.23c.007-.032.014-.15-.056-.212s-.041-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345c-.48.33-.913.49-1.302.48c-.428-.008-1.252-.241-1.865-.44c-.752-.245-1.349-.374-1.297-.789c.027-.216.325-.437.893-.663c3.498-1.524 5.83-2.529 6.998-3.014c3.332-1.386 4.025-1.627 4.476-1.635z"/>
                 </svg>
               </a>
               <a
@@ -199,18 +199,50 @@ const Footer = () => {
                 aria-label="GitHub"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.237 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
               </a>
             </div>
           </div>
           
           {/* Terminal Footer */}
-          <div className="mt-4 pt-3 border-t border-green-500/10 text-center">
-            <p className="text-xs font-mono text-gray-500">
-              <span className="text-green-400">$</span> tail -f /var/log/degenbet.log
-              <span className="animate-terminal-blink text-green-400 ml-2">_</span>
-            </p>
+          <div className="mt-4 pt-3 border-t border-green-500/10">
+            <div className="text-xs font-mono text-gray-400 leading-relaxed space-y-2">
+              {/* Company Info */}
+              <p>
+                <span className="text-green-400">$</span> cat copyright.txt<br/>
+                © 2025 DegenBet Protocol Inc. All rights reserved. 
+                <span className="text-yellow-400">Contract volume</span> = total USD traded since genesis block. 
+                As of launch, historical volume exceeded <span className="text-green-400">$420,000,000</span>. 
+                <span className="text-purple-400">Open interest</span> = outstanding contracts at any timestamp. 
+                Peak open interest: <span className="text-green-400">$69,000,000</span>.
+              </p>
+
+              {/* Risk Warning */}
+              <p>
+                <span className="text-green-400">$</span> ./risk_warning.sh --degen<br/>
+                <span className="text-red-400">⚠️ DEGEN WARNING:</span> Trading on DegenBet involves significant risk and may not be suitable for all degens. 
+                Users risk losing their entire bag, including gas fees. Only bet what you can afford to lose. 
+                This is not financial advice - <span className="text-yellow-400">DYOR</span> and assess your own risk tolerance 
+                before going full degen mode.
+              </p>
+
+              {/* Performance & Regulatory */}
+              <p>
+                <span className="text-green-400">$</span> echo "past performance != future gains"<br/>
+                Past performance is not indicative of future results. Your moon mission might end in a rug. 
+                Market data provided for informational purposes only. <span className="text-cyan-400">NFA</span> - Not Financial Advice. 
+                DegenBet operates as a decentralized protocol. Users are responsible for compliance with local regulations. 
+                <span className="text-yellow-400">Trade responsibly</span> - 
+                if gambling becomes a problem, execute <span className="text-red-400">./get_help.exe</span>.
+              </p>
+
+              {/* Terminal Status */}
+              <p className="pt-2 border-t border-gray-700">
+                <span className="text-green-400">$</span> tail -f /var/log/legal_compliance.log
+                <span className="animate-terminal-blink text-green-400 ml-1">_</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>

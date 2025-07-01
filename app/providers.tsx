@@ -1,15 +1,14 @@
 'use client';
 
-import { Providers } from '@/_shared/providers';
+import { ThemeProvider } from '@/_shared/providers/ThemeProvider';
+import { Web3Provider } from '@/_shared/providers/Web3Provider';
 
-interface RootProvidersProps {
-  children: React.ReactNode;
-}
-
-export function RootProviders({ children }: RootProvidersProps) {
+export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <Providers>
-      {children}
-    </Providers>
+    <ThemeProvider>
+      <Web3Provider>
+        {children}
+      </Web3Provider>
+    </ThemeProvider>
   );
 } 

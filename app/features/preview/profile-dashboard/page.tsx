@@ -9,20 +9,24 @@ import { Button } from '@/_shared/components/ui/Button';
 // Mock data for preview
 const mockUser = {
   address: '0x1234...5678',
-  username: 'CryptoWhale',
+  username: 'PresaleWhale',
   joinedDate: '2024-01-15',
   reputation: 98,
+  dbtHoldings: '250,000 DBT',
+  presaleTier: 'DIAMOND',
   stats: {
     totalTrades: 156,
     winRate: 68.5,
     totalVolume: 125000,
     activePositions: 12,
-    totalPnL: 15.4
+    totalPnL: 15.4,
+    daoVotes: 8,
+    marketsCreated: 3
   },
   achievements: [
-    { id: 1, title: 'Early Adopter', description: 'Joined during beta phase', icon: '🌟' },
-    { id: 2, title: 'Market Maker', description: 'Provided liquidity in 10+ markets', icon: '💧' },
-    { id: 3, title: 'Sharp Predictor', description: 'Won 5 predictions in a row', icon: '🎯' }
+    { id: 1, title: 'Presale Pioneer', description: 'Joined private presale phase', icon: '🚀' },
+    { id: 2, title: 'DAO Governor', description: 'Voted on 5+ governance proposals', icon: '🏛️' },
+    { id: 3, title: 'Market Creator', description: 'Deployed 3 prediction markets', icon: '⭐' }
   ]
 };
 
@@ -104,7 +108,7 @@ export default function ProfileDashboardPreview() {
     <div className="min-h-screen bg-transparent">
       {/* Terminal Preview Banner */}
       <div className="terminal-card mb-6">
-        <div className="flex items-center justify-between p-3 border-b border-yellow-500/20">
+        <div className="flex items-center justify-between p-3 border-b border-orange-500/20">
           <div className="flex items-center space-x-2">
             <div className="w-2 h-2 rounded-full bg-red-500"></div>
             <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
@@ -115,14 +119,50 @@ export default function ProfileDashboardPreview() {
         <div className="p-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <span className="text-yellow-400 text-lg">⚠️</span>
-              <span className="text-yellow-400 font-medium font-mono">PREVIEW MODE - Profile Dashboard Template</span>
+              <span className="text-orange-400 text-lg">🚀</span>
+              <span className="text-orange-400 font-medium font-mono">PRESALE EXCLUSIVE - Advanced Dashboard Preview</span>
             </div>
             <Link 
               href="/markets"
-              className="text-yellow-400 hover:text-yellow-300 text-sm font-medium font-mono"
+              className="text-orange-400 hover:text-orange-300 text-sm font-medium font-mono"
             >
               {'>'} exit_preview.sh
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Presale Access Notice */}
+      <div className="terminal-card mb-6">
+        <div className="flex items-center justify-between p-4 border-b border-orange-500/20">
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <div className="terminal-text text-sm">dashboard_access.exe</div>
+        </div>
+        <div className="p-6 text-center">
+          <h2 className="text-2xl font-black mb-4 font-mono text-orange-400">
+            ADVANCED DASHBOARD COMING SOON
+          </h2>
+          <p className="text-gray-300 font-mono mb-6 leading-relaxed">
+            {'>'} Full dashboard features unlock after presale completion
+            <br />
+            {'>'} DBT holders get premium analytics & portfolio tracking
+            <br />
+            <span className="text-yellow-400">{'>'} Join presale for exclusive dashboard access!</span>
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/presale">
+              <button className="btn-degen w-full sm:w-auto font-mono text-black text-lg px-8 py-3">
+                {'>'} JOIN_PRESALE.EXE
+              </button>
+            </Link>
+            <Link href="/leaderboard">
+              <button className="btn-degen-secondary w-full sm:w-auto font-mono text-lg px-8 py-3">
+                {'>'} VIEW_LEADERBOARD.SH
+              </button>
             </Link>
           </div>
         </div>
@@ -149,13 +189,14 @@ export default function ProfileDashboardPreview() {
                       <span className="text-2xl font-bold font-mono">CW</span>
                     </div>
                     <h2 className="text-xl font-bold mb-1 font-mono text-green-400">{mockUser.username}</h2>
-                    <p className="text-gray-400 font-mono text-sm mb-4">{mockUser.address}</p>
+                    <p className="text-gray-400 font-mono text-sm mb-2">{mockUser.address}</p>
+                    <p className="text-purple-400 font-mono text-sm mb-4">{mockUser.dbtHoldings}</p>
                     <div className="flex items-center space-x-2">
+                      <div className="px-2 py-1 bg-orange-500/20 rounded-full border border-orange-500/30">
+                        <span className="text-xs text-orange-400 font-mono">{mockUser.presaleTier}</span>
+                      </div>
                       <div className="px-2 py-1 bg-green-500/20 rounded-full border border-green-500/30">
                         <span className="text-xs text-green-400 font-mono">REP_{mockUser.reputation}</span>
-                      </div>
-                      <div className="px-2 py-1 bg-blue-500/20 rounded-full border border-blue-500/30">
-                        <span className="text-xs text-blue-400 font-mono">BETA_USER</span>
                       </div>
                     </div>
                   </div>

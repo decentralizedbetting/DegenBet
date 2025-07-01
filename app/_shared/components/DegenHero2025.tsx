@@ -9,12 +9,14 @@ import {
   RocketLaunchIcon, 
   TrophyIcon,
   ArrowRightIcon,
-  TerminalIcon
+  PlayIcon,
+  BoltIcon,
+  FireIcon
 } from '@heroicons/react/24/outline';
 
 interface TerminalLine {
   id: string;
-  type: 'profit' | 'loss' | 'bet';
+  type: 'profit' | 'loss' | 'system' | 'trade';
   content: string;
   amount?: number;
   timestamp: string;
@@ -22,80 +24,112 @@ interface TerminalLine {
 
 interface LiveStats {
   totalVolume: number;
-  activeUsers: number;
-  successRate: number;
+  activeDegens: number;
   biggestWin: number;
+  presaleRaised: number;
 }
 
-const degenPhrases = [
-  "TO THE MOON 🚀",
-  "DIAMOND HANDS 💎", 
-  "BIG DEGEN ENERGY ⚡",
-  "WEN LAMBO? 🏎️",
-  "HODL THE LINE 📈"
+const degenCommands = [
+  "npm install --save diamond-hands",
+  "git commit -m 'TO THE MOON 🚀'", 
+  "docker run --moon-mission degenbet",
+  "yarn add @degen/protocol@latest",
+  "chmod +x ./moon_mission.sh",
+  "sudo apt install big-degen-energy"
 ];
 
-const cryptoSymbols = ["₿", "Ξ", "◉", "⬢", "◈", "⟡"];
+const cryptoSymbols = ["₿", "Ξ", "◉", "⬢", "◈", "⟡", "▲", "●"];
+
+const statusMessages = [
+  "SMART_CONTRACTS: AUDITED ✓",
+  "PROTOCOL: DECENTRALIZED ✓", 
+  "COMMUNITY: 1337_DEGENS ✓",
+  "PRESALE: MOON_MISSION_ACTIVE ✓"
+];
 
 export const DegenHero2025: React.FC = () => {
+  const [isClient, setIsClient] = useState(false);
   const [terminalLines, setTerminalLines] = useState<TerminalLine[]>([]);
-  const [currentPhrase, setCurrentPhrase] = useState(0);
-  const [typedText, setTypedText] = useState('');
+  const [currentCommand, setCurrentCommand] = useState(0);
+  const [typingText, setTypingText] = useState('');
   const [liveStats, setLiveStats] = useState<LiveStats>({
-    totalVolume: 2847293,
-    activeUsers: 1337,
-    successRate: 69.42,
-    biggestWin: 42069
+    totalVolume: 4200000,
+    activeDegens: 1337,
+    biggestWin: 69420,
+    presaleRaised: 2400000
   });
-  const [cursorVisible, setCursorVisible] = useState(true);
+  const [currentStatus, setCurrentStatus] = useState(0);
 
-  // Dynamic typing effect
+  // Track client-side rendering to avoid hydration issues
   useEffect(() => {
-    const phrase = degenPhrases[currentPhrase];
+    setIsClient(true);
+  }, []);
+
+  // Terminal typing animation
+  useEffect(() => {
+    if (!isClient) return;
+    
+    const command = degenCommands[currentCommand];
     let currentIndex = 0;
     
     const typeInterval = setInterval(() => {
-      if (currentIndex < phrase.length) {
-        setTypedText(phrase.substring(0, currentIndex + 1));
+      if (currentIndex < command.length) {
+        setTypingText(command.substring(0, currentIndex + 1));
         currentIndex++;
       } else {
         setTimeout(() => {
-          setCurrentPhrase((prev) => (prev + 1) % degenPhrases.length);
-          setTypedText('');
+          setCurrentCommand((prev) => (prev + 1) % degenCommands.length);
+          setTypingText('');
         }, 2000);
         clearInterval(typeInterval);
       }
-    }, 100);
+    }, 80);
 
     return () => clearInterval(typeInterval);
-  }, [currentPhrase]);
+  }, [currentCommand, isClient]);
 
-  // Cursor blink effect
+  // Status rotation
   useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setCursorVisible(prev => !prev);
-    }, 500);
-    return () => clearInterval(cursorInterval);
-  }, []);
+    if (!isClient) return;
+    
+    const interval = setInterval(() => {
+      setCurrentStatus((prev) => (prev + 1) % statusMessages.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isClient]);
 
-  // Terminal data stream
+  // Live terminal feed with deterministic seeding to avoid hydration errors
   useEffect(() => {
-    const users = ['anon_trader', 'degen_king', 'moon_boy', 'whale_hunter'];
-    const markets = ['BTC/USD', 'ETH Merge', 'NBA Finals', 'Election 2024'];
+    if (!isClient) return;
+    
+    const users = ['anon_chad', 'diamond_hands', 'moon_boy', 'degen_king', 'ape_strong'];
+    const events = [
+      'REKT THE HOUSE on BTC prediction',
+      'got liquidated betting against ETH', 
+      'diamond handed through -80% dip',
+      'YOLO\'d entire bag on NBA finals',
+      'moon mission successful 🚀',
+      'just bought the dip AGAIN'
+    ];
+    
+    let lineCounter = 0; // Use counter instead of Math.random for deterministic behavior
     
     const generateLine = (): TerminalLine => {
-      const isProfit = Math.random() > 0.3;
+      // Use counter-based deterministic "randomness"
+      const isProfit = (lineCounter % 5) !== 0; // 80% profit rate
       const amount = isProfit 
-        ? Math.floor(Math.random() * 5000) + 100
-        : Math.floor(Math.random() * 2000) + 50;
+        ? 1000 + (lineCounter % 50000)
+        : 500 + (lineCounter % 20000);
       
-      const user = users[Math.floor(Math.random() * users.length)];
-      const market = markets[Math.floor(Math.random() * markets.length)];
+      const user = users[lineCounter % users.length];
+      const event = events[lineCounter % events.length];
+      
+      lineCounter++;
       
       return {
-        id: Math.random().toString(36),
+        id: `line-${lineCounter}`,
         type: isProfit ? 'profit' : 'loss',
-        content: `${user} ${isProfit ? 'REKT the house' : 'got liquidated'} on ${market}`,
+        content: `${user}: ${event}`,
         amount,
         timestamp: new Date().toLocaleTimeString()
       };
@@ -103,80 +137,104 @@ export const DegenHero2025: React.FC = () => {
 
     const interval = setInterval(() => {
       const newLine = generateLine();
-      setTerminalLines(prev => [...prev.slice(-7), newLine]);
+      setTerminalLines(prev => [...prev.slice(-6), newLine]);
       
+      // Update live stats with deterministic increments
       setLiveStats(prev => ({
-        totalVolume: prev.totalVolume + Math.floor(Math.random() * 10000),
-        activeUsers: prev.activeUsers + Math.floor(Math.random() * 5) - 2,
-        successRate: 65 + Math.random() * 10,
-        biggestWin: Math.max(prev.biggestWin, newLine.amount || 0)
+        totalVolume: prev.totalVolume + (1000 + (lineCounter % 10000)),
+        activeDegens: Math.max(1000, prev.activeDegens + ((lineCounter % 5) - 2)),
+        biggestWin: Math.max(prev.biggestWin, newLine.amount || 0),
+        presaleRaised: prev.presaleRaised + (100 + (lineCounter % 500))
       }));
-    }, 2000);
+    }, 2500);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isClient]);
 
   return (
-    <section className="relative py-20 flex items-center justify-center overflow-hidden bg-transparent">
-      {/* Additional Floating Crypto Symbols for Hero */}
+    <section className="relative py-12 lg:py-20 overflow-hidden bg-transparent">
+      {/* Matrix Background */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        {cryptoSymbols.map((symbol, i) => (
+        {/* Floating crypto symbols with deterministic positioning */}
+        {isClient && cryptoSymbols.map((symbol, i) => (
           <motion.div
             key={i}
-            className="absolute text-green-500/30 text-4xl font-bold"
+            className="absolute text-green-500/20 text-2xl font-bold"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${(i * 12.5) % 100}%`, // Deterministic left position
+              top: `${(i * 15) % 100}%`,    // Deterministic top position
             }}
             animate={{
-              y: [-20, 20, -20],
-              opacity: [0.2, 0.5, 0.2],
-              rotate: [0, 180, 360],
+              y: [-10, 10, -10],
+              opacity: [0.1, 0.3, 0.1],
+              rotate: [0, 360],
             }}
             transition={{
-              duration: 5 + Math.random() * 3,
+              duration: 8 + (i % 4), // Deterministic duration based on index
               repeat: Infinity,
-              delay: i * 0.5,
+              delay: i * 0.3,
             }}
           >
             {symbol}
           </motion.div>
         ))}
+
+        {/* Matrix rain effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-500/5 to-transparent opacity-30" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           
-          {/* Left Side - Main Content */}
-          <div className="space-y-8">
-            {/* Logo */}
+          {/* Left Side - Terminal & Content */}
+          <div className="space-y-6">
+            {/* System Status */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center space-x-4"
+              className="terminal-card border border-green-500/30 bg-black/80"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center">
-                <Image
-                  src="/logo-degenbet.svg"
-                  alt="DegenBet"
-                  width={32}
-                  height={32}
-                  className="filter brightness-0 invert"
-                />
+              <div className="flex items-center justify-between p-3 border-b border-green-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                </div>
+                <span className="text-green-400 font-mono text-xs">system_status.exe</span>
               </div>
-              <div className="text-green-400 font-mono text-xl font-bold tracking-wider">
-                DEGENBET.XYZ
+              <div className="p-4">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-green-400 font-mono text-sm">
+                    {statusMessages[currentStatus]}
+                  </span>
+                </div>
               </div>
             </motion.div>
 
-            {/* Dynamic Headline */}
-            <div className="space-y-4">
-              <motion.h1
-                className="text-5xl lg:text-7xl font-black leading-tight"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
+            {/* Main Headline */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="space-y-4"
+            >
+              <div className="flex items-center space-x-4 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                  <Image
+                    src="/logo-degenbet.svg"
+                    alt="DegenBet"
+                    width={32}
+                    height={32}
+                    className="filter brightness-0 invert"
+                  />
+                </div>
+                <div className="text-green-400 font-mono text-xl font-bold tracking-wider">
+                  DEGENBET.XYZ
+                </div>
+              </div>
+
+              <h1 className="text-4xl lg:text-6xl font-black leading-tight">
                 <span className="text-white">DEGEN</span>
                 <br />
                 <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-600 bg-clip-text text-transparent">
@@ -184,165 +242,178 @@ export const DegenHero2025: React.FC = () => {
                 </span>
                 <br />
                 <span className="text-purple-400">PROTOCOL</span>
-              </motion.h1>
+              </h1>
 
-              {/* Typing Animation */}
-              <motion.div
-                className="text-xl lg:text-2xl font-mono text-green-400 h-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                {typedText}
-                <span className={`${cursorVisible ? 'opacity-100' : 'opacity-0'} transition-opacity`}>
-                  _
-                </span>
-              </motion.div>
-            </div>
+              <div className="text-lg lg:text-xl text-gray-300 leading-relaxed font-mono">
+                <span className="text-green-400">&gt;</span> The first{' '}
+                <span className="text-yellow-400 font-bold">decentralized prediction market</span>{' '}
+                built for degens
+                <br />
+                <span className="text-green-400">&gt;</span> Diamond hands technology meets{' '}
+                <span className="text-purple-400 font-bold">transparent betting</span>
+                <br />
+                <span className="text-green-400">&gt;</span> No house edge. No KYC. No BS.
+              </div>
+            </motion.div>
 
-            {/* Subtitle */}
-            <motion.p
-              className="text-xl text-gray-300 max-w-lg leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-            >
-              Decentralized. Unstoppable. <span className="text-green-400 font-semibold">100% On-Chain.</span>
-              <br />
-              Where degens come to print money or get absolutely rekt.
-            </motion.p>
-
-            {/* CTA Buttons */}
+            {/* Terminal Command Line */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="terminal-card border border-purple-500/30 bg-black/60"
+            >
+              <div className="p-4">
+                <div className="flex items-center space-x-2 font-mono text-sm">
+                  <span className="text-purple-400">degenbet@mainnet:</span>
+                  <span className="text-white">~$</span>
+                  <span className="text-green-400">{typingText}</span>
+                  <span className="text-green-400 animate-ping">_</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
+              transition={{ delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4"
             >
-              <Link href="/markets">
+              <Link href="/presale">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-black font-bold px-8 py-4 text-lg relative overflow-hidden group"
+                  className="group btn-degen text-black font-mono font-bold text-lg px-8 py-4 shadow-xl hover:shadow-2xl transition-all duration-200 hover:scale-105 w-full sm:w-auto"
                 >
-                  <span className="relative z-10">START DEGEN MODE</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                  <RocketLaunchIcon className="w-6 h-6 mr-3 group-hover:animate-bounce" />
+                  <span>JOIN_PRESALE.EXE</span>
+                  <ArrowRightIcon className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               
-              <Button
-                size="lg"
-                variant="secondary"
-                className="border-green-400/50 text-green-400 hover:bg-green-400/10 font-mono px-8 py-4 text-lg"
-              >
-                CONNECT WALLET
-              </Button>
-            </motion.div>
-
-            {/* Live Stats Bar */}
-            <motion.div
-              className="bg-black/50 backdrop-blur-sm border border-green-500/30 rounded-lg p-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1 }}
-            >
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-                <div>
-                  <div className="text-green-400 font-mono text-lg font-bold">
-                    ${liveStats.totalVolume.toLocaleString()}
-                  </div>
-                  <div className="text-gray-500 text-xs">TOTAL VOLUME</div>
-                </div>
-                <div>
-                  <div className="text-purple-400 font-mono text-lg font-bold">
-                    {liveStats.activeUsers}
-                  </div>
-                  <div className="text-gray-500 text-xs">DEGENS ONLINE</div>
-                </div>
-                <div>
-                  <div className="text-yellow-400 font-mono text-lg font-bold">
-                    {liveStats.successRate.toFixed(1)}%
-                  </div>
-                  <div className="text-gray-500 text-xs">WIN RATE</div>
-                </div>
-                <div>
-                  <div className="text-red-400 font-mono text-lg font-bold">
-                    ${liveStats.biggestWin.toLocaleString()}
-                  </div>
-                  <div className="text-gray-500 text-xs">BIGGEST WIN</div>
-                </div>
-              </div>
+              <Link href="/markets">
+                <Button 
+                  size="lg" 
+                  variant="secondary"
+                  className="group btn-degen-secondary font-mono font-bold text-lg px-8 py-4 transition-all duration-200 hover:scale-105 w-full sm:w-auto"
+                >
+                  <PlayIcon className="w-5 h-5 mr-3" />
+                  <span>PREVIEW_DEMO.SH</span>
+                </Button>
+              </Link>
             </motion.div>
           </div>
 
-          {/* Right Side - Terminal */}
-          <motion.div
-            className="bg-black/80 backdrop-blur-sm border border-green-500/30 rounded-xl p-6 font-mono text-sm"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            {/* Terminal Header */}
-            <div className="flex items-center justify-between mb-4 pb-2 border-b border-green-500/30">
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <div className="text-green-400 text-xs">LIVE_FEED.exe</div>
-            </div>
-
-            {/* Terminal Content */}
-            <div className="space-y-2 h-64 overflow-hidden">
-              <div className="text-green-400 text-xs mb-2">
-                {'>'} DegenBet Protocol v2.0 initialized...
-              </div>
-              <div className="text-green-400 text-xs mb-4">
-                {'>'} Real-time betting data stream active
+          {/* Right Side - Live Terminal Feed */}
+          <div className="space-y-6">
+            {/* Live Stats Terminal */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="terminal-card border border-green-500/30 bg-black/80"
+            >
+              <div className="flex items-center justify-between p-3 border-b border-green-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                </div>
+                <span className="text-green-400 font-mono text-xs">live_stats.json</span>
               </div>
               
-              <AnimatePresence mode="popLayout">
-                {terminalLines.map((line) => (
-                  <motion.div
-                    key={line.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    className="flex items-center justify-between text-xs"
-                  >
-                    <span className={`
-                      ${line.type === 'profit' ? 'text-green-400' : 'text-red-400'}
-                    `}>
-                      [{line.timestamp}] {line.content}
-                    </span>
-                    {line.amount && (
-                      <span className={`font-bold ${
-                        line.type === 'profit' ? 'text-green-400' : 'text-red-400'
-                      }`}>
-                        {line.type === 'profit' ? '+' : '-'}${line.amount}
-                      </span>
-                    )}
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </div>
-
-            {/* Terminal Input */}
-            <div className="mt-4 pt-2 border-t border-green-500/30">
-              <div className="text-green-400 text-xs flex items-center">
-                <span className="mr-2">degen@protocol:~$</span>
-                <motion.span
-                  animate={{ opacity: [1, 0, 1] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                >
-                  _
-                </motion.span>
+              <div className="p-4 space-y-3 font-mono text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-400">presale_raised:</span>
+                  <span className="text-green-400 font-bold">
+                    ${(liveStats.presaleRaised / 1000000).toFixed(1)}M
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">volume_24h:</span>
+                  <span className="text-purple-400 font-bold">
+                    ${(liveStats.totalVolume / 1000000).toFixed(1)}M
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">active_degens:</span>
+                  <span className="text-yellow-400 font-bold">{liveStats.activeDegens}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">biggest_win:</span>
+                  <span className="text-orange-400 font-bold">
+                    ${liveStats.biggestWin.toLocaleString()}
+                  </span>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+
+            {/* Live Activity Feed */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+              className="terminal-card border border-cyan-500/30 bg-black/80"
+            >
+              <div className="flex items-center justify-between p-3 border-b border-cyan-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                </div>
+                <span className="text-cyan-400 font-mono text-xs">tail -f /var/log/degens.log</span>
+              </div>
+              
+              <div className="p-4 h-64 overflow-hidden">
+                <AnimatePresence>
+                  {terminalLines.map((line) => (
+                    <motion.div
+                      key={line.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      className="font-mono text-xs mb-2 flex items-center justify-between"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <span className="text-gray-500">{line.timestamp}</span>
+                        <span className={line.type === 'profit' ? 'text-green-400' : 'text-red-400'}>
+                          {line.content}
+                        </span>
+                      </div>
+                      {line.amount && (
+                        <span className={`font-bold ${line.type === 'profit' ? 'text-green-400' : 'text-red-400'}`}>
+                          {line.type === 'profit' ? '+' : '-'}${line.amount.toLocaleString()}
+                        </span>
+                      )}
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+
+            {/* Trust Indicators */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="flex items-center justify-center space-x-6 flex-wrap gap-2 opacity-70"
+            >
+              <div className="flex items-center space-x-2 text-xs font-mono text-gray-400">
+                <div className="w-2 h-2 bg-green-500 rounded-full" />
+                <span>AUDITED</span>
+              </div>
+              <div className="flex items-center space-x-2 text-xs font-mono text-gray-400">
+                <div className="w-2 h-2 bg-purple-500 rounded-full" />
+                <span>DECENTRALIZED</span>
+              </div>
+              <div className="flex items-center space-x-2 text-xs font-mono text-gray-400">
+                <div className="w-2 h-2 bg-yellow-500 rounded-full" />
+                <span>COMMUNITY_OWNED</span>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
-
-
     </section>
   );
 }; 

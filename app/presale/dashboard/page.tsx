@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { WalletConnection } from '../components/WalletConnection';
+import { PresaleNavigation } from '../components/PresaleNavigation';
+import { UnifiedWalletButton } from '@/_shared/components/ui/UnifiedWalletButton';
 import { ReferralSystem } from '../components/ReferralSystem';
 import { SmartContractInterface } from '../components/SmartContractInterface';
 
@@ -38,6 +39,9 @@ export default function PresaleDashboard() {
     <div className="min-h-screen text-white relative overflow-hidden">
 
       <div className="container mx-auto px-4 py-8 relative z-10">
+        {/* Navigation */}
+        <PresaleNavigation />
+
         {/* Header */}
         <motion.div 
           className="terminal-card mb-8"
@@ -81,7 +85,7 @@ export default function PresaleDashboard() {
 
         {/* Wallet Connection */}
         <div className="mb-8">
-          <WalletConnection 
+                          <UnifiedWalletButton variant="presale" 
             isConnected={isConnected} 
             onConnect={handleConnect}
             walletAddress={walletAddress}

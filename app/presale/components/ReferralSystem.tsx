@@ -41,6 +41,23 @@ export function ReferralSystem({ userAddress, isConnected }: ReferralSystemProps
     }
   };
 
+  const shareOnTwitter = () => {
+    const text = `Just joined the @DegenBet DBT private sale! 🔥 The future of decentralized prediction markets is here. Get your DBT tokens with my referral code: ${referralCode}`;
+    const url = `https://presale.degenbet.xyz?ref=${referralCode}`;
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+  };
+
+  const shareOnTelegram = () => {
+    const text = `🚀 DegenBet Private Sale is LIVE! Get DBT tokens at $0.002 each. Use my referral code: ${referralCode} for exclusive benefits! https://presale.degenbet.xyz?ref=${referralCode}`;
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(`https://presale.degenbet.xyz?ref=${referralCode}`)}&text=${encodeURIComponent(text)}`, '_blank');
+  };
+
+  const shareOnDiscord = () => {
+    const text = `🔥 DegenBet Private Sale Alert! \n\nGet your DBT tokens now at $0.002 each!\nUse referral code: ${referralCode}\nLink: https://presale.degenbet.xyz?ref=${referralCode}\n\nBe part of the future of prediction markets! 💎`;
+    navigator.clipboard.writeText(text);
+    alert('Discord message copied to clipboard! Paste it in your Discord server.');
+  };
+
   if (!isConnected) {
     return (
       <div className="terminal-card">
@@ -154,13 +171,13 @@ export function ReferralSystem({ userAddress, isConnected }: ReferralSystemProps
                 <div className="text-blue-400 text-sm font-mono">
                   <p className="mb-1">Share on social media:</p>
                   <div className="flex space-x-2 mt-2">
-                    <button className="px-3 py-1 bg-blue-600/20 border border-blue-600/30 rounded text-xs hover:bg-blue-600/30 transition-colors">
+                    <button className="px-3 py-1 bg-blue-600/20 border border-blue-600/30 rounded text-xs hover:bg-blue-600/30 transition-colors" onClick={shareOnTwitter}>
                       TWITTER
                     </button>
-                    <button className="px-3 py-1 bg-indigo-600/20 border border-indigo-600/30 rounded text-xs hover:bg-indigo-600/30 transition-colors">
+                    <button className="px-3 py-1 bg-indigo-600/20 border border-indigo-600/30 rounded text-xs hover:bg-indigo-600/30 transition-colors" onClick={shareOnTelegram}>
                       TELEGRAM
                     </button>
-                    <button className="px-3 py-1 bg-purple-600/20 border border-purple-600/30 rounded text-xs hover:bg-purple-600/30 transition-colors">
+                    <button className="px-3 py-1 bg-purple-600/20 border border-purple-600/30 rounded text-xs hover:bg-purple-600/30 transition-colors" onClick={shareOnDiscord}>
                       DISCORD
                     </button>
                   </div>

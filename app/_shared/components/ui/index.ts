@@ -1,11 +1,11 @@
-// Shared UI Components - Easy Import
+﻿// Shared UI Components - Easy Import
 export { Button } from './Button';
-export { Card, CardHeader, CardTitle, CardContent, CardFooter } from './Card';
+export { Card } from './Card';
 export { Input } from './Input';
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';
-export { Navigation } from './Navigation';
-export { DataDisplay, ProgressBar, DataTable, Tooltip } from './DataDisplay';
-export { containers } from './containers';
-
-// Interactive components
-export * from './interactive/index';
+export { NewNavigation } from './NewNavigation';
+export { UnifiedWalletButton } from './UnifiedWalletButton';
+export { WalletModal } from './WalletModal';
+export { Tabs } from './Tabs';
+export * from './DataDisplay';
+export * from './containers';
+export * from './interactive';

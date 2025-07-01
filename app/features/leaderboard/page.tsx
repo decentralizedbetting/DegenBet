@@ -4,15 +4,22 @@ import Link from 'next/link';
 
 export default function LeaderboardPage() {
   const topDegens = [
-    { rank: 1, name: "diamond_hands_420", profit: "+$69,420", accuracy: "96%", streak: "42", rekt: "0", badge: "🏆", status: "ONLINE" },
-    { rank: 2, name: "lambo_soon_anon", profit: "+$42,069", accuracy: "91%", streak: "28", rekt: "2", badge: "💎", status: "TRADING" },
-    { rank: 3, name: "rekt_detector_9000", profit: "+$33,333", accuracy: "89%", streak: "15", rekt: "1", badge: "🚀", status: "ONLINE" },
-    { rank: 4, name: "to_the_moon_chad", profit: "+$25,555", accuracy: "85%", streak: "12", rekt: "3", badge: "⚡", status: "AFK" },
-    { rank: 5, name: "degen_whale_0x", profit: "+$19,999", accuracy: "82%", streak: "8", rekt: "5", badge: "🔥", status: "ONLINE" },
-    { rank: 6, name: "ngmi_reverser", profit: "+$15,420", accuracy: "78%", streak: "6", rekt: "4", badge: "💰", status: "TRADING" },
-    { rank: 7, name: "ape_mode_enabled", profit: "+$12,345", accuracy: "76%", streak: "4", rekt: "7", badge: "🦍", status: "ONLINE" },
-    { rank: 8, name: "copium_overdose", profit: "+$9,876", accuracy: "73%", streak: "3", rekt: "8", badge: "💊", status: "REKT" }
+    { rank: 1, name: "presale_whale_1", profit: "+$42,069", accuracy: "94%", streak: "28", rekt: "0", badge: "🚀", status: "PRESALE", dbtHoldings: "500K" },
+    { rank: 2, name: "diamond_hands_dao", profit: "+$25,420", accuracy: "89%", streak: "22", rekt: "1", badge: "💎", status: "PRESALE", dbtHoldings: "350K" },
+    { rank: 3, name: "early_adopter_chad", profit: "+$18,888", accuracy: "86%", streak: "19", rekt: "2", badge: "⚡", status: "PRESALE", dbtHoldings: "250K" },
+    { rank: 4, name: "governance_master", profit: "+$15,555", accuracy: "83%", streak: "16", rekt: "1", badge: "🏛️", status: "PRESALE", dbtHoldings: "200K" },
+    { rank: 5, name: "degen_founder", profit: "+$12,345", accuracy: "81%", streak: "14", rekt: "3", badge: "🔥", status: "PRESALE", dbtHoldings: "180K" },
+    { rank: 6, name: "market_creator_og", profit: "+$9,876", accuracy: "78%", streak: "12", rekt: "2", badge: "⭐", status: "DEMO", dbtHoldings: "0" },
+    { rank: 7, name: "prediction_wizard", profit: "+$7,777", accuracy: "75%", streak: "9", rekt: "4", badge: "🧙", status: "DEMO", dbtHoldings: "0" },
+    { rank: 8, name: "beta_tester_degen", profit: "+$5,420", accuracy: "72%", streak: "7", rekt: "5", badge: "🧪", status: "DEMO", dbtHoldings: "0" }
   ];
+
+  const leaderboardStats = {
+    totalParticipants: "1,247",
+    presaleHolders: topDegens.filter(d => d.status === "PRESALE").length,
+    totalVolume: "$2.4M",
+    totalDBTStaked: "1,480,000 DBT"
+  };
 
   return (
     <div className="min-h-screen bg-transparent">
@@ -51,15 +58,49 @@ export default function LeaderboardPage() {
             </div>
             <div className="p-6 text-center">
               <h1 className="text-5xl font-black mb-4 font-mono">
-                <span className="text-green-400">{'>'}</span> DEGEN_LEADERBOARD
+                <span className="text-green-400">{'>'}</span> DEGENBET_LEADERBOARD
               </h1>
               <p className="text-green-300 font-mono leading-relaxed">
-                {'>'} Ranking the most elite degens in the prediction markets
+                {'>'} Elite DBT holders & presale participants
                 <br />
-                {'>'} Only diamond hands survive in this degen casino
+                {'>'} Early adopters dominate the prediction markets
                 <br />
-                {'>'} Current online degens: {topDegens.filter(d => d.status === "ONLINE" || d.status === "TRADING").length}/8
+                {'>'} Presale participants: {leaderboardStats.presaleHolders} • Total users: {leaderboardStats.totalParticipants}
               </p>
+            </div>
+          </div>
+
+          {/* Presale Leaderboard Notice */}
+          <div className="terminal-card mb-8">
+            <div className="flex items-center justify-between p-4 border-b border-orange-500/20">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="terminal-text text-sm">presale_advantage.sh</div>
+            </div>
+            <div className="p-6 text-center">
+              <h3 className="text-xl font-mono font-bold mb-3 text-orange-400">PRESALE HOLDER ADVANTAGE</h3>
+              <p className="text-gray-400 font-mono mb-6">
+                {'>'} Top performers are early DBT presale participants
+                <br />
+                {'>'} Join presale to compete with the best degens
+                <br />
+                <span className="text-yellow-400">{'>'} Higher DBT holdings = better platform perks & voting power</span>
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/presale">
+                  <button className="btn-degen w-full sm:w-auto font-mono text-black">
+                    {'>'} JOIN_PRESALE.EXE
+                  </button>
+                </Link>
+                <Link href="/presale/whitelist">
+                  <button className="btn-degen-secondary w-full sm:w-auto font-mono">
+                    {'>'} GET_WHITELISTED.SH
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -78,8 +119,26 @@ export default function LeaderboardPage() {
                 <div className="w-12 h-12 bg-yellow-500/20 rounded flex items-center justify-center mx-auto mb-4">
                   <span className="text-yellow-400 text-2xl">💰</span>
                 </div>
-                <h3 className="font-mono font-bold mb-2 text-yellow-400">PROFIT_TRACKER</h3>
-                <p className="text-gray-400 text-sm font-mono">Total gains & diamond hands ROI</p>
+                <h3 className="font-mono font-bold mb-2 text-yellow-400">PROFIT_TRACKING</h3>
+                <p className="text-gray-400 text-sm font-mono">Demo gains & future earnings potential</p>
+              </div>
+                </div>
+                
+            <div className="terminal-card">
+              <div className="flex items-center justify-between p-3 border-b border-green-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                </div>
+                <div className="terminal-text text-xs">dbt_holdings.db</div>
+                  </div>
+              <div className="p-6 text-center">
+                <div className="w-12 h-12 bg-purple-500/20 rounded flex items-center justify-center mx-auto mb-4">
+                  <span className="text-purple-400 text-2xl">💎</span>
+                </div>
+                <h3 className="font-mono font-bold mb-2 text-purple-400">DBT_HOLDINGS</h3>
+                <p className="text-gray-400 text-sm font-mono">Token balance & governance power</p>
               </div>
                 </div>
                 
@@ -108,32 +167,14 @@ export default function LeaderboardPage() {
                   <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
                   <div className="w-2 h-2 rounded-full bg-green-500"></div>
                 </div>
-                <div className="terminal-text text-xs">streak.exe</div>
+                <div className="terminal-text text-xs">presale_status.dao</div>
                   </div>
               <div className="p-6 text-center">
-                <div className="w-12 h-12 bg-purple-500/20 rounded flex items-center justify-center mx-auto mb-4">
-                  <span className="text-purple-400 text-2xl">🔥</span>
+                <div className="w-12 h-12 bg-orange-500/20 rounded flex items-center justify-center mx-auto mb-4">
+                  <span className="text-orange-400 text-2xl">🚀</span>
                 </div>
-                <h3 className="font-mono font-bold mb-2 text-purple-400">WIN_STREAKS</h3>
-                <p className="text-gray-400 text-sm font-mono">Consecutive lambo predictions</p>
-              </div>
-                </div>
-                
-            <div className="terminal-card">
-              <div className="flex items-center justify-between p-3 border-b border-green-500/20">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                  <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
-                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                </div>
-                <div className="terminal-text text-xs">reputation.dao</div>
-                  </div>
-              <div className="p-6 text-center">
-                <div className="w-12 h-12 bg-red-500/20 rounded flex items-center justify-center mx-auto mb-4">
-                  <span className="text-red-400 text-2xl">⭐</span>
-                </div>
-                <h3 className="font-mono font-bold mb-2 text-red-400">DEGEN_REP</h3>
-                <p className="text-gray-400 text-sm font-mono">Community respect score</p>
+                <h3 className="font-mono font-bold mb-2 text-orange-400">PRESALE_TIER</h3>
+                <p className="text-gray-400 text-sm font-mono">Early adopter access level</p>
               </div>
                 </div>
               </div>
@@ -165,14 +206,17 @@ export default function LeaderboardPage() {
                           <div>
                             <div className="font-mono font-bold text-white text-lg">{degen.name}</div>
                             <div className="flex items-center space-x-4 text-sm font-mono">
-                              <span className={`px-2 py-1 rounded text-xs ${
-                                degen.status === 'ONLINE' ? 'bg-green-500/20 text-green-400' :
-                                degen.status === 'TRADING' ? 'bg-yellow-500/20 text-yellow-400' :
-                                degen.status === 'REKT' ? 'bg-red-500/20 text-red-400' :
-                                'bg-gray-500/20 text-gray-400'
+                              <span className={`px-2 py-1 rounded text-xs border ${
+                                degen.status === 'PRESALE' ? 'bg-orange-500/20 text-orange-400 border-orange-500/30' :
+                                'bg-gray-500/20 text-gray-400 border-gray-500/30'
                               }`}>
                                 {degen.status}
                               </span>
+                              {degen.dbtHoldings !== "0" && (
+                                <span className="px-2 py-1 rounded text-xs bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                                  {degen.dbtHoldings} DBT
+                                </span>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -219,8 +263,13 @@ export default function LeaderboardPage() {
                   </button>
                 </Link>
                 <Link href="/preview/profile-dashboard">
-                  <button className="btn-degen w-full sm:w-auto font-mono text-black">
+                  <button className="btn-degen-secondary w-full sm:w-auto font-mono">
                     {'>'} VIEW_DASHBOARD.EXE
+                  </button>
+                </Link>
+                <Link href="/governance">
+                  <button className="btn-degen-secondary w-full sm:w-auto font-mono">
+                    {'>'} DAO_VOTING.SH
                   </button>
                 </Link>
               </div>

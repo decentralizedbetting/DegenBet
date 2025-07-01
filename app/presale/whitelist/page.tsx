@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { PresaleNavigation } from '../components/PresaleNavigation';
 
 export default function WhitelistPage() {
   const [email, setEmail] = useState('');
@@ -116,6 +117,9 @@ export default function WhitelistPage() {
     <div className="min-h-screen text-white relative overflow-hidden">
 
       <div className="container mx-auto px-4 py-8 relative z-10">
+        {/* Navigation */}
+        <PresaleNavigation />
+
         {/* Header */}
         <motion.div 
           className="terminal-card mb-8"

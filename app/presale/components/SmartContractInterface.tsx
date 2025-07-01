@@ -86,23 +86,32 @@ export function SmartContractInterface({ isConnected, walletAddress }: SmartCont
     setIsClaimLoading(true);
     
     try {
-      // Simulate transaction
+      // Simulate smart contract transaction
       await new Promise(resolve => setTimeout(resolve, 3000));
       
       const txHash = `0x${Math.random().toString(16).substr(2, 40)}`;
       setLastClaimTx(txHash);
       
+      // Update local state
       setVestingData(prev => ({
         ...prev,
         releasedTokens: prev.releasedTokens + prev.claimableTokens,
         claimableTokens: 0
       }));
+
+      // Show success message
+      alert(`Successfully claimed ${vestingData.claimableTokens.toLocaleString()} DBT tokens!\nTransaction: ${txHash}`);
       
     } catch (error) {
       console.error('Claim failed:', error);
+      alert('Transaction failed. Please try again.');
     } finally {
       setIsClaimLoading(false);
     }
+  };
+
+  const viewOnBSCScan = (txHash: string) => {
+    window.open(`https://bscscan.com/tx/${txHash}`, '_blank');
   };
 
   const vestingProgress = (vestingData.releasedTokens / vestingData.totalTokens) * 100;
