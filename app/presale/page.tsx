@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { PresaleNavigation } from './components/PresaleNavigation';
-import { useWalletConnection } from '@/_shared/hooks/useWalletConnection';
-import { ModernWalletButton } from '@/_shared/components/ui/ModernWalletButton';
+import { useWallet } from '@/_shared/contexts/WalletContext';
+import { UnifiedWalletButton } from '@/_shared/components/ui/UnifiedWalletButton';
 
 // Production configuration
 const PRESALE_DATA = {
@@ -42,14 +42,14 @@ export default function PresalePage() {
   const [purchaseStatus, setPurchaseStatus] = useState<'idle' | 'purchasing' | 'success' | 'error'>('idle');
   const [txHash, setTxHash] = useState('');
   
-  // Use modern wallet connection hook
+  // Use global wallet context
   const { 
     isConnected, 
-    address, 
+    walletAddress, 
     isCorrectNetwork, 
     switchToBSC,
     addToWhitelist
-  } = useWalletConnection();
+  } = useWallet();
 
   // Countdown timer effect
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function PresalePage() {
   const tokenProgressPercentage = (PRESALE_DATA.tokensSold / PRESALE_DATA.tokensAllocated) * 100;
 
   const handlePurchase = async () => {
-    if (!isConnected || !address) {
+    if (!isConnected) {
       alert('Please connect your wallet first');
       return;
     }
@@ -122,7 +122,7 @@ export default function PresalePage() {
           
           const transactionParameters = {
             to: PRESALE_DATA.receivingAddress,
-            from: address,
+            from: walletAddress,
             value: '0x' + valueInWei.toString(16),
             gas: '0x5208', // 21000 gas for simple transfer
             gasPrice: '0x02540be400', // 10 Gwei
@@ -138,13 +138,13 @@ export default function PresalePage() {
           setPurchaseStatus('success');
           
           // Add to whitelist with transaction hash
-          await addToWhitelist(address, transactionHash);
+          await addToWhitelist(walletAddress, transactionHash);
           
           alert(
             `🎉 TRANSACTION SUCCESSFUL!\n\n` +
             `📋 Transaction Hash: ${transactionHash}\n\n` +
             `🎯 You will receive: ${dbtTokens.toLocaleString()} DBT tokens\n` +
-            `✅ Address whitelisted: ${address}\n\n` +
+            `✅ Address whitelisted: ${walletAddress}\n\n` +
             `📊 View on BSCScan: https://bscscan.com/tx/${transactionHash}`
           );
           
@@ -452,14 +452,14 @@ export default function PresalePage() {
           </motion.div>
         </div>
 
-        {/* Wallet Connection - Using Modern Component */}
+        {/* Wallet Connection - Using Unified Component */}
         <motion.div 
           className="mt-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1 }}
         >
-          <ModernWalletButton variant="presale" />
+          <UnifiedWalletButton variant="presale" />
         </motion.div>
 
         {/* Purchase Interface */}

@@ -5,14 +5,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { ModernWalletButton } from '@/_shared/components/ui/ModernWalletButton';
-import { useWalletConnection } from '@/_shared/hooks/useWalletConnection';
+import { UnifiedWalletButton } from '@/_shared/components/ui/UnifiedWalletButton';
+import { useWallet } from '@/_shared/contexts/WalletContext';
 
 export function NewNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   
-  const { isConnected, isCorrectNetwork } = useWalletConnection();
+  const { isConnected, walletAddress, isCorrectNetwork } = useWallet();
 
   const navigationLinks = [
     { href: '/markets', label: 'Markets', color: 'green' },
@@ -86,13 +86,13 @@ export function NewNavigation() {
             )}
             
             {/* Wallet Connection */}
-            <ModernWalletButton variant="header" />
+            <UnifiedWalletButton variant="header" />
           </div>
           
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-2">
             {/* Mobile Wallet Button */}
-            <ModernWalletButton variant="minimal" />
+            <UnifiedWalletButton variant="minimal" />
             
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
