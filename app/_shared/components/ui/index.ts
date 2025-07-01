@@ -6,6 +6,12 @@ export { NewNavigation } from './NewNavigation';
 export { UnifiedWalletButton } from './UnifiedWalletButton';
 export { WalletModal } from './WalletModal';
 export { Tabs } from './Tabs';
-export * from './DataDisplay';
+
+// DataDisplay exports (excluding Skeleton to avoid conflict)
+export { PriceChart, ProgressBar, StatsCard, DataTable, Tooltip, SkeletonMarketCard } from './DataDisplay';
+
+// Interactive exports (excluding Skeleton to avoid conflict)
+export { OutcomeSelector, ProbabilitySlider, ExpandableSection, Tooltip as InteractiveTooltip, Spinner, Progress, LazyLoad, MarketCardSkeleton } from './interactive';
+
+// Container exports
 export * from './containers';
-export * from './interactive';

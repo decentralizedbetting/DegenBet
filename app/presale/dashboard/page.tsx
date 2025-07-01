@@ -85,11 +85,7 @@ export default function PresaleDashboard() {
 
         {/* Wallet Connection */}
         <div className="mb-8">
-                          <UnifiedWalletButton variant="presale" 
-            isConnected={isConnected} 
-            onConnect={handleConnect}
-            walletAddress={walletAddress}
-          />
+          <UnifiedWalletButton variant="presale" />
         </div>
 
         {isConnected ? (
