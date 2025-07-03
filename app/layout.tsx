@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { NewNavigation } from '@/_shared/components/ui/NewNavigation';
 import { Providers } from './providers';
 import { ConditionalConstructionBanner } from '@/_shared/components/layout/ConditionalConstructionBanner';
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -131,6 +132,7 @@ export default function RootLayout({
             {children}
           </main>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
