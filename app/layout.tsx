@@ -5,6 +5,7 @@ import { NewNavigation } from '@/_shared/components/ui/NewNavigation';
 import { Providers } from './providers';
 import { ConditionalConstructionBanner } from '@/_shared/components/layout/ConditionalConstructionBanner';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -133,6 +134,7 @@ export default function RootLayout({
           </main>
         </Providers>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

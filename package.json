@@ -21,6 +21,7 @@
     "@tanstack/react-query": "^5.81.5",
     "@types/three": "^0.174.0",
     "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "@web3modal/wagmi": "^5.1.11",
     "autoprefixer": "^10.4.16",
     "class-variance-authority": "^0.7.1",
